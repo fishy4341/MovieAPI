@@ -14,7 +14,7 @@ export class MovieAPIService {
 
   searchMovies(searchTerms: string) {
     // tslint:disable-next-line:max-line-length
-    return this.http.get(`https://api.themoviedb.org/3/search/movie?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&query=${searchTerms}page=1&include_adult=false`);
+    return this.http.get(`https://api.themoviedb.org/3/search/movie?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&query=${searchTerms}&page=1&include_adult=false`);
   }
 
   getTopRated() {

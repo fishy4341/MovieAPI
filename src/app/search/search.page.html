@@ -6,26 +6,14 @@
     <ion-title>Search</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar placeholder="Search Movies"></ion-searchbar>
+    <ion-searchbar placeholder="Search Movies" [(ngModel)]="search" (ionInput)="Search($event.detail.explicitOriginalTarget.value)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item [routerDirection]="'forward'" [routerLink]="['/details', 1]">
-      <ion-title>Title of Movie</ion-title>
-    </ion-item>
-    <ion-item>
-      <ion-title>Title of Movie</ion-title>
-    </ion-item>
-    <ion-item>
-      <ion-title>Title of Movie</ion-title>
-    </ion-item>
-    <ion-item>
-      <ion-title>Title of Movie</ion-title>
-    </ion-item>
-    <ion-item>
-      <ion-title>Title of Movie</ion-title>
+  <ion-list *ngFor="let movie of searchResults">
+    <ion-item [routerDirection]="'forward'" [routerLink]="['/details', movie.id]">
+      <ion-title>{{movie.title}}</ion-title>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MovieAPIService} from "../API/movie-api.service";
 
 @Component({
   selector: 'app-search',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchPage implements OnInit {
 
-  constructor() { }
+  constructor(private searchApi: MovieAPIService) { }
+
+  search: string;
+  searchResults;
 
   ngOnInit() {
+  }
+
+  Search(value){
+    console.log(value);
+    this.searchApi.searchMovies(value).subscribe(data => {
+      this.searchResults = data.results;
+    });
   }
 
 }
