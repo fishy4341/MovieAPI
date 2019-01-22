@@ -19,13 +19,23 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: './seen/seen.module#SeenPageModule'
-          },
+          }
+        ]
+      },
+      {
+        path: 'to-see',
+        children: [
           {
             path: '',
             loadChildren: './to-see/to-see.module#ToSeePageModule'
           }
         ]
       },
+      {
+        path: '',
+        redirectTo: '/user-list/seen',
+        pathMatch: 'full'
+      }
     ]
   }
 ];
