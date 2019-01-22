@@ -14,7 +14,13 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: './list/list.module#ListPageModule'
-  },  { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
+  },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
+  { path: 'details/:id', loadChildren: './details/details.module#DetailsPageModule' },
+  { path: 'user-list', loadChildren: './user-list/user-list.module#UserListPageModule' },
+  { path: 'seen', loadChildren: './user-list/seen/seen.module#SeenPageModule' },
+  { path: 'to-see', loadChildren: './user-list/to-see/to-see.module#ToSeePageModule' }
 
 ];
 
