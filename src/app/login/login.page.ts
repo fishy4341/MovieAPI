@@ -20,7 +20,7 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.test.retrieveUser('abc123').subscribe(result =>{
+    this.test.retrieveUser('abc123').subscribe(result =>  {
       console.log('result is');
       console.log(result);
       this.testMe = result;
