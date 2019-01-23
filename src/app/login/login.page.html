@@ -4,16 +4,15 @@
       <ion-menu-button></ion-menu-button>
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Login</ion-title>
+    <ion-title>{{ authenticated ? 'Logout' : 'Login' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card-title>To see your list please sign in!</ion-card-title>
   <ion-card>
     <ion-card-content>
-      <ion-button (click)="signIn()">SIGN IN</ion-button>
-      <ion-button (click)="signOut()">SIGN OUT</ion-button>
+      <ion-button expand='block' *ngIf="!authenticated" (click)="signIn()">Sign In Using Google</ion-button>
+      <ion-button expand='block' *ngIf="authenticated" (click)="signOut()">Sign Out</ion-button>
     </ion-card-content>
   </ion-card>
 
