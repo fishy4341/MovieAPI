@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MovieAPIService } from '../API/movie-api.service';
+import {MovieAPIService} from '../API/movie-api.service';
 
 @Component({
   selector: 'app-search',
@@ -10,17 +10,24 @@ export class SearchPage implements OnInit {
 
   constructor( private movieService: MovieAPIService) { }
 
-  filteredList;
   topRatedList;
-
+  search: string;
+  searchResults;
 
   ngOnInit() {
     this.movieService.getTopRated().subscribe( list => {
       this.topRatedList = list['results'];
-      if ( !this.filteredList ) {this.filteredList = this.topRatedList; }
-      console.log(this.filteredList);
+      if ( !this.searchResults ) {this.searchResults = this.topRatedList; }
     });
 
+  }
+
+  Search(value) {
+    console.log(value);
+    this.movieService.searchMovies(value).subscribe(data => {
+      this.searchResults = data['results'];
+    });
+    console.log(this.searchResults);
   }
 
 }
