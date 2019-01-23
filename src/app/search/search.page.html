@@ -12,7 +12,7 @@
 
 <ion-content padding>
   <ion-list *ngFor="let movie of searchResults">
-    <ion-item [routerDirection]="'forward'" [routerLink]="['/details', movie.id]">
+    <ion-item [routerDirection]="'forward'" (click)="goToDetails(movie.id)">
       <ion-title>{{ movie.title }}</ion-title>
     </ion-item>
   </ion-list>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../API/movie-api.service';
+import {SelectedMovieService} from "../API/selected-movie.service";
+import {Router} from "@angular/router";
+import {NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-search',
@@ -8,7 +11,7 @@ import {MovieAPIService} from '../API/movie-api.service';
 })
 export class SearchPage implements OnInit {
 
-  constructor( private movieService: MovieAPIService) { }
+  constructor( private movieService: MovieAPIService, private selectedMovie: SelectedMovieService, private navController: NavController) { }
 
   topRatedList;
   search: string;
@@ -24,10 +27,23 @@ export class SearchPage implements OnInit {
 
   Search(value) {
     console.log(value);
-    this.movieService.searchMovies(value).subscribe(data => {
-      this.searchResults = data['results'];
-    });
-    console.log(this.searchResults);
+    if (value == "") {
+      console.log('empty!');
+      this.searchResults = this.topRatedList;
+    }
+    else{
+      this.movieService.searchMovies(value).subscribe(data => {
+        this.searchResults = data['results'];
+      });
+      console.log(this.searchResults);
+    }
+
+  }
+
+  goToDetails(movieId) {
+    console.log(movieId);
+    this.selectedMovie.movieId = movieId;
+    this.navController.navigateForward('details')
   }
 
 }
