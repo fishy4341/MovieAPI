@@ -15,11 +15,11 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  signIn(){
+  signIn() {
     this.authService.googleSignIn();
+    this.router.navigate([`/search`]);
   }
-  signOut(){
+  signOut() {
     this.authService.signOut();
   }
-
 }
