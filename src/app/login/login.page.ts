@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {AuthService} from './auth.service';
+import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,19 +10,24 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
+  public authenticated;
+
   constructor(
       private authService: AuthService,
       private router: Router,
-  ) { }
+      private auth: AuthService
+  ) {
+    this.auth.isAuthenticated().subscribe(x => this.authenticated = x);
+  }
 
   ngOnInit() {
   }
 
   signIn() {
     this.authService.googleSignIn();
-    this.router.navigate([`/search`]);
   }
   signOut() {
     this.authService.signOut();
+    this.router.navigate(['/search']);
   }
 }

@@ -23,7 +23,9 @@ const routes: Routes = [
   },
   { path: 'to-see',
     loadChildren: './user-list/to-see/to-see.module#ToSeePageModule',
-    canActivate: [AuthGuardGuard] },  { path: 'test', loadChildren: './test/test.module#TestPageModule' }
+    canActivate: [AuthGuardGuard] },
+  { path: 'test', loadChildren: './test/test.module#TestPageModule' },
+  { path: '**', loadChildren: './not-found/not-found.module#NotFoundPageModule' },
 
 
 ];
