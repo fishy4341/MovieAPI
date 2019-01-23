@@ -24,9 +24,9 @@ const firebaseConfig = APIKeys.firebaseConfig;
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-      AngularFireModule.initializeApp(firebaseConfig),
-      AngularFirestoreModule,
-      AngularFireAuthModule
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [
     StatusBar,
