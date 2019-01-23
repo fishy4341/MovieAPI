@@ -34,11 +34,24 @@ export class FirebaseService {
             })
         );
   }
-
-
-  updateUserML(userID: string, list: Movie[]){
+  getDocRef(userID: string){
     let docRef = this.db.collection<AngularFirestoreDocument>('users', ref => ref.where('id', '==', `${userID}`));
+    console.log(docRef);
+    return docRef.snapshotChanges()
+        .pipe(
+            map(action =>{
+                console.log('action is: ');
+                console.log(action[0].payload.doc.ref);
+              return action[0].payload.doc.ref;
+            })
+        )
   }
-
+  updateUserML(userID: string, movieList: Movie[]){
+    this.getDocRef(userID).pipe(
+        map(refer =>{
+          return refer.update('movieList', movieList);
+        })
+    );
+  }
 
 }
