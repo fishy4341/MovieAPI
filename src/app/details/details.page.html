@@ -8,5 +8,6 @@
 </ion-header>
 
 <ion-content padding>
+  <h3 *ngIf="movie$ | async as movie">{{movie.title}}</h3>
 
 </ion-content>
