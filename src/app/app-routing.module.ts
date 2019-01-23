@@ -1,26 +1,29 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardGuard } from './auth-guard.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'search',
     pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
-  },
-  {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
   },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
-  { path: 'details/:id', loadChildren: './details/details.module#DetailsPageModule' },
-  { path: 'user-list', loadChildren: './user-list/user-list.module#UserListPageModule' },
-  { path: 'seen', loadChildren: './user-list/seen/seen.module#SeenPageModule' },
-  { path: 'to-see', loadChildren: './user-list/to-see/to-see.module#ToSeePageModule' }
+  { path: 'details/:id',
+    loadChildren: './details/details.module#DetailsPageModule',
+  },
+  { path: 'user-list',
+    loadChildren: './user-list/user-list.module#UserListPageModule',
+    canActivate: [AuthGuardGuard]
+  },
+  { path: 'seen',
+    loadChildren: './user-list/seen/seen.module#SeenPageModule',
+    canActivate: [AuthGuardGuard]
+  },
+  { path: 'to-see',
+    loadChildren: './user-list/to-see/to-see.module#ToSeePageModule',
+    canActivate: [AuthGuardGuard] }
 
 ];
 

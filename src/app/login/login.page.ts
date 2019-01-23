@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "./auth.service";
-import {FirebaseService} from "../user-list/firebase.service";
-import {User} from "../shared/user";
+import {AuthService} from './auth.service';
+import { Router } from '@angular/router';
+import {FirebaseService} from '../user-list/firebase.service';
+import {User} from '../shared/user';
 
 @Component({
   selector: 'app-login',
@@ -14,26 +15,28 @@ export class LoginPage implements OnInit {
 
   constructor(
       private authService: AuthService,
+      private router: Router,
       private test: FirebaseService
   ) { }
 
   ngOnInit() {
-    this.test.retrieveUser('abc123').subscribe(result =>{
+    this.test.retrieveUser('abc123').subscribe(result =>  {
       console.log('result is');
       console.log(result);
       this.testMe = result;
     });
   }
 
-  signIn(){
+  signIn() {
     this.authService.googleSignIn();
+    this.router.navigate([`/search`]);
   }
-  signOut(){
+  signOut() {
     this.authService.signOut();
   }
 
-  testMethod():void{
-    let testUser: User = {
+  testMethod(): void {
+    const testUser: User = {
       name: 'Jacob',
       id: 'abc123',
       movieList: []
@@ -41,7 +44,7 @@ export class LoginPage implements OnInit {
 
     this.test.addUser(testUser);
   }
-  testMethodAgain(): void{
+  testMethodAgain(): void {
     console.log(this.testMe);
   }
 
