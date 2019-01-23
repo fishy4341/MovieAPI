@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore'
-import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {User} from "../shared/user";
+import {Movie} from "../shared/movie";
 
 @Injectable({
   providedIn: 'root'
@@ -22,18 +22,36 @@ export class FirebaseService {
 
 
   retrieveUser(userID: string){
-    let result;
     let docRef = this.db.collection<AngularFirestoreDocument>('users', ref => ref.where('id', '==', `${userID}`));
-    console.log(`Ref is: `);
+    // console.log(`Ref is: `);
+    // console.log(docRef);
+    return docRef.snapshotChanges()
+        .pipe(
+            map(action =>{
+              // console.log('payload is: ');
+              // console.log(action[0].payload.doc.data());
+              return action[0].payload.doc.data();
+            })
+        );
+  }
+  getDocRef(userID: string){
+    let docRef = this.db.collection<AngularFirestoreDocument>('users', ref => ref.where('id', '==', `${userID}`));
     console.log(docRef);
     return docRef.snapshotChanges()
-        // .pipe(
-        //     map(observ =>{
-        //
-        //     })
-        // );
-    // return result;
+        .pipe(
+            map(action =>{
+                console.log('action is: ');
+                console.log(action[0].payload.doc.ref);
+              return action[0].payload.doc.ref;
+            })
+        )
   }
-
+  updateUserML(userID: string, movieList: Movie[]){
+    this.getDocRef(userID).pipe(
+        map(refer =>{
+          return refer.update('movieList', movieList);
+        })
+    );
+  }
 
 }
