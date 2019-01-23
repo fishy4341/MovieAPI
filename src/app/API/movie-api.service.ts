@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +31,3 @@ export class MovieAPIService {
 
 
 
-// API Key  bf58ce7909a019c277bfd3ae8194e2bf

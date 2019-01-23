@@ -11,21 +11,9 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
+  <ion-list *ngFor="let movie of filteredList">
     <ion-item [routerDirection]="'forward'" [routerLink]="['/details', 1]">
-      <ion-title>Title of Movie</ion-title>
-    </ion-item>
-    <ion-item>
-      <ion-title>Title of Movie</ion-title>
-    </ion-item>
-    <ion-item>
-      <ion-title>Title of Movie</ion-title>
-    </ion-item>
-    <ion-item>
-      <ion-title>Title of Movie</ion-title>
-    </ion-item>
-    <ion-item>
-      <ion-title>Title of Movie</ion-title>
+      <ion-title>{{ movie.title }}</ion-title>
     </ion-item>
   </ion-list>
 </ion-content>

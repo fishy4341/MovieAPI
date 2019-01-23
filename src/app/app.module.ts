@@ -14,6 +14,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 const firebaseConfig = APIKeys.firebaseConfig;
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,9 +23,10 @@ const firebaseConfig = APIKeys.firebaseConfig;
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-      AngularFireModule.initializeApp(firebaseConfig),
-      AngularFirestoreModule,
-      AngularFireAuthModule
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    HttpClientModule
   ],
   providers: [
     StatusBar,
