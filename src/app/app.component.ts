@@ -24,6 +24,11 @@ export class AppComponent {
       title: 'My Movies list',
       url: '/user-list',
       icon: 'list-box'
+    },
+    {
+      title: 'Login',
+      url: '/login',
+      icon: 'list-box'
     }
   ];
 

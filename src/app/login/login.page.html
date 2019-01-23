@@ -1,11 +1,15 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card-title>Please Sign In!</ion-card-title>
+  <ion-card-title>To see your list please sign in!</ion-card-title>
   <ion-card>
     <ion-card-content>
       <ion-button (click)="signIn()">SIGN IN</ion-button>
