@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>movie-details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="movie$ | async as movie">
+<!--<iframe [src]="video" frameborder="0" allowfullscreen class="video"></iframe>-->
+  <div class="flex-div">
+    <ion-img src="https://image.tmdb.org/t/p/w500/{{movie.backdrop_path}}" class="image"></ion-img>
+    <div class="title">{{movie.title}}</div>
+  </div>
+  <p><span class="heading">About:</span> {{movie.overview}}</p>
+</ion-content>
