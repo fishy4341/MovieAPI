@@ -4,11 +4,35 @@
       <ion-menu-button></ion-menu-button>
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Movie Title</ion-title>
+    <ion-title>Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <h3 *ngIf="movie$ | async as movie">{{movie.title}}</h3>
+<!--<ion-content *ngIf="movie$ | async as movie">-->
+  <!--&lt;!&ndash;<iframe [src]="video" frameborder="0" allowfullscreen class="video"></iframe>&ndash;&gt;-->
+  <!--<div class="flex-div">-->
+    <!--<ion-img src="https://image.tmdb.org/t/p/w500/{{movie.backdrop_path}}" class="image"></ion-img>-->
+    <!--<div class="title">{{movie.title}}</div>-->
+  <!--</div>-->
+  <!--<p><span class="heading">About:</span> {{movie.overview}}</p>-->
 
-</ion-content>
+
+
+
+<!--</ion-content>-->
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="movie-details">
+      <ion-icon name="information-circle"></ion-icon>
+      <ion-label>Details</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="trailers">
+      <ion-icon name="film"></ion-icon>
+      <ion-label>Trailers</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="comments">
+      <ion-icon name="chatboxes"></ion-icon>
+      <ion-label>Comments</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

@@ -10,7 +10,41 @@ import { DetailsPage } from './details.page';
 const routes: Routes = [
   {
     path: '',
-    component: DetailsPage
+    component: DetailsPage,
+    children: [
+      {
+        path: 'movie-details',
+        children: [
+          {
+            path: '',
+            loadChildren: './movie-details/movie-details.module#MovieDetailsPageModule'
+          }
+        ]
+      },
+      {
+        path: 'trailers',
+        children: [
+          {
+            path: '',
+            loadChildren: './videos/videos.module#VideosPageModule'
+          }
+        ]
+      },
+      {
+        path: 'comments',
+        children: [
+          {
+            path: '',
+            loadChildren: './comments/comments.module#CommentsPageModule'
+          }
+        ]
+      },
+      {
+        path: '',
+        redirectTo: '/details/movie-details',
+        pathMatch: 'full'
+      }
+    ]
   }
 ];
 
