@@ -3,4 +3,5 @@ export interface Movie {
     movieID: number;
     rating: number;
     comments: string[];
+    hasSeen: boolean;
 }
