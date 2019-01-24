@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import {map} from "rxjs/operators";
 import {User} from "../shared/user";
 import {Movie} from "../shared/movie";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class FirebaseService {
             })
         )
   }
-  async updateUserML(userID: string, data: User){
+  updateUserML(userID: string, data: User){
       this.getDocRef(userID)
           .subscribe(sub => {
             // console.log('sub.id is: ');
@@ -57,6 +58,31 @@ export class FirebaseService {
                 .catch(err => console.error(err));
             }
         );
+  }
+  checkUser(userID: string):Observable<boolean>{
+      let docRef = this.db.collection<AngularFirestoreDocument>('users', ref => ref.where('id', '==', `${userID}`));
+      // console.log(`Ref is: `);
+      // console.log(docRef);
+      return docRef.snapshotChanges()
+          .pipe(
+              map(action =>{
+                  // console.log(action.length);
+                  if(action.length === 0){
+                      // console.log('false');
+                      return  false;
+                  }
+                  else if(action.length === 1){
+                      // console.log('true');
+                      return true;
+                  }
+                  else{
+                      console.log('There are duplicates of that user');
+                  }
+              })
+          )
+      // return docRef.snapshotChanges().subscribe(subVar => {
+      //     console.log(subVar);
+      // })
   }
 
 }
