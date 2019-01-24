@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'search',
     loadChildren: './search/search.module#SearchPageModule'
   },
-  { path: 'details/:id',
+  { path: 'details',
     loadChildren: './details/details.module#DetailsPageModule',
   },
   { path: 'movie-details', loadChildren: './details/movie-details/movie-details.module#MovieDetailsPageModule' },
