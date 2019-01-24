@@ -30,6 +30,10 @@ export class MovieAPIService {
     return this.http.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US`);
   }
 
+  getgenreIds() {
+    return this.http.get('https://api.themoviedb.org/3/genre/movie/list?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US');
+  }
+
 
 }
 

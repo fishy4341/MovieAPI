@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Search</ion-title>
+    <ion-title>Movie List</ion-title>
   </ion-toolbar>
   <ion-toolbar>
     <ion-searchbar placeholder="Search Movies" [(ngModel)]="search" (ionInput)="Search($event.detail.currentTarget.value)"></ion-searchbar>
@@ -12,9 +12,23 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list *ngFor="let movie of searchResults">
-    <ion-item [routerDirection]="'forward'" (click)="goToDetails(movie.id)">
-      <ion-title>{{ movie.title }}</ion-title>
+  <ion-list  *ngFor="let movie of searchResults">
+
+
+    <ion-item  [routerDirection]="'forward'" (click)="goToDetails(movie.id)">
+      <ion-thumbnail slot="start">
+        <img src="https://image.tmdb.org/t/p/w500/{{movie.backdrop_path}}" alt="">
+      </ion-thumbnail>
+      <div>
+        <ion-label text-wrap class="title">{{ movie.title }}</ion-label>
+          <ion-label color="tertiary" class="row" >
+              <p *ngFor="let genre of movie?.genre_ids">{{ genres[genre]?.name }}</p>
+          </ion-label>
+      </div>
     </ion-item>
+
+
   </ion-list>
+
+
 </ion-content>
