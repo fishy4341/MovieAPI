@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
 })
 export class AuthService {
 
+  auth;
+
   constructor(
       public afAuth: AngularFireAuth
   ) {
