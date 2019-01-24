@@ -40,7 +40,8 @@ export class AuthService {
                       .subscribe(dbUserData =>{
                         console.log('dbUserData is: ');
                         console.log(dbUserData);
-                        this.userData.movieList = dbUserData.movieList;
+                        // @ts-ignore
+                          this.userData.movieList = dbUserData.movieList;
                         console.log('userData is now: ');
                         console.log(this.userData);
                       })
