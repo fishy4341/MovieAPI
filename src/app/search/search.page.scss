@@ -1,0 +1,13 @@
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+p {
+    margin-right: 1em;
+}
+.title {
+    font-weight: bold;
+    font-size: 1.25em;
+}

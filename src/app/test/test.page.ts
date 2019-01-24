@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FirebaseService} from "../user-list/firebase.service";
 import {User} from "../shared/user";
+import {AuthService} from "../login/auth.service";
+import {timeInterval} from "rxjs/operators";
 
 @Component({
   selector: 'app-test',
@@ -9,20 +11,14 @@ import {User} from "../shared/user";
 })
 export class TestPage implements OnInit {
 
-  constructor(private firebase: FirebaseService) { }
+  constructor(private firebase: FirebaseService,
+              private authServ: AuthService) { }
 
   ngOnInit() {
   }
 
-  methOne(){
-      let sendData: User = {
-          id: 'abc123',
-          name: 'Jacob',
-          movieList: [
-              {title: 'hello there', movieID: 9876}
-          ]
-      };
-    this.firebase.updateUserML('abc123', sendData);
+  async methOne(){
+      this.authServ.googleSignIn();
   }
 
 }
