@@ -36,22 +36,27 @@ export class FirebaseService {
   }
   getDocRef(userID: string){
     let docRef = this.db.collection<AngularFirestoreDocument>('users', ref => ref.where('id', '==', `${userID}`));
-    console.log(docRef);
+    // console.log(docRef);
     return docRef.snapshotChanges()
         .pipe(
             map(action =>{
-                console.log('action is: ');
-                console.log(action[0].payload.doc.ref);
+                // console.log('action is: ');
+                // console.log(action[0].payload);
               return action[0].payload.doc.ref;
             })
         )
   }
-  updateUserML(userID: string, movieList: Movie[]){
-    this.getDocRef(userID).pipe(
-        map(refer =>{
-          return refer.update('movieList', movieList);
-        })
-    );
+  async updateUserML(userID: string, data: User){
+      this.getDocRef(userID)
+          .subscribe(sub => {
+            // console.log('sub.id is: ');
+            // console.log(sub.id);
+            // console.log(sub);
+            this.db.doc(sub).update(data)
+                .then(res => console.log(res))
+                .catch(err => console.error(err));
+            }
+        );
   }
 
 }

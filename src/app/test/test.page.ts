@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FirebaseService} from "../user-list/firebase.service";
+import {User} from "../shared/user";
 
 @Component({
   selector: 'app-test',
@@ -14,7 +15,14 @@ export class TestPage implements OnInit {
   }
 
   methOne(){
-    this.firebase.updateUserML('abc123', [{title: 'hello there', movieID: 9876}])
+      let sendData: User = {
+          id: 'abc123',
+          name: 'Jacob',
+          movieList: [
+              {title: 'hello there', movieID: 9876}
+          ]
+      };
+    this.firebase.updateUserML('abc123', sendData);
   }
 
 }
