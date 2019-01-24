@@ -26,7 +26,7 @@ const firebaseConfig = APIKeys.firebaseConfig;
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
   providers: [
     StatusBar,

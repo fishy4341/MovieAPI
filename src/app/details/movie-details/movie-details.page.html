@@ -8,7 +8,27 @@
 <!--<iframe [src]="video" frameborder="0" allowfullscreen class="video"></iframe>-->
   <div class="flex-div">
     <ion-img src="https://image.tmdb.org/t/p/w500/{{movie.backdrop_path}}" class="image"></ion-img>
-    <div class="title">{{movie.title}}</div>
+    <p class="title">{{movie.title}}</p>
+    <p class="subtitle">{{movie.tagline}}</p>
   </div>
-  <p><span class="heading">About:</span> {{movie.overview}}</p>
+  <div padding class="main-content">
+    <p class="about"><span class="heading">About:</span><br> {{movie.overview}}</p>
+    <div class="info">
+      <p><span>Runtime: {{movie.runtime}} min.</span></p>
+      <div>
+        <div [ngClass]="{'over50': movie.vote_average * 10 > 50}" class="progress-circle  p{{movie.vote_average * 10}}">
+          <span>{{movie.vote_average * 10}}%</span>
+          <div class="left-half-clipper">
+            <div class="first50-bar"></div>
+            <div class="value-bar"></div>
+          </div>
+        </div>
+        <p class="rating">Average User Rating</p>
+      </div>
+    </div>
+    <div class="buttons">
+      <ion-button color="primary" (click)="presentModal()" *ngIf="authenticated">I've seen this movie</ion-button>
+      <ion-button color="primary" *ngIf="authenticated">Add to watch list</ion-button>
+    </div>
+  </div>
 </ion-content>
