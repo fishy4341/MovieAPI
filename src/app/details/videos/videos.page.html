@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>videos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div *ngIf="video$ | async as videos">
+    <ion-card *ngFor="let video of videos.results">
+      <ion-card-content>
+        <iframe [src]="cleanUrl(video.key)" frameborder="0" allowfullscreen class="video"></iframe>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>
