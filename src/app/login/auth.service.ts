@@ -15,7 +15,8 @@ export class AuthService {
   private userData: User = {
     name: '',
     id: '',
-    movieList: []
+    mlHasSeen: [],
+    mlNotSeen: []
   };
 
   constructor(
@@ -26,8 +27,15 @@ export class AuthService {
   }
 
   addMovieToUser(movie: Movie){
-      this.userData.movieList.push(movie);
-      this.firebase.updateUserML(this.userData.id, this.userData);
+      if(movie.hasSeen){
+          this.userData.mlHasSeen.push(movie);
+          this.firebase.updateUserML(this.userData.id, this.userData);
+      }
+      else{
+          this.userData.mlNotSeen.push(movie);
+          this.firebase.updateUserML(this.userData.id, this.userData);
+      }
+
   }
   getUserInfo(): User{
       return this.userData;
@@ -38,8 +46,9 @@ export class AuthService {
       return this.firebase.retrieveUser(this.userData.id);
 
   }
-  updateUserMovieList(movieList: Movie[]){
-      this.userData.movieList = movieList;
+  updateUserMovieList(hasSeen: Movie[], notSeen: Movie[]){
+      this.userData.mlHasSeen = hasSeen;
+      this.userData.mlNotSeen = notSeen;
   }
 
 
@@ -59,9 +68,11 @@ export class AuthService {
                         // console.log('dbUserData is: ');
                         // console.log(dbUserData);
                         // @ts-ignore
-                          this.userData.movieList = dbUserData.movieList;
-                        // console.log('userData is now: ');
-                        // console.log(this.userData);
+                          this.userData.mlHasSeen = dbUserData.molHasSeen;
+                          // @ts-ignore
+                          this.userData.mlNotSeen = dbUserData.mlNotSeen;
+                        console.log('userData is now: ');
+                        console.log(this.userData);
                       })
                 }
                 else{
