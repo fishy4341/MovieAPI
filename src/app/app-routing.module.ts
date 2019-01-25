@@ -8,8 +8,12 @@ const routes: Routes = [
     redirectTo: 'search',
     pathMatch: 'full'
   },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
+  { path: 'login',
+    loadChildren: './login/login.module#LoginPageModule'
+  },
+  { path: 'search',
+    loadChildren: './search/search.module#SearchPageModule'
+  },
   { path: 'details',
     loadChildren: './details/details.module#DetailsPageModule',
   },
@@ -27,8 +31,12 @@ const routes: Routes = [
   { path: 'to-see',
     loadChildren: './user-list/to-see/to-see.module#ToSeePageModule',
     canActivate: [AuthGuardGuard] },
-  { path: 'test', loadChildren: './test/test.module#TestPageModule' },
-  { path: '**', loadChildren: './not-found/not-found.module#NotFoundPageModule' },
+  { path: 'test',
+    loadChildren: './test/test.module#TestPageModule'
+  },
+  { path: '**',
+    loadChildren: './not-found/not-found.module#NotFoundPageModule'
+  },
 
 
 ];

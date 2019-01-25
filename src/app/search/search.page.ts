@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../API/movie-api.service';
-import {SelectedMovieService} from "../API/selected-movie.service";
-import {Router} from "@angular/router";
-import {NavController} from "@ionic/angular";
+import {SelectedMovieService} from '../API/selected-movie.service';
+import {Router} from '@angular/router';
+import {NavController} from '@ionic/angular';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-search',
@@ -16,26 +17,31 @@ export class SearchPage implements OnInit {
   topRatedList;
   search: string;
   searchResults;
+  genres = {};
+  genreFilter;
 
   ngOnInit() {
     this.movieService.getTopRated().subscribe( list => {
       this.topRatedList = list['results'];
       if ( !this.searchResults ) {this.searchResults = this.topRatedList; }
     });
+    this.movieService.getgenreIds().subscribe( list => {
+      const gen = list['genres'];
+      console.log(gen);
+      this.genres = _.mapKeys(gen, 'id' );
+    });
 
   }
 
   Search(value) {
     console.log(value);
-    if (value == "") {
+    if (value === '') {
       console.log('empty!');
       this.searchResults = this.topRatedList;
-    }
-    else{
+    } else {
       this.movieService.searchMovies(value).subscribe(data => {
         this.searchResults = data['results'];
       });
-      console.log(this.searchResults);
     }
 
   }
@@ -43,7 +49,9 @@ export class SearchPage implements OnInit {
   goToDetails(movieId) {
     console.log(movieId);
     this.selectedMovie.movieId = movieId;
-    this.navController.navigateForward('details')
+    this.navController.navigateForward('details');
   }
+
+
 
 }
