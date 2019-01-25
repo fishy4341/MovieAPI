@@ -12,29 +12,22 @@ export class ToSeePage implements OnInit {
   constructor(
       private auth: AuthService
   ) {
-    if(this.auth.getUserInfo().name === ''){
-      this.auth.refreshUserInfo().subscribe(dbUserData =>{
-        // @ts-ignore
-        this.auth.updateUserMovieList(dbUserData.movieList);
-        console.log('checking for movies you have not seen');
-        console.log(this.auth.getUserInfo());
-        for(let i: number = 0; i < this.auth.getUserInfo().movieList.length; i++){
-          if(!this.auth.getUserInfo().movieList[i].hasSeen){
-            this.wantToSee.push(this.auth.getUserInfo().movieList[i]);
-          }
-        }
-      });
-    }
-    else{
-      for(let i: number = 0; i < this.auth.getUserInfo().movieList.length; i++){
-        if(!this.auth.getUserInfo().movieList[i].hasSeen){
-          this.wantToSee.push(this.auth.getUserInfo().movieList[i]);
-        }
-      }
-    }
+
   }
 
   ngOnInit() {
+    if(this.auth.getUserInfo().name === ''){
+      this.auth.refreshUserInfo().subscribe(dbUserData =>{
+        // @ts-ignore
+        this.auth.updateUserMovieList(dbUserData.mlHasSeen, dbUserData.mlNotSeen);
+        console.log('checking for movies you have not seen');
+        console.log(this.auth.getUserInfo());
+        this.wantToSee = this.auth.getUserInfo().mlNotSeen;
+      });
+    }
+    else{
+      this.wantToSee = this.auth.getUserInfo().mlNotSeen;
+    }
   }
 
 }
