@@ -32,15 +32,14 @@ export class AuthService {
   getUserInfo(): User{
       return this.userData;
   }
-  refreshUserInfo(): void{
+  refreshUserInfo(){
       this.userData.id =  this.afAuth.auth.currentUser.uid;
       this.userData.name = this.afAuth.auth.currentUser.displayName;
-      this.firebase.retrieveUser(this.userData.id)
-          .subscribe(dbUserData => {
-              // @ts-ignore
-              this.userData.movieList = dbUserData.movieList;
-          })
+      return this.firebase.retrieveUser(this.userData.id);
 
+  }
+  updateUserMovieList(movieList: Movie[]){
+      this.userData.movieList = movieList;
   }
 
 
