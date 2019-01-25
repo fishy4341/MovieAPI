@@ -44,7 +44,7 @@ export class AppComponent {
   ) {
     this.initializeApp();
     this.auth.isAuthenticated().subscribe( x => this.authenticated = x);
-    console.log(this.authenticated);
+    // console.log(this.authenticated);
   }
 
   initializeApp() {

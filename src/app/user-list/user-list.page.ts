@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FirebaseService} from "./firebase.service";
-import {Movie} from "../shared/movie";
 import {AuthService} from "../login/auth.service";
+import {AngularFireAuth} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-user-list',
@@ -10,23 +9,12 @@ import {AuthService} from "../login/auth.service";
 })
 export class UserListPage implements OnInit {
 
-  // private wantToSee: Movie[] = [];
-  //   // private seenBefore: Movie[] = [];
+  private userName: string = this.afAuth.auth.currentUser.displayName;
 
   constructor(
-      private firebase: FirebaseService,
-      private auth: AuthService
+      private auth: AuthService,
+      private afAuth: AngularFireAuth
   ) {
-    // console.log('user info is: ');
-    // console.log(this.auth.getUserInfo());
-    // for(let i: number = 0; i < this.auth.getUserInfo().movieList.length; i++){
-    //   if(this.auth.getUserInfo().movieList[i].hasSeen){
-    //     this.seenBefore.push(this.auth.getUserInfo().movieList[i]);
-    //   }
-    //   else{
-    //     this.wantToSee.push(this.auth.getUserInfo().movieList[i]);
-    //   }
-    // }
   }
 
   ngOnInit() {
