@@ -26,9 +26,9 @@
         <p class="rating">Average User Rating</p>
       </div>
     </div>
-    <div class="buttons">
-      <ion-button color="primary" (click)="presentModal()" *ngIf="authenticated">I've seen this movie</ion-button>
-      <ion-button color="primary" *ngIf="authenticated">Add to watch list</ion-button>
+    <div class="buttons" *ngIf="authenticated">
+      <ion-button color="primary" (click)="presentModal()" *ngIf="!watched">I've seen this movie</ion-button>
+      <ion-button color="primary" (click)="addToSee()" *ngIf="!watchList && !watched">Add to watch list</ion-button>
     </div>
   </div>
 </ion-content>

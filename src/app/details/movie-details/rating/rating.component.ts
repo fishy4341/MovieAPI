@@ -9,18 +9,24 @@ import {ModalController, NavParams} from "@ionic/angular";
 export class RatingComponent implements OnInit {
 
   // @input() value;
-  movie$;
+  movie;
   rating;
 
   constructor(public navParams: NavParams, public modalController: ModalController) { }
 
   ngOnInit() {
-    this.movie$ = this.navParams.data.value;
+    this.navParams.data.value.subscribe(data => {
+      this.movie = data;
+    });
   }
 
   dismiss() {
     this.modalController.dismiss({
-      'result': this.rating
+      'rating': this.rating,
+      'movie': this.movie.title,
+      'movieId': this.movie.id,
+      'hasSeen': true
+
     });
   }
 

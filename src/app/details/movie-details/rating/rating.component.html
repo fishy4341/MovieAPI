@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="movie$ | async as movie">
+  <div *ngIf="movie">
     <div class="info">
       <ion-img src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" class="image"></ion-img>
       <h3>{{movie.title}}</h3>

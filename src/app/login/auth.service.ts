@@ -28,10 +28,20 @@ export class AuthService {
 
   addMovieToUser(movie: Movie){
       if(movie.hasSeen){
+          for(let i=0; i < this.userData.mlNotSeen.length; i++) {
+              if (this.userData.mlNotSeen[i].movieID === movie.movieID){
+                  this.userData.mlNotSeen.splice(i, 1);
+              }
+          }
           this.userData.mlHasSeen.push(movie);
           this.firebase.updateUserML(this.userData.id, this.userData);
       }
       else{
+          for(let i=0; i < this.userData.mlHasSeen.length; i++) {
+              if (this.userData.mlHasSeen[i].movieID === movie.movieID){
+                  this.userData.mlHasSeen.splice(i, 1);
+              }
+          }
           this.userData.mlNotSeen.push(movie);
           this.firebase.updateUserML(this.userData.id, this.userData);
       }
@@ -90,4 +100,7 @@ export class AuthService {
     return this.afAuth.authState.pipe(
       map(user => user && user.uid ? true : false));
   }
+
+
+
 }
