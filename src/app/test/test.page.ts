@@ -18,7 +18,7 @@ export class TestPage implements OnInit {
   }
 
   async methOne(){
-      this.authServ.googleSignIn();
+      this.authServ.refreshUserInfo();
   }
 
 }
