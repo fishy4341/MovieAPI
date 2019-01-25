@@ -12,7 +12,7 @@ import {MovieAPIService} from "../../API/movie-api.service";
 })
 export class SeenPage implements OnInit {
   private seenBefore: Movie[] = [];
-  private searchResults;
+  private dispalyMovies = [];
   private genres = {};
   constructor(
       private auth: AuthService,
@@ -32,10 +32,12 @@ export class SeenPage implements OnInit {
         console.log('checking for movies you have not seen');
         console.log(this.auth.getUserInfo());
         this.seenBefore = this.auth.getUserInfo().mlHasSeen;
+        this.fillOutMovies();
       });
     }
     else{
       this.seenBefore = this.auth.getUserInfo().mlHasSeen;
+      this.fillOutMovies();
     }
   }
 
@@ -44,16 +46,24 @@ export class SeenPage implements OnInit {
     this.navController.navigateForward('details');
   }
 
-  search(value){
-    console.log(value);
-    if (value === ''){
-      console.log('empty!');
+  fillOutMovies(){
+    this.dispalyMovies = [];
+    for(let i: number = 0; i < this.seenBefore.length; i++){
+      this.getMovieDetail(this.seenBefore[i].movieID, this.seenBefore[i].title);
     }
-    else{
-      this.movieService.searchMovies(value).subscribe(data =>{
-        this.searchResults = data['results'];
-      })
-    }
+  }
+  getMovieDetail(movieID: number,movieTitle: string){
+    this.movieService.getMovieDetail(movieID).subscribe(movieData =>{
+      let result = {
+        // @ts-ignore
+        pic: movieData.poster_path,
+        // @ts-ignore
+        genres: movieData.genres,
+        title: movieTitle,
+        movieID: movieID
+      };
+      this.dispalyMovies.push(result);
+    })
   }
 
 }
