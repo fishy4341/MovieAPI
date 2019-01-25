@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { MovieDetailsPage } from './movie-details.page';
+import { RatingComponent } from './rating/rating.component';
 
 const routes: Routes = [
   {
@@ -15,12 +16,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [RatingComponent],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MovieDetailsPage]
+  declarations: [MovieDetailsPage, RatingComponent]
 })
 export class MovieDetailsPageModule {}
