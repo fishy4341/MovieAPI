@@ -6,6 +6,16 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let movie of seenBefore" (click)="goToMovie(movie.movieID)">{{ movie.title}}</ion-item>
+    <ion-item *ngFor="let movie of dispalyMovies" (click)="goToMovie(movie.movieID)">
+      <ion-thumbnail>
+        <img src="https://image.tmdb.org/t/p/w500/{{movie.pic}}" alt="">
+      </ion-thumbnail>
+      <div>
+        <ion-label text-wrap class="title">{{ movie.title }}</ion-label>
+        <ion-label color="tertiary" class="row" >
+          <p *ngFor="let genre of movie.genres">{{ genre.name }}</p>
+        </ion-label>
+      </div>
+    </ion-item>
   </ion-list>
 </ion-content>
