@@ -25,13 +25,16 @@ export class SeenPage implements OnInit {
   }
 
   ngOnInit() {
+    console.log('seen movies ngOnInit Called');
     if(this.auth.getUserInfo().name === ''){
       this.auth.refreshUserInfo().subscribe(dbUserData =>{
         // @ts-ignore
         this.auth.updateUserMovieList(dbUserData.mlHasSeen, dbUserData.mlNotSeen);
-        console.log('checking for movies you have not seen');
-        console.log(this.auth.getUserInfo());
+        // console.log('checking for movies you have not seen');
+        // console.log(this.auth.getUserInfo());
         this.seenBefore = this.auth.getUserInfo().mlHasSeen;
+        // console.log('seen before is: ');
+        // console.log(this.seenBefore);
         this.fillOutMovies();
       });
     }
@@ -47,12 +50,16 @@ export class SeenPage implements OnInit {
   }
 
   fillOutMovies(){
+    // console.log('fill out movies called');
     this.dispalyMovies = [];
+    // console.log(`seen before length is: ${this.seenBefore.length}`);
     for(let i: number = 0; i < this.seenBefore.length; i++){
+      // console.log(`calling movie details for ${this.seenBefore[i].title}`);
       this.getMovieDetail(this.seenBefore[i].movieID, this.seenBefore[i].title);
     }
   }
   getMovieDetail(movieID: number,movieTitle: string){
+    // console.log('get movie details called');
     this.movieService.getMovieDetail(movieID).subscribe(movieData =>{
       let result = {
         // @ts-ignore
@@ -63,6 +70,7 @@ export class SeenPage implements OnInit {
         movieID: movieID
       };
       this.dispalyMovies.push(result);
+      console.log(this.dispalyMovies);
     })
   }
 
