@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from "../../API/movie-api.service";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
-import {SelectedMovieService} from "../../API/selected-movie.service";
-import {ModalController} from "@ionic/angular";
-import {RatingComponent} from "./rating/rating.component";
-import {AuthService} from "../../login/auth.service";
-import {Movie} from "../../shared/movie";
+import {MovieAPIService} from '../../API/movie-api.service';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {SelectedMovieService} from '../../API/selected-movie.service';
+import {ModalController} from '@ionic/angular';
+import {RatingComponent} from './rating/rating.component';
+import {AuthService} from '../../login/auth.service';
+import {Movie} from '../../shared/movie';
 
 @Component({
   selector: 'app-movie-details',
@@ -18,14 +18,20 @@ export class MovieDetailsPage implements OnInit {
     return this.selectedMovie.movieId;
   }
 
-  constructor(private movieApi: MovieAPIService, public sanitizer: DomSanitizer, private selectedMovie: SelectedMovieService, public modalController: ModalController, private auth: AuthService) { }
+  constructor(
+    private movieApi: MovieAPIService,
+    public sanitizer: DomSanitizer,
+    private selectedMovie: SelectedMovieService,
+    public modalController: ModalController,
+    private auth: AuthService
+    ) { }
 
   authenticated;
   id = this.movieId;
   movie$;
   private url: string;
   video: SafeResourceUrl;
-  watched:boolean;
+  watched: boolean;
   watchList: boolean;
   user;
 
@@ -45,7 +51,7 @@ export class MovieDetailsPage implements OnInit {
 
   }
 
-  async presentModal(){
+  async presentModal() {
     const modal = await this.modalController.create({
       component: RatingComponent,
       componentProps: { value: this.movie$}
@@ -53,7 +59,7 @@ export class MovieDetailsPage implements OnInit {
     await modal.present();
     const { data } = await modal.onDidDismiss();
     console.log(data);
-    let movieData: Movie = {
+    const movieData: Movie = {
       title: data.movie,
       movieID: data.movieId,
       rating: data.rating,
@@ -68,7 +74,7 @@ export class MovieDetailsPage implements OnInit {
     this.movie$.subscribe(data => {
       movie = data;
       console.log(movie);
-      let movieData: Movie = {
+      const movieData: Movie = {
         // @ts-ignore
         title: movie.title,
         // @ts-ignore
@@ -84,13 +90,13 @@ export class MovieDetailsPage implements OnInit {
   }
 
   checkWatched() {
-    for(let i=0; i < this.user.mlHasSeen.length; i++){
-      if(this.id == this.user.mlHasSeen[i].movieID){
+    for (let i = 0; i < this.user.mlHasSeen.length; i++) {
+      if (this.id === this.user.mlHasSeen[i].movieID) {
         this.watched = true;
       }
     }
-    for(let i=0; i < this.auth.getUserInfo().mlNotSeen.length; i++){
-      if(this.id == this.user.mlNotSeen[i].movieID){
+    for (let i = 0; i < this.auth.getUserInfo().mlNotSeen.length; i++) {
+      if (this.id === this.user.mlNotSeen[i].movieID) {
         this.watchList = true;
       }
     }

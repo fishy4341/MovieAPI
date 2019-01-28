@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../login/auth.service";
-import {Movie} from "../../shared/movie";
-import {MovieAPIService} from "../../API/movie-api.service";
-import {SelectedMovieService} from "../../API/selected-movie.service";
-import {NavController} from "@ionic/angular";
+import {AuthService} from '../../login/auth.service';
+import {Movie} from '../../shared/movie';
+import {MovieAPIService} from '../../API/movie-api.service';
+import {SelectedMovieService} from '../../API/selected-movie.service';
+import {NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-to-see',
@@ -24,8 +24,8 @@ export class ToSeePage implements OnInit {
   }
 
   ngOnInit() {
-    if(this.auth.getUserInfo().name === ''){
-      this.auth.refreshUserInfo().subscribe(dbUserData =>{
+    if (this.auth.getUserInfo().name === '') {
+      this.auth.refreshUserInfo().subscribe(dbUserData => {
         // @ts-ignore
         this.auth.updateUserMovieList(dbUserData.mlHasSeen, dbUserData.mlNotSeen);
         console.log('checking for movies you have not seen');
@@ -33,22 +33,21 @@ export class ToSeePage implements OnInit {
         this.notSeenBefore = this.auth.getUserInfo().mlNotSeen;
         this.fillOutMovies();
       });
-    }
-    else{
+    } else {
       this.notSeenBefore = this.auth.getUserInfo().mlNotSeen;
       this.fillOutMovies();
     }
   }
 
-  fillOutMovies(){
+  fillOutMovies() {
     this.dispalyMovies = [];
-    for(let i: number = 0; i < this.notSeenBefore.length; i++){
+    for (let i = 0; i < this.notSeenBefore.length; i++) {
       this.getMovieDetail(this.notSeenBefore[i].movieID, this.notSeenBefore[i].title);
     }
   }
-  getMovieDetail(movieID: number,movieTitle: string){
-    this.movieService.getMovieDetail(movieID).subscribe(movieData =>{
-      let result = {
+  getMovieDetail(movieID: number, movieTitle: string) {
+    this.movieService.getMovieDetail(movieID).subscribe(movieData => {
+      const result = {
         // @ts-ignore
         pic: movieData.poster_path,
         // @ts-ignore
@@ -57,10 +56,10 @@ export class ToSeePage implements OnInit {
         movieID: movieID
       };
       this.dispalyMovies.push(result);
-    })
+    });
   }
 
-  goToMovie(movieID: number){
+  goToMovie(movieID: number) {
     this.selectedMovie.movieId = movieID;
     this.navController.navigateForward('details');
   }
