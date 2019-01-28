@@ -4,6 +4,7 @@ import {map} from "rxjs/operators";
 import {User} from "../shared/user";
 import {Movie} from "../shared/movie";
 import {Observable} from "rxjs";
+import {AngularFireAuth} from "@angular/fire/auth";
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +12,13 @@ import {Observable} from "rxjs";
 export class FirebaseService {
 
   constructor(
-      private db: AngularFirestore
+      private db: AngularFirestore,
+      private afAuth: AngularFireAuth
   ) { }
 
 
   addUser(user: User){
-    this.db.collection('users').add(user)
-        .then(res => console.log(res))
-        .catch(err => console.error(err))
+    this.db.collection('users').doc(this.afAuth.auth.currentUser.uid).set(user);
   }
 
 
@@ -34,6 +34,31 @@ export class FirebaseService {
               return action[0].payload.doc.data();
             })
         );
+  }
+  retrieveUserData(){
+      return this.db.collection('users').doc(this.afAuth.auth.currentUser.uid).valueChanges();
+  }
+  updateMLHasSeen(movie: Movie){
+      this.retrieveUserData().subscribe(docData =>{
+          let found: boolean = false;
+          // @ts-ignore
+          for(let i: number = 0; i < docData.mlHasSeen.length; i++){
+              // @ts-ignore
+              if (docData.mlHasSeen[i].movieID === movie.movieID){
+                  found=true;
+                  // @ts-ignore
+                  docData.mlHasSeen[i] = movie;
+                  // @ts-ignore
+                  this.db.collection('users').doc(this.afAuth.auth.currentUser.uid).update({'mlHasSeen': docData.mlHasSeen});
+              }
+          }
+          if(!found){
+              // @ts-ignore
+              docData.mlHasSeen.push(movie);
+              // @ts-ignore
+              this.db.collection('users').doc(this.afAuth.auth.currentUser.uid).update({'mlHasSeen': docData.mlHasSeen});
+          }
+      });
   }
   getDocRef(userID: string){
     let docRef = this.db.collection<AngularFirestoreDocument>('users', ref => ref.where('id', '==', `${userID}`));

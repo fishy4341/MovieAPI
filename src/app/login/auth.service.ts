@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import {User} from "../shared/user";
 import {FirebaseService} from "../user-list/firebase.service";
 import {Movie} from "../shared/movie";
+import {CommentsService} from "./comments.service";
+import {MovieWComment} from "../shared/movie-w-comment";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,8 @@ export class AuthService {
 
   constructor(
       public afAuth: AngularFireAuth,
-      private firebase: FirebaseService
+      private firebase: FirebaseService,
+      private commentsS: CommentsService
   ) {
 
   }
@@ -140,6 +143,27 @@ export class AuthService {
     return this.afAuth.authState.pipe(
       map(user => user && user.uid ? true : false));
   }
+
+  // updateComment(movie: Movie){
+  //     let theComment: Comment = {
+  //         comment: movie.comment,
+  //         userID: this.userData.id;
+  //     };
+  //     let movieWComment: MovieWComment = {
+  //         title: movie.title,
+  //         movieID: movie.movieID,
+  //         comments: [{comment: movie.comment, userID: this.userData.id}]
+  //     };
+  //     let found: boolean = false;
+  //     if(movie.hasSeen){
+  //         for(let i: number = 0; i < this.userData.mlHasSeen.length; i++){
+  //             if(this.userData.mlHasSeen[i].movieID === movie.movieID){
+  //                 found = true;
+  //                 this.commentsS.updateMovieComments(movieWComment);
+  //             }
+  //         }
+  //     }
+  // }
 
 
 
