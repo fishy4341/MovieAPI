@@ -3,7 +3,7 @@ import {AuthService} from "../../login/auth.service";
 import {Movie} from "../../shared/movie";
 import {MovieAPIService} from "../../API/movie-api.service";
 import {SelectedMovieService} from "../../API/selected-movie.service";
-import {NavController} from "@ionic/angular";
+import {IonItemSliding, NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-to-see',
@@ -12,7 +12,7 @@ import {NavController} from "@ionic/angular";
 })
 export class ToSeePage implements OnInit {
   private notSeenBefore: Movie[] = [];
-  private dispalyMovies = [];
+  private displayMovies = [];
   private genres = {};
   constructor(
       private auth: AuthService,
@@ -41,7 +41,7 @@ export class ToSeePage implements OnInit {
   }
 
   fillOutMovies(){
-    this.dispalyMovies = [];
+    this.displayMovies = [];
     for(let i: number = 0; i < this.notSeenBefore.length; i++){
       this.getMovieDetail(this.notSeenBefore[i].movieID, this.notSeenBefore[i].title);
     }
@@ -56,13 +56,20 @@ export class ToSeePage implements OnInit {
         title: movieTitle,
         movieID: movieID
       };
-      this.dispalyMovies.push(result);
+      this.displayMovies.push(result);
     })
   }
 
   goToMovie(movieID: number){
     this.selectedMovie.movieId = movieID;
     this.navController.navigateForward('details');
+  }
+
+  removeItem(slidingItem: IonItemSliding, movieId) {
+    this.auth.removeMovieFromUser(movieId, "toSee");
+
+    slidingItem.close();
+    // this.fillOutMovies();
   }
 
 }

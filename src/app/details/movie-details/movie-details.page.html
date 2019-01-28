@@ -7,7 +7,7 @@
 <ion-content *ngIf="movie$ | async as movie">
 <!--<iframe [src]="video" frameborder="0" allowfullscreen class="video"></iframe>-->
   <div class="flex-div">
-    <ion-img src="https://image.tmdb.org/t/p/w500/{{movie.backdrop_path}}" class="image"></ion-img>
+    <ion-img src="https://image.tmdb.org/t/p/original/{{movie.backdrop_path}}" class="image"></ion-img>
     <p class="title">{{movie.title}}</p>
     <p class="subtitle">{{movie.tagline}}</p>
   </div>
