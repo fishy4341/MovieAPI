@@ -57,7 +57,7 @@ export class MovieDetailsPage implements OnInit {
       title: data.movie,
       movieID: data.movieId,
       rating: data.rating,
-      comments: [],
+      comment: '',
       hasSeen: data.hasSeen
     };
     this.auth.addMovieToUser(movieData);
@@ -74,7 +74,7 @@ export class MovieDetailsPage implements OnInit {
         // @ts-ignore
         movieID: movie.id,
         rating: 0,
-        comments: [],
+        comment: '',
         hasSeen: false,
       };
       this.auth.addMovieToUser(movieData);
