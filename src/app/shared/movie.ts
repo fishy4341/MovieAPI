@@ -5,3 +5,10 @@ export interface Movie {
     comment: string;
     hasSeen: boolean;
 }
+export interface Movie2 {
+    title: string;
+    movieID: number;
+    pic: string;
+    genres: [];
+    rating?: number;
+}

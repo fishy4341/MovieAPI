@@ -6,5 +6,9 @@
 
 <ion-content padding>
   <ion-button (click)="methOne()">TEST</ion-button>
-
+  <ion-list *ngIf="movies$ | async as movies">
+    <ion-item *ngFor="let movie of movies">
+      <ion-label>{{movie.title}}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
