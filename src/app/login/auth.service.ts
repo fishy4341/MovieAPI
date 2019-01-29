@@ -91,19 +91,19 @@ export class AuthService {
 
 
 
-  getUserInfo(): User {
-      return this.userData;
-  }
-  // refreshUserInfo(){
-  //     this.userData.id =  this.afAuth.auth.currentUser.uid;
-  //     this.userData.name = this.afAuth.auth.currentUser.displayName;
-  //     return this.firebase.retrieveUser(this.userData.id);
-  //
+  // getUserInfo(): User {
+  //     return this.userData;
   // }
-  updateUserMovieList(hasSeen: Movie[], notSeen: Movie[]){
-      this.userData.mlHasSeen = hasSeen;
-      this.userData.mlNotSeen = notSeen;
-  }
+  // // refreshUserInfo(){
+  // //     this.userData.id =  this.afAuth.auth.currentUser.uid;
+  // //     this.userData.name = this.afAuth.auth.currentUser.displayName;
+  // //     return this.firebase.retrieveUser(this.userData.id);
+  // //
+  // // }
+  // updateUserMovieList(hasSeen: Movie[], notSeen: Movie[]){
+  //     this.userData.mlHasSeen = hasSeen;
+  //     this.userData.mlNotSeen = notSeen;
+  // }
 
 
   googleSignIn() {
@@ -138,6 +138,14 @@ export class AuthService {
           .then(authUserData =>{
               this.userData.id = authUserData.user.uid;
               this.userData.name = authUserData.user.displayName;
+              this.firebase.getUserData().subscribe(docSnapshot =>{
+                  if(!docSnapshot){
+                      this.firebase.addUser({
+                          name: this.userData.name,
+                          id: this.userData.id
+                      });
+                  }
+              })
           })
   }
 
