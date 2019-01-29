@@ -5,8 +5,8 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item-sliding *ngFor="let movie of dispalyMovies" #slidingItem>
+  <ion-list *ngIf="movies$ | async as movies">
+    <ion-item-sliding *ngFor="let movie of movies" #slidingItem>
       <ion-item (click)="goToMovie(movie.movieID)">
         <ion-thumbnail>
           <img src="https://image.tmdb.org/t/p/w500/{{movie.pic}}" alt="">

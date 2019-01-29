@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController, NavParams} from "@ionic/angular";
+import {Movie2} from "../../../shared/movie";
 
 @Component({
   selector: 'rating',
@@ -15,18 +16,16 @@ export class RatingComponent implements OnInit {
   constructor(public navParams: NavParams, public modalController: ModalController) { }
 
   ngOnInit() {
-    this.navParams.data.value.subscribe(data => {
-      this.movie = data;
-    });
+    this.movie = this.navParams.data.value;
   }
 
   dismiss() {
     this.modalController.dismiss({
       'rating': this.rating,
-      'movie': this.movie.title,
+      'title': this.movie.title,
       'movieId': this.movie.id,
-      'hasSeen': true
-
+      'pic': this.movie.poster_path,
+      'genres': this.movie.genres
     });
   }
 

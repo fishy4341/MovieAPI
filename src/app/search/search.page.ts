@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../API/movie-api.service';
 import {SelectedMovieService} from '../API/selected-movie.service';
 import {Router} from '@angular/router';
-import {NavController} from '@ionic/angular';
+import {LoadingController, NavController} from '@ionic/angular';
 import * as _ from 'lodash';
 
 @Component({
@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 })
 export class SearchPage implements OnInit {
 
-  constructor( private movieService: MovieAPIService, private selectedMovie: SelectedMovieService, private navController: NavController) { }
+  constructor( private movieService: MovieAPIService, private selectedMovie: SelectedMovieService, private navController: NavController, private loader: LoadingController) { }
 
   topRatedList;
   search: string;
@@ -46,7 +46,17 @@ export class SearchPage implements OnInit {
 
   }
 
-  goToDetails(movieId) {
+  goToDetails(movieId) { //add async for loader
+    // const loading = await this.loader.create({
+    //   content: 'Loading',
+    //   animation: 'fade-in',
+    //   showBackdrop: true,
+    //   maxWidth: 300,
+    //   showDelay: 0
+    // });
+    // loading.present().then(_ => {
+    //   // this.router.navigate(['tournaments']);
+    // });
     console.log(movieId);
     this.selectedMovie.movieId = movieId;
     this.navController.navigateForward('details');
