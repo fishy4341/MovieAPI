@@ -7,13 +7,8 @@ import {RatingComponent} from "./rating/rating.component";
 import {AuthService} from "../../login/auth.service";
 import {Movie, Movie2} from "../../shared/movie";
 import {FirebaseService} from "../../user-list/firebase.service";
-<<<<<<< HEAD
 import {AngularFireAuth} from "@angular/fire/auth";
-import {CommentsService} from 'src/app/login/comments.service';
-
-=======
 import {CommentsService} from "../../login/comments.service";
->>>>>>> 4e01793b8136da3357bceb4e2cd8e0c23272b51d
 
 @Component({
   selector: 'app-movie-details',
@@ -49,10 +44,12 @@ export class MovieDetailsPage implements OnInit {
   ngOnInit() {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
-      this.checkWatched();
+      this.authenticated = !!this.afAuth.auth.currentUser.uid;
+      if(this.authenticated){
+        this.checkWatched();
+      }
     });
-    this.authenticated = !!this.afAuth.auth.currentUser.uid;
-    this.movieComments = this.commentsService.getCommentsFor(this.id);
+
     // this.movieApi.getMovieVideo(this.id).subscribe(data => {
     //   this.url = `https://www.youtube.com/embed/?controls=0&showinfo=0&rel=0`;
     //   this.video = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);

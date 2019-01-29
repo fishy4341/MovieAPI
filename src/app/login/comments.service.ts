@@ -17,15 +17,15 @@ export class CommentsService {
   ) { }
 
 
-  addMovie(movie: Movie2, comment: Comment): void{
-    let dbMovieData = {
+  addMovie(movie, comment: Comment): void{
+    let dbMovieData:Movie2 = {
         title: movie.title,
         genres: movie.genres,
-        movieID: movie.movieID,
-        pic: movie.pic
+        movieID: movie.id,
+        pic: movie.poster_path
     };
-    this.db.collection(`allComments`).doc(`${movie.movieID}`).set(movie).then(ignoreVar =>{
-        this.db.collection(`allComments/${movie.movieID}/comments`).doc(`${comment.userID}`).set(comment);
+    this.db.collection(`allComments`).doc(`${dbMovieData.movieID}`).set(dbMovieData).then(ignoreVar =>{
+        this.db.collection(`allComments/${dbMovieData.movieID}/comments`).doc(`${comment.userID}`).set(comment);
     });
   }
 
