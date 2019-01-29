@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../login/auth.service';
 import {Movie} from '../../shared/movie';
 import {SelectedMovieService} from '../../API/selected-movie.service';
-import {NavController} from '@ionic/angular';
+import {IonItemSliding, NavController} from '@ionic/angular';
 import {MovieAPIService} from '../../API/movie-api.service';
 
 @Component({
@@ -71,6 +71,12 @@ export class SeenPage implements OnInit {
       this.dispalyMovies.push(result);
       console.log(this.dispalyMovies);
     });
+  }
+
+  removeItem(slidingItem: IonItemSliding, movieId) {
+    this.auth.removeMovieFromUser(movieId, 'seen');
+    // this.fillOutMovies();
+    slidingItem.close();
   }
 
 }

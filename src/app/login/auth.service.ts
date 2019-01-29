@@ -49,14 +49,46 @@ export class AuthService {
       }
 
   }
+
+    removeMovieFromUser(movieId, list) {
+      console.log(this.userData.mlHasSeen);
+        if (list === 'seen') {
+            if (this.userData.mlHasSeen.length === 1) {
+                if (this.userData.mlHasSeen[0].movieID === movieId) {
+                    this.userData.mlHasSeen = [];
+                }
+            } else {
+                for (let i = 0; i < this.userData.mlHasSeen.length; i++) {
+                    if (this.userData.mlHasSeen[i].movieID === movieId) {
+                        this.userData.mlHasSeen.splice(i, 1);
+                    }
+                }
+            }
+
+            this.firebase.updateUserML(this.userData.id, this.userData);
+        } else {
+            if (this.userData.mlNotSeen.length === 1) {
+                if (this.userData.mlNotSeen[0].movieID === movieId) {
+                    this.userData.mlNotSeen = [];
+                }
+            } else {
+                for (let i = 0; i < this.userData.mlNotSeen.length; i++) {
+                    if (this.userData.mlNotSeen[i].movieID === movieId) {
+                        this.userData.mlNotSeen.splice(i, 1);
+                    }
+                }
+            }
+
+            this.firebase.updateUserML(this.userData.id, this.userData);
+        }
+
+
+
+    }
+
+
   getUserInfo(): User {
-      const user = {
-          name: this.afAuth.auth.currentUser.displayName,
-          id: this.afAuth.auth.currentUser.uid,
-          mlHasSeen: [],
-          mlNotSeen: []
-      };
-      return user;
+      return this.userData;
   }
   refreshUserInfo() {
       this.userData.id =  this.afAuth.auth.currentUser.uid;

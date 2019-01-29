@@ -23,4 +23,5 @@ const routes: Routes = [
   ],
   declarations: [SeenPage]
 })
+
 export class SeenPageModule {}

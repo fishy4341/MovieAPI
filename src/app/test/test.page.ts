@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FirebaseService} from "../user-list/firebase.service";
-import {User} from "../shared/user";
-import {AuthService} from "../login/auth.service";
-import {timeInterval} from "rxjs/operators";
-import {Movie} from "../shared/movie";
-import {AngularFireDatabase} from "@angular/fire/database";
-import {AngularFirestore} from "@angular/fire/firestore";
-import {AngularFireAuth} from "@angular/fire/auth";
+import {FirebaseService} from '../user-list/firebase.service';
+import {User} from '../shared/user';
+import {AuthService} from '../login/auth.service';
+import {timeInterval} from 'rxjs/operators';
+import {Movie} from '../shared/movie';
+import {AngularFireDatabase} from '@angular/fire/database';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
   selector: 'app-test',
@@ -31,8 +31,8 @@ export class TestPage implements OnInit {
   ngOnInit() {
   }
 
-  methOne(){
+  // methOne(){
       // this.db.collection('users').doc(this.afAuth.auth.currentUser.uid);
-  }
+  // }
 
 }
