@@ -134,5 +134,13 @@ export class FirebaseService {
         return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).doc(String(movieId)).delete();
     }
 
+    getHasSeenMovie(movieId) {
+        return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/hasSeen`).doc(String(movieId)).get();
+    }
+
+    getToSeeMovie(movieId) {
+        return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).doc(String(movieId)).get();
+    }
+
 
 }

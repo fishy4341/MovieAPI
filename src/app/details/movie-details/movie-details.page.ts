@@ -7,7 +7,13 @@ import {RatingComponent} from "./rating/rating.component";
 import {AuthService} from "../../login/auth.service";
 import {Movie, Movie2} from "../../shared/movie";
 import {FirebaseService} from "../../user-list/firebase.service";
+<<<<<<< HEAD
+import {AngularFireAuth} from "@angular/fire/auth";
+import {CommentsService} from 'src/app/login/comments.service';
+
+=======
 import {CommentsService} from "../../login/comments.service";
+>>>>>>> 4e01793b8136da3357bceb4e2cd8e0c23272b51d
 
 @Component({
   selector: 'app-movie-details',
@@ -26,7 +32,8 @@ export class MovieDetailsPage implements OnInit {
               public modalController: ModalController,
               private auth: AuthService,
               private firebase: FirebaseService,
-              private commentsService: CommentsService
+              private commentsService: CommentsService,
+              public afAuth: AngularFireAuth
   ) { }
 
   authenticated;
@@ -42,7 +49,9 @@ export class MovieDetailsPage implements OnInit {
   ngOnInit() {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
+      this.checkWatched();
     });
+    this.authenticated = !!this.afAuth.auth.currentUser.uid;
     this.movieComments = this.commentsService.getCommentsFor(this.id);
     // this.movieApi.getMovieVideo(this.id).subscribe(data => {
     //   this.url = `https://www.youtube.com/embed/?controls=0&showinfo=0&rel=0`;
@@ -74,6 +83,7 @@ export class MovieDetailsPage implements OnInit {
       genres: data.genres,
     };
     this.firebase.pushHasSeen(movieData);
+    this.checkWatched();
   }
 
   addToSee() {
@@ -84,20 +94,27 @@ export class MovieDetailsPage implements OnInit {
       genres: this.movie.genres,
     };
     this.firebase.pushToSee(movieData);
-
+    this.checkWatched();
   }
 
   checkWatched() {
-    for (let i = 0; i < this.user.mlHasSeen.length; i++) {
-      if (this.id === this.user.mlHasSeen[i].movieID) {
+    this.firebase.getHasSeenMovie(this.movie.id).subscribe(docSnapshot => {
+      if (docSnapshot.exists){
         this.watched = true;
+        console.log(this.watched);
       }
-    }
-    for (let i = 0; i < this.auth.getUserInfo().mlNotSeen.length; i++) {
-      if (this.id === this.user.mlNotSeen[i].movieID) {
+    });
+    this.firebase.getToSeeMovie(this.movie.id).subscribe(docSnapshot => {
+      if (docSnapshot.exists){
         this.watchList = true;
+        console.log(this.watchList);
       }
-    }
+    });
+    // for(let i=0; i < this.auth.getUserInfo().mlNotSeen.length; i++){
+    //   if(this.id == this.user.mlNotSeen[i].movieID){
+    //     this.watchList = true;
+    //   }
+    // }
   }
 
 }
