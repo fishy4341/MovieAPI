@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
 import {User} from '../shared/user';
-import {Movie} from '../shared/movie';
+import {Movie, Movie2} from '../shared/movie';
 import {Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 
@@ -107,5 +107,30 @@ export class FirebaseService {
       //     console.log(subVar);
       // })
   }
+
+    getHasSeen() {
+        return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/hasSeen`).valueChanges();
+    }
+
+    getToSee() {
+        return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).valueChanges();
+    }
+
+    pushHasSeen(movie: Movie2) {
+      this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/hasSeen`).doc(String(movie.movieID)).set(movie);
+    }
+
+    pushToSee(movie: Movie2) {
+      this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).doc(String(movie.movieID)).set(movie);
+    }
+
+    removeHasSeen(movieId) {
+      return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/hasSeen`).doc(String(movieId)).delete();
+    }
+
+    removeToSee(movieId) {
+        return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).doc(String(movieId)).delete();
+    }
+
 
 }
