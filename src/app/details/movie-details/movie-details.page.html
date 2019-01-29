@@ -31,9 +31,9 @@
         </ion-list>
       </div>
     </div>
-    <div class="buttons" >
-      <ion-button color="primary"  (click)="presentModal()" >I've seen this movie</ion-button>
-      <ion-button color="primary"  (click)="addToSee()" >Add to watch list</ion-button>
+    <div class="buttons" *ngIf="authenticated" >
+      <ion-button color="primary" (click)="presentModal()" *ngIf="!watched">I've seen this movie</ion-button>
+      <ion-button color="primary" (click)="addToSee()" *ngIf="!watchList && !watched">Add to watch list</ion-button>
     </div>
   </div>
 </ion-content>
