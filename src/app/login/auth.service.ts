@@ -135,18 +135,18 @@ export class AuthService {
     //           })
     //     });
       this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
-          .then(authUserData =>{
+          .then(authUserData => {
               this.userData.id = authUserData.user.uid;
               this.userData.name = authUserData.user.displayName;
-              this.firebase.getUserData().subscribe(docSnapshot =>{
-                  if(!docSnapshot){
+              this.firebase.getUserData().subscribe(docSnapshot => {
+                  if (!docSnapshot) {
                       this.firebase.addUser({
                           name: this.userData.name,
                           id: this.userData.id
                       });
                   }
-              })
-          })
+              });
+          });
   }
 
   signOut() {
