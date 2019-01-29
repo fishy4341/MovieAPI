@@ -74,15 +74,17 @@ export class MovieDetailsPage implements OnInit {
     await modal.present();
     const { data } = await modal.onDidDismiss();
     console.log(data);
-    const movieData: Movie2 = {
-      title: data.title,
-      movieID: data.movieId,
-      rating: data.rating,
-      pic: data.pic,
-      genres: data.genres,
-    };
-    this.firebase.pushHasSeen(movieData);
-    this.checkWatched();
+    if(data){
+      const movieData: Movie2 = {
+        title: data.title,
+        movieID: data.movieId,
+        rating: data.rating,
+        pic: data.pic,
+        genres: data.genres,
+      };
+      this.firebase.pushHasSeen(movieData);
+      this.checkWatched();
+    }
   }
 
   addToSee() {
