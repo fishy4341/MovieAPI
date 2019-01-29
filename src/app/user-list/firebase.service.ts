@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore'
-import {map} from "rxjs/operators";
-import {User} from "../shared/user";
-import {Movie, Movie2} from "../shared/movie";
-import {Observable} from "rxjs";
-import {AngularFireAuth} from "@angular/fire/auth";
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import {map} from 'rxjs/operators';
+import {User} from '../shared/user';
+import {Movie, Movie2} from '../shared/movie';
+import {Observable} from 'rxjs';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -118,20 +118,20 @@ export class FirebaseService {
         return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).valueChanges();
     }
 
-    pushHasSeen(movie:Movie2) {
-      this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/hasSeen`).doc(String(movie.movieID)).set(movie)
+    pushHasSeen(movie: Movie2) {
+      this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/hasSeen`).doc(String(movie.movieID)).set(movie);
     }
 
-    pushToSee(movie:Movie2) {
-      this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).doc(String(movie.movieID)).set(movie)
+    pushToSee(movie: Movie2) {
+      this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).doc(String(movie.movieID)).set(movie);
     }
 
-    removeHasSeen(movieId){
-      return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/hasSeen`).doc(String(movieId)).delete()
+    removeHasSeen(movieId) {
+      return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/hasSeen`).doc(String(movieId)).delete();
     }
 
-    removeToSee(movieId){
-        return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).doc(String(movieId)).delete()
+    removeToSee(movieId) {
+        return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).doc(String(movieId)).delete();
     }
 
 

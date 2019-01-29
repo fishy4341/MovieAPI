@@ -12,7 +12,11 @@ import * as _ from 'lodash';
 })
 export class SearchPage implements OnInit {
 
-  constructor( private movieService: MovieAPIService, private selectedMovie: SelectedMovieService, private navController: NavController, private loader: LoadingController) { }
+  constructor(
+    private movieService: MovieAPIService,
+    private selectedMovie: SelectedMovieService,
+    private navController: NavController,
+    private loader: LoadingController) { }
 
   topRatedList;
   search: string;
@@ -46,7 +50,7 @@ export class SearchPage implements OnInit {
 
   }
 
-  goToDetails(movieId) { //add async for loader
+  goToDetails(movieId) { // add async for loader
     // const loading = await this.loader.create({
     //   content: 'Loading',
     //   animation: 'fade-in',

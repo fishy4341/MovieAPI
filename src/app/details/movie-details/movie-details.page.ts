@@ -34,7 +34,7 @@ export class MovieDetailsPage implements OnInit {
   movie;
   private url: string;
   video: SafeResourceUrl;
-  watched:boolean;
+  watched: boolean;
   watchList: boolean;
   user;
   private movieComments;
@@ -58,7 +58,7 @@ export class MovieDetailsPage implements OnInit {
 
   }
 
-  async presentModal(){
+  async presentModal() {
     const modal = await this.modalController.create({
       component: RatingComponent,
       componentProps: { value: this.movie}
@@ -66,7 +66,7 @@ export class MovieDetailsPage implements OnInit {
     await modal.present();
     const { data } = await modal.onDidDismiss();
     console.log(data);
-    let movieData: Movie2 = {
+    const movieData: Movie2 = {
       title: data.title,
       movieID: data.movieId,
       rating: data.rating,
@@ -77,7 +77,7 @@ export class MovieDetailsPage implements OnInit {
   }
 
   addToSee() {
-    let movieData: Movie2 = {
+    const movieData: Movie2 = {
       title: this.movie.title,
       movieID: this.movie.id,
       pic: this.movie.poster_path,
@@ -88,13 +88,13 @@ export class MovieDetailsPage implements OnInit {
   }
 
   checkWatched() {
-    for(let i=0; i < this.user.mlHasSeen.length; i++){
-      if(this.id == this.user.mlHasSeen[i].movieID){
+    for (let i = 0; i < this.user.mlHasSeen.length; i++) {
+      if (this.id === this.user.mlHasSeen[i].movieID) {
         this.watched = true;
       }
     }
-    for(let i=0; i < this.auth.getUserInfo().mlNotSeen.length; i++){
-      if(this.id == this.user.mlNotSeen[i].movieID){
+    for (let i = 0; i < this.auth.getUserInfo().mlNotSeen.length; i++) {
+      if (this.id === this.user.mlNotSeen[i].movieID) {
         this.watchList = true;
       }
     }

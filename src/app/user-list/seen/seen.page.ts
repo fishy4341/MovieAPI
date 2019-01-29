@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../login/auth.service";
-import {Movie, Movie2} from "../../shared/movie";
-import {SelectedMovieService} from "../../API/selected-movie.service";
-import {IonItemSliding, NavController} from "@ionic/angular";
-import {MovieAPIService} from "../../API/movie-api.service";
-import {FirebaseService} from "../firebase.service";
-import {Observable} from "rxjs";
+import {AuthService} from '../../login/auth.service';
+import {Movie, Movie2} from '../../shared/movie';
+import {SelectedMovieService} from '../../API/selected-movie.service';
+import {IonItemSliding, NavController} from '@ionic/angular';
+import {MovieAPIService} from '../../API/movie-api.service';
+import {FirebaseService} from '../firebase.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-seen',
@@ -30,7 +30,7 @@ export class SeenPage implements OnInit {
   movies$;
   ngOnInit() {
     console.log('seen movies ngOnInit Called');
-    this.movies$ = this.firebase.getHasSeen()
+    this.movies$ = this.firebase.getHasSeen();
     // if(this.auth.getUserInfo().name === ''){
     //   this.auth.refreshUserInfo().subscribe(dbUserData =>{
     //     // @ts-ignore
@@ -49,7 +49,7 @@ export class SeenPage implements OnInit {
     // }
   }
 
-  goToMovie(movieID: number){
+  goToMovie(movieID: number) {
     this.selectedMovie.movieId = movieID;
     this.navController.navigateForward('details');
   }
