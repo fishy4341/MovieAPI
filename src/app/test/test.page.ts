@@ -30,7 +30,7 @@ export class TestPage implements OnInit {
   };
   private commentsForTest;
 
-  movies$:Observable<Movie2>;
+  movies$: Observable<Movie2>;
 
   constructor(private firebase: FirebaseService,
               private authServ: AuthService,
@@ -43,7 +43,7 @@ export class TestPage implements OnInit {
     this.commentsForTest = this.commentService.getCommentsFor(this.testMovie.movieID);
   }
 
-  methOne(){
+  methOne() {
     this.commentService.addMovie(this.testMovie, {userID: 'userIDFromTest', comment: 'my most favorite movie of all testing'});
   }
 

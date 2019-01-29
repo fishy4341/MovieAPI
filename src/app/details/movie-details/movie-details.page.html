@@ -7,7 +7,7 @@
 <ion-content *ngIf="movie">
 <!--<iframe [src]="video" frameborder="0" allowfullscreen class="video"></iframe>-->
   <div class="flex-div">
-    <ion-img src="https://image.tmdb.org/t/p/original/{{movie.backdrop_path}}" class="image"></ion-img>
+    <ion-img *ngIf="movie.backdrop_path" src="https://image.tmdb.org/t/p/original/{{movie.backdrop_path}}" onerror="this.src='assets/images/noImage.jpeg'" class="image"></ion-img>
     <p class="title">{{movie.title}}</p>
     <p class="subtitle">{{movie.tagline}}</p>
   </div>
@@ -31,9 +31,9 @@
         </ion-list>
       </div>
     </div>
-    <div class="buttons" >
-      <ion-button color="primary" (click)="presentModal()" >I've seen this movie</ion-button>
-      <ion-button color="primary" (click)="addToSee()" >Add to watch list</ion-button>
+    <div class="buttons" *ngIf="authenticated" >
+      <ion-button color="primary" (click)="presentModal()" *ngIf="!watched">I've seen this movie</ion-button>
+      <ion-button color="primary" (click)="addToSee()" *ngIf="!watchList && !watched">Add to watch list</ion-button>
     </div>
   </div>
 </ion-content>

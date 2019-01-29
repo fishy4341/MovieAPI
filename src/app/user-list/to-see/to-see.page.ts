@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../login/auth.service";
-import {Movie} from "../../shared/movie";
-import {MovieAPIService} from "../../API/movie-api.service";
-import {SelectedMovieService} from "../../API/selected-movie.service";
-import {IonItemSliding, NavController} from "@ionic/angular";
-import {FirebaseService} from "../firebase.service";
+import {AuthService} from '../../login/auth.service';
+import {Movie} from '../../shared/movie';
+import {MovieAPIService} from '../../API/movie-api.service';
+import {SelectedMovieService} from '../../API/selected-movie.service';
+import {IonItemSliding, NavController} from '@ionic/angular';
+import {FirebaseService} from '../firebase.service';
 
 @Component({
   selector: 'app-to-see',
@@ -65,7 +65,7 @@ export class ToSeePage implements OnInit {
   //   })
   // }
 
-  goToMovie(movieID: number){
+  goToMovie(movieID: number) {
     this.selectedMovie.movieId = movieID;
     this.navController.navigateForward('details');
   }
@@ -73,7 +73,7 @@ export class ToSeePage implements OnInit {
   removeItem(slidingItem: IonItemSliding, movieId) {
     this.firebase.removeToSee(movieId).then(_ => {
       slidingItem.closeOpened();
-    })
+    });
 
     // slidingItem.close();
     // this.fillOutMovies();

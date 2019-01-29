@@ -7,8 +7,8 @@ import {RatingComponent} from "./rating/rating.component";
 import {AuthService} from "../../login/auth.service";
 import {Movie, Movie2} from "../../shared/movie";
 import {FirebaseService} from "../../user-list/firebase.service";
-import {CommentsService} from "../../login/comments.service";
 import {AngularFireAuth} from "@angular/fire/auth";
+import {CommentsService} from 'src/app/login/comments.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -36,7 +36,7 @@ export class MovieDetailsPage implements OnInit {
   movie;
   private url: string;
   video: SafeResourceUrl;
-  watched:boolean;
+  watched: boolean;
   watchList: boolean;
   user;
   private movieComments;
@@ -44,7 +44,9 @@ export class MovieDetailsPage implements OnInit {
   ngOnInit() {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
+      this.checkWatched();
     });
+    this.authenticated = !!this.afAuth.auth.currentUser.uid;
     this.movieComments = this.commentsService.getCommentsFor(this.id);
     if(this.auth.isAuthenticated()){
 
@@ -63,7 +65,7 @@ export class MovieDetailsPage implements OnInit {
 
   }
 
-  async presentModal(){
+  async presentModal() {
     const modal = await this.modalController.create({
       component: RatingComponent,
       componentProps: { value: this.movie}
@@ -71,7 +73,7 @@ export class MovieDetailsPage implements OnInit {
     await modal.present();
     const { data } = await modal.onDidDismiss();
     console.log(data);
-    let movieData: Movie2 = {
+    const movieData: Movie2 = {
       title: data.title,
       movieID: data.movieId,
       rating: data.rating,
@@ -79,30 +81,38 @@ export class MovieDetailsPage implements OnInit {
       genres: data.genres,
     };
     this.firebase.pushHasSeen(movieData);
+    this.checkWatched();
   }
 
   addToSee() {
-    let movieData: Movie2 = {
+    const movieData: Movie2 = {
       title: this.movie.title,
       movieID: this.movie.id,
       pic: this.movie.poster_path,
       genres: this.movie.genres,
     };
     this.firebase.pushToSee(movieData);
-
+    this.checkWatched();
   }
 
-  checkWatched() {
-    for(let i=0; i < this.user.mlHasSeen.length; i++){
-      if(this.id == this.user.mlHasSeen[i].movieID){
-        this.watched = true;
-      }
+  checkWatched(){
+  this.firebase.getHasSeenMovie(this.movie.id).subscribe(docSnapshot => {
+    if (docSnapshot.exists) {
+      this.watched = true;
+      console.log(this.watched);
     }
-    for(let i=0; i < this.auth.getUserInfo().mlNotSeen.length; i++){
-      if(this.id == this.user.mlNotSeen[i].movieID){
-        this.watchList = true;
-      }
+  });
+  this.firebase.getToSeeMovie(this.movie.id).subscribe(docSnapshot => {
+    if (docSnapshot.exists) {
+      this.watchList = true;
+      console.log(this.watchList);
     }
-  }
+  });
+}
+    // for(let i=0; i < this.auth.getUserInfo().mlNotSeen.length; i++){
+    //   if(this.id == this.user.mlNotSeen[i].movieID){
+    //     this.watchList = true;
+    //   }
+    // }
 
 }
