@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from "../../API/movie-api.service";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
-import {SelectedMovieService} from "../../API/selected-movie.service";
-import {ModalController} from "@ionic/angular";
-import {RatingComponent} from "./rating/rating.component";
-import {AuthService} from "../../login/auth.service";
-import {Movie, Movie2} from "../../shared/movie";
-import {FirebaseService} from "../../user-list/firebase.service";
-import {AngularFireAuth} from "@angular/fire/auth";
+import {MovieAPIService} from '../../API/movie-api.service';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {SelectedMovieService} from '../../API/selected-movie.service';
+import {ModalController} from '@ionic/angular';
+import {RatingComponent} from './rating/rating.component';
+import {AuthService} from '../../login/auth.service';
+import {Movie, Movie2} from '../../shared/movie';
+import {FirebaseService} from '../../user-list/firebase.service';
+import {AngularFireAuth} from '@angular/fire/auth';
 import {CommentsService} from 'src/app/login/comments.service';
+
 
 @Component({
   selector: 'app-movie-details',
@@ -48,7 +49,7 @@ export class MovieDetailsPage implements OnInit {
     });
     this.authenticated = !!this.afAuth.auth.currentUser.uid;
     this.movieComments = this.commentsService.getCommentsFor(this.id);
-    if(this.auth.isAuthenticated()){
+    if (this.auth.isAuthenticated()) {
 
     }
     // this.movieApi.getMovieVideo(this.id).subscribe(data => {
@@ -95,7 +96,7 @@ export class MovieDetailsPage implements OnInit {
     this.checkWatched();
   }
 
-  checkWatched(){
+  checkWatched() {
   this.firebase.getHasSeenMovie(this.movie.id).subscribe(docSnapshot => {
     if (docSnapshot.exists) {
       this.watched = true;
