@@ -28,7 +28,7 @@ export class RatingComponent implements OnInit {
       'genres': this.movie.genres
     });
   }
-  exit(){
+  exit() {
     this.modalController.dismiss();
   }
 

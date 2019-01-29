@@ -74,7 +74,7 @@ export class MovieDetailsPage implements OnInit {
     await modal.present();
     const { data } = await modal.onDidDismiss();
     console.log(data);
-    if(data){
+    if (data) {
       const movieData: Movie2 = {
         title: data.title,
         movieID: data.movieId,
