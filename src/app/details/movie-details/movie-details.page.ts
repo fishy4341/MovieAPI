@@ -1,19 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from "../../API/movie-api.service";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
-import {SelectedMovieService} from "../../API/selected-movie.service";
-import {ModalController} from "@ionic/angular";
-import {RatingComponent} from "./rating/rating.component";
-import {AuthService} from "../../login/auth.service";
-import {Movie, Movie2} from "../../shared/movie";
-import {FirebaseService} from "../../user-list/firebase.service";
-<<<<<<< HEAD
-import {AngularFireAuth} from "@angular/fire/auth";
+import {MovieAPIService} from '../../API/movie-api.service';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {SelectedMovieService} from '../../API/selected-movie.service';
+import {ModalController} from '@ionic/angular';
+import {RatingComponent} from './rating/rating.component';
+import {AuthService} from '../../login/auth.service';
+import {Movie, Movie2} from '../../shared/movie';
+import {FirebaseService} from '../../user-list/firebase.service';
+import {AngularFireAuth} from '@angular/fire/auth';
 import {CommentsService} from 'src/app/login/comments.service';
 
-=======
-import {CommentsService} from "../../login/comments.service";
->>>>>>> 4e01793b8136da3357bceb4e2cd8e0c23272b51d
 
 @Component({
   selector: 'app-movie-details',
@@ -99,13 +95,13 @@ export class MovieDetailsPage implements OnInit {
 
   checkWatched() {
     this.firebase.getHasSeenMovie(this.movie.id).subscribe(docSnapshot => {
-      if (docSnapshot.exists){
+      if (docSnapshot.exists) {
         this.watched = true;
         console.log(this.watched);
       }
     });
     this.firebase.getToSeeMovie(this.movie.id).subscribe(docSnapshot => {
-      if (docSnapshot.exists){
+      if (docSnapshot.exists) {
         this.watchList = true;
         console.log(this.watchList);
       }
