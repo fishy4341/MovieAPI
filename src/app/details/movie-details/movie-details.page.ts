@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from '../../API/movie-api.service';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {SelectedMovieService} from '../../API/selected-movie.service';
-import {ModalController} from '@ionic/angular';
-import {RatingComponent} from './rating/rating.component';
-import {AuthService} from '../../login/auth.service';
-import {Movie, Movie2} from '../../shared/movie';
-import {FirebaseService} from '../../user-list/firebase.service';
+import {MovieAPIService} from "../../API/movie-api.service";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {SelectedMovieService} from "../../API/selected-movie.service";
+import {ModalController} from "@ionic/angular";
+import {RatingComponent} from "./rating/rating.component";
+import {AuthService} from "../../login/auth.service";
+import {Movie, Movie2} from "../../shared/movie";
+import {FirebaseService} from "../../user-list/firebase.service";
+import {CommentsService} from "../../login/comments.service";
 
 @Component({
   selector: 'app-movie-details',
@@ -19,13 +20,14 @@ export class MovieDetailsPage implements OnInit {
     return this.selectedMovie.movieId;
   }
 
-  constructor(
-    private movieApi: MovieAPIService,
-    public sanitizer: DomSanitizer,
-    private selectedMovie: SelectedMovieService,
-    public modalController: ModalController,
-    private auth: AuthService,
-    private firebase: FirebaseService) { }
+  constructor(private movieApi: MovieAPIService,
+              public sanitizer: DomSanitizer,
+              private selectedMovie: SelectedMovieService,
+              public modalController: ModalController,
+              private auth: AuthService,
+              private firebase: FirebaseService,
+              private commentsService: CommentsService
+  ) { }
 
   authenticated;
   id = this.movieId;
@@ -35,11 +37,13 @@ export class MovieDetailsPage implements OnInit {
   watched: boolean;
   watchList: boolean;
   user;
+  private movieComments;
 
   ngOnInit() {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
     });
+    this.movieComments = this.commentsService.getCommentsFor(this.id);
     // this.movieApi.getMovieVideo(this.id).subscribe(data => {
     //   this.url = `https://www.youtube.com/embed/?controls=0&showinfo=0&rel=0`;
     //   this.video = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
