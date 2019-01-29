@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore, AngularFirestoreDocument, DocumentSnapshot} from "@angular/fire/firestore";
-import {MovieWComment} from "../shared/movie-w-comment";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {stringify} from "querystring";
-import {Movie2} from "../shared/movie";
-import {Comment} from "../shared/comment";
+import {AngularFirestore, AngularFirestoreDocument, DocumentSnapshot} from '@angular/fire/firestore';
+import {MovieWComment} from '../shared/movie-w-comment';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {stringify} from 'querystring';
+import {Movie2} from '../shared/movie';
+import {Comment} from '../shared/comment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,19 +17,19 @@ export class CommentsService {
   ) { }
 
 
-  addMovie(movie: Movie2, comment: Comment): void{
-    let dbMovieData = {
+  addMovie(movie: Movie2, comment: Comment): void {
+    const dbMovieData = {
         title: movie.title,
         genres: movie.genres,
         movieID: movie.movieID,
         pic: movie.pic
     };
-    this.db.collection(`allComments`).doc(`${movie.movieID}`).set(movie).then(ignoreVar =>{
+    this.db.collection(`allComments`).doc(`${movie.movieID}`).set(movie).then(ignoreVar => {
         this.db.collection(`allComments/${movie.movieID}/comments`).doc(`${comment.userID}`).set(comment);
     });
   }
 
-  updateMovie(movie: Movie2){
+  updateMovie(movie: Movie2) {
       this.db.collection(`allComments`).doc(`${movie.movieID}`).update(movie);
   }
 
@@ -42,10 +42,10 @@ export class CommentsService {
       return this.db.collection(`allComments/${movieID}/comments`).valueChanges();
   }
 
-  updateAComment(movieID: number, comment: Comment): void{
+  updateAComment(movieID: number, comment: Comment): void {
     this.db.collection(`allComments/${movieID}/comments`).doc(comment.userID).update({'comment': comment.comment});
   }
-  deleteCommment(movieID: number, userID: string): void{
+  deleteCommment(movieID: number, userID: string): void {
       this.db.collection(`allComments/${movieID}`).doc(userID).delete();
   }
 
