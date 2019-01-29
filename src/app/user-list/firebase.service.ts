@@ -17,7 +17,7 @@ export class FirebaseService {
   ) { }
 
 
-  addUser(user){
+  addUser(user) {
    this.db.collection('users').doc(this.afAuth.auth.currentUser.uid).set(user);
   }
   //
@@ -117,7 +117,7 @@ export class FirebaseService {
     getToSee() {
         return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).valueChanges();
     }
-    getUserData(){
+    getUserData() {
       return this.db.collection(`users`).doc(this.afAuth.auth.currentUser.uid).valueChanges();
     }
 
