@@ -8,6 +8,7 @@ import {AuthService} from "../../login/auth.service";
 import {Movie, Movie2} from "../../shared/movie";
 import {FirebaseService} from "../../user-list/firebase.service";
 import {CommentsService} from "../../login/comments.service";
+import {AngularFireAuth} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-movie-details',
@@ -26,7 +27,8 @@ export class MovieDetailsPage implements OnInit {
               public modalController: ModalController,
               private auth: AuthService,
               private firebase: FirebaseService,
-              private commentsService: CommentsService
+              private commentsService: CommentsService,
+              private afAuth: AngularFireAuth
   ) { }
 
   authenticated;
@@ -44,6 +46,9 @@ export class MovieDetailsPage implements OnInit {
       this.movie = data;
     });
     this.movieComments = this.commentsService.getCommentsFor(this.id);
+    if(this.auth.isAuthenticated()){
+
+    }
     // this.movieApi.getMovieVideo(this.id).subscribe(data => {
     //   this.url = `https://www.youtube.com/embed/?controls=0&showinfo=0&rel=0`;
     //   this.video = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
