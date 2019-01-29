@@ -17,9 +17,9 @@ export class FirebaseService {
   ) { }
 
 
-  // addUser(user: User){
-  //   this.db.collection('users').doc(this.afAuth.auth.currentUser.uid).set(user);
-  // }
+  addUser(user){
+   this.db.collection('users').doc(this.afAuth.auth.currentUser.uid).set(user);
+  }
   //
   //
   // retrieveUser(userID: string){
@@ -116,6 +116,9 @@ export class FirebaseService {
 
     getToSee() {
         return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).valueChanges();
+    }
+    getUserData(){
+      return this.db.collection(`users`).doc(this.afAuth.auth.currentUser.uid).valueChanges();
     }
 
     pushHasSeen(movie: Movie2) {
