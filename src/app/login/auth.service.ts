@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase/app';
 import { map } from 'rxjs/operators';
-import {User} from "../shared/user";
-import {FirebaseService} from "../user-list/firebase.service";
-import {Movie} from "../shared/movie";
-import {CommentsService} from "./comments.service";
-import {MovieWComment} from "../shared/movie-w-comment";
+import {User} from '../shared/user';
+import {FirebaseService} from '../user-list/firebase.service';
+import {Movie} from '../shared/movie';
+import {CommentsService} from './comments.service';
+import {MovieWComment} from '../shared/movie-w-comment';
 
 @Injectable({
   providedIn: 'root'
