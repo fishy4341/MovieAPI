@@ -7,7 +7,7 @@
 <ion-content *ngIf="movie">
 <!--<iframe [src]="video" frameborder="0" allowfullscreen class="video"></iframe>-->
   <div class="flex-div">
-    <ion-img src="https://image.tmdb.org/t/p/original/{{movie.backdrop_path}}" class="image"></ion-img>
+    <ion-img *ngIf="movie.backdrop_path" src="https://image.tmdb.org/t/p/original/{{movie.backdrop_path}}" onerror="this.src='assets/images/noImage.jpeg'" class="image"></ion-img>
     <p class="title">{{movie.title}}</p>
     <p class="subtitle">{{movie.tagline}}</p>
   </div>
@@ -24,6 +24,11 @@
           </div>
         </div>
         <p class="rating">Average User Rating</p>
+        <ion-list *ngIf="movieComments | async as comments">
+          <ion-item *ngFor="let comment of comments">
+            <ion-label>{{ comment.comment}}</ion-label>
+          </ion-item>
+        </ion-list>
       </div>
     </div>
     <div class="buttons" *ngIf="authenticated" >

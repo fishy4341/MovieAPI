@@ -7,7 +7,13 @@ import {RatingComponent} from "./rating/rating.component";
 import {AuthService} from "../../login/auth.service";
 import {Movie, Movie2} from "../../shared/movie";
 import {FirebaseService} from "../../user-list/firebase.service";
+<<<<<<< HEAD
 import {AngularFireAuth} from "@angular/fire/auth";
+import {CommentsService} from 'src/app/login/comments.service';
+
+=======
+import {CommentsService} from "../../login/comments.service";
+>>>>>>> 4e01793b8136da3357bceb4e2cd8e0c23272b51d
 
 @Component({
   selector: 'app-movie-details',
@@ -20,17 +26,25 @@ export class MovieDetailsPage implements OnInit {
     return this.selectedMovie.movieId;
   }
 
-  constructor(private movieApi: MovieAPIService, public sanitizer: DomSanitizer, private selectedMovie: SelectedMovieService, public modalController: ModalController, private auth: AuthService, private firebase: FirebaseService,
-              public afAuth: AngularFireAuth,) { }
+  constructor(private movieApi: MovieAPIService,
+              public sanitizer: DomSanitizer,
+              private selectedMovie: SelectedMovieService,
+              public modalController: ModalController,
+              private auth: AuthService,
+              private firebase: FirebaseService,
+              private commentsService: CommentsService,
+              public afAuth: AngularFireAuth
+  ) { }
 
   authenticated;
   id = this.movieId;
   movie;
   private url: string;
   video: SafeResourceUrl;
-  watched:boolean;
+  watched: boolean;
   watchList: boolean;
   user;
+  private movieComments;
 
   ngOnInit() {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
@@ -38,6 +52,7 @@ export class MovieDetailsPage implements OnInit {
       this.checkWatched();
     });
     this.authenticated = !!this.afAuth.auth.currentUser.uid;
+    this.movieComments = this.commentsService.getCommentsFor(this.id);
     // this.movieApi.getMovieVideo(this.id).subscribe(data => {
     //   this.url = `https://www.youtube.com/embed/?controls=0&showinfo=0&rel=0`;
     //   this.video = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
@@ -52,7 +67,7 @@ export class MovieDetailsPage implements OnInit {
 
   }
 
-  async presentModal(){
+  async presentModal() {
     const modal = await this.modalController.create({
       component: RatingComponent,
       componentProps: { value: this.movie}
@@ -60,7 +75,7 @@ export class MovieDetailsPage implements OnInit {
     await modal.present();
     const { data } = await modal.onDidDismiss();
     console.log(data);
-    let movieData: Movie2 = {
+    const movieData: Movie2 = {
       title: data.title,
       movieID: data.movieId,
       rating: data.rating,
@@ -72,7 +87,7 @@ export class MovieDetailsPage implements OnInit {
   }
 
   addToSee() {
-    let movieData: Movie2 = {
+    const movieData: Movie2 = {
       title: this.movie.title,
       movieID: this.movie.id,
       pic: this.movie.poster_path,

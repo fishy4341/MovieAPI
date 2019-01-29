@@ -9,6 +9,6 @@ export interface Movie2 {
     title: string;
     movieID: number;
     pic: string;
-    genres: [];
+    genres: any[];
     rating?: number;
 }
