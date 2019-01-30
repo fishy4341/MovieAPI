@@ -41,13 +41,14 @@ export class CommentsPage implements OnInit {
 
   getUserComment() {
     this.commentsService.getUserComment(this.id, this.afAuth.auth.currentUser.uid).subscribe(docSnapshot => {
-      // @ts-ignore
-      this.userComment = docSnapshot.comment;
+      if(docSnapshot){
+        // @ts-ignore
+        this.userComment = docSnapshot.comment;
+      }
     });
   }
 
   postComment(comment) {
-    console.log(comment.value);
     let commentData: Comment = {
       userID: this.afAuth.auth.currentUser.uid,
       comment: comment.value,
