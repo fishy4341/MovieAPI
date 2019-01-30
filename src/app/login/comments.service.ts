@@ -20,7 +20,7 @@ export class CommentsService {
           pic: movie.poster_path,
           genres: movie.genres,
       };
-    this.getMovieData(movie.movieID).subscribe(movieData =>{
+    this.getMovieData(dbMovieData.movieID).subscribe(movieData =>{
         if(!movieData){
             this.db.collection(`allComments`).doc(`${dbMovieData.movieID}`).set(dbMovieData).then(ignoreVar => {
                 this.db.collection(`allComments/${dbMovieData.movieID}/comments`).doc(`${comment.userID}`).set(comment);
