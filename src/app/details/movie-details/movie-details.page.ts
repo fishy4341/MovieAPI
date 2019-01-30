@@ -40,6 +40,7 @@ export class MovieDetailsPage implements OnInit {
   watched: boolean;
   watchList: boolean;
   user;
+  private currentUserRating: number;
   private movieComments;
 
   ngOnInit() {
