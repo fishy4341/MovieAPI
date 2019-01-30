@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from "../../API/movie-api.service";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
-import {SelectedMovieService} from "../../API/selected-movie.service";
-import {ModalController} from "@ionic/angular";
-import {RatingComponent} from "./rating/rating.component";
-import {AuthService} from "../../login/auth.service";
-import {Movie, Movie2} from "../../shared/movie";
-import {FirebaseService} from "../../user-list/firebase.service";
-import {AngularFireAuth} from "@angular/fire/auth";
-import {CommentsService} from "../../login/comments.service";
+import {MovieAPIService} from '../../API/movie-api.service';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {SelectedMovieService} from '../../API/selected-movie.service';
+import {ModalController} from '@ionic/angular';
+import {RatingComponent} from './rating/rating.component';
+import {AuthService} from '../../login/auth.service';
+import {Movie} from '../../shared/movie';
+import {FirebaseService} from '../../user-list/firebase.service';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {CommentsService} from 'src/app/login/comments.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -49,23 +49,10 @@ export class MovieDetailsPage implements OnInit {
         this.checkWatched();
       }
     });
-    // console.log(this.afAuth.auth.currentUser);
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
         this.movieComments = this.commentsService.getCommentsFor(this.id);
     }
-    // this.movieApi.getMovieVideo(this.id).subscribe(data => {
-    //   this.url = `https://www.youtube.com/embed/?controls=0&showinfo=0&rel=0`;
-    //   this.video = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
-    // });
-    // this.auth.isAuthenticated().subscribe( x => this.authenticated = x);
-    // this.auth.refreshUserInfo().subscribe(data => {
-    //   // @ts-ignore
-    //   this.auth.updateUserMovieList(data.mlHasSeen, data.mlNotSeen);
-    //   this.user = this.auth.getUserInfo();
-    //   this.checkWatched();
-    // });
-
   }
 
   async presentModal() {
@@ -75,9 +62,8 @@ export class MovieDetailsPage implements OnInit {
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();
-    console.log(data);
     if (data) {
-      const movieData: Movie2 = {
+      const movieData: Movie = {
         title: data.title,
         movieID: data.movieId,
         rating: data.rating,
@@ -93,7 +79,7 @@ export class MovieDetailsPage implements OnInit {
   }
 
   addToSee() {
-    const movieData: Movie2 = {
+    const movieData: Movie = {
       title: this.movie.title,
       movieID: this.movie.id,
       pic: this.movie.poster_path,
@@ -108,21 +94,13 @@ export class MovieDetailsPage implements OnInit {
           this.firebase.getHasSeenMovie(this.movie.id).subscribe(docSnapshot => {
               if (docSnapshot.exists) {
                   this.watched = true;
-                  console.log(this.watched);
               }
           });
           this.firebase.getToSeeMovie(this.movie.id).subscribe(docSnapshot => {
               if (docSnapshot.exists) {
                   this.watchList = true;
-                  console.log(this.watchList);
               }
-          }); 
+          });
       }
     }
-    // for(let i=0; i < this.auth.getUserInfo().mlNotSeen.length; i++){
-    //   if(this.id == this.user.mlNotSeen[i].movieID){
-    //     this.watchList = true;
-    //   }
-    // }
-
 }
