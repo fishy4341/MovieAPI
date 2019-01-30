@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {CommentsService} from "../../login/comments.service";
-import {SelectedMovieService} from "../../API/selected-movie.service";
-import {MovieAPIService} from "../../API/movie-api.service";
-import {AngularFireAuth} from "@angular/fire/auth";
-import {Movie2} from "../../shared/movie";
+import {CommentsService} from '../../login/comments.service';
+import {SelectedMovieService} from '../../API/selected-movie.service';
+import {MovieAPIService} from '../../API/movie-api.service';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
   selector: 'app-comments',
@@ -46,7 +45,7 @@ export class CommentsPage implements OnInit {
       //   console.log(docSnapshot);
       // }
       // @ts-ignore
-      this.userComment = docSnapshot.comment
+      this.userComment = docSnapshot.comment;
     });
   }
 
@@ -58,7 +57,7 @@ export class CommentsPage implements OnInit {
     //   genres: this.movie.genres,
     // };
     console.log(comment.value);
-    let commentData = {
+    const commentData = {
       userID: this.afAuth.auth.currentUser.uid,
       comment: comment.value,
     };
