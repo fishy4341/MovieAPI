@@ -3,6 +3,7 @@ import {CommentsService} from '../../login/comments.service';
 import {SelectedMovieService} from '../../API/selected-movie.service';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {Comment} from '../../shared/comment';
 
 @Component({
   selector: 'app-comments',
@@ -46,7 +47,8 @@ export class CommentsPage implements OnInit {
   }
 
   postComment(comment) {
-    const commentData = {
+    console.log(comment.value);
+    let commentData: Comment = {
       userID: this.afAuth.auth.currentUser.uid,
       comment: comment.value,
     };
