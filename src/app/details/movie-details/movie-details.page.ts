@@ -48,10 +48,10 @@ export class MovieDetailsPage implements OnInit {
       this.movie = data;
       this.checkWatched();
     });
-    this.authenticated = !!this.afAuth.auth.currentUser.uid;
-    this.movieComments = this.commentsService.getCommentsFor(this.id);
-    if (this.auth.isAuthenticated()) {
-
+    // console.log(this.afAuth.auth.currentUser);
+    if (this.afAuth.auth.currentUser !== null) {
+        this.authenticated = !!this.afAuth.auth.currentUser.uid;
+        this.movieComments = this.commentsService.getCommentsFor(this.id);
     }
     // this.movieApi.getMovieVideo(this.id).subscribe(data => {
     //   this.url = `https://www.youtube.com/embed/?controls=0&showinfo=0&rel=0`;
@@ -100,19 +100,21 @@ export class MovieDetailsPage implements OnInit {
   }
 
   checkWatched() {
-  this.firebase.getHasSeenMovie(this.movie.id).subscribe(docSnapshot => {
-    if (docSnapshot.exists) {
-      this.watched = true;
-      console.log(this.watched);
+      if(this.afAuth.auth.currentUser !== null){
+          this.firebase.getHasSeenMovie(this.movie.id).subscribe(docSnapshot => {
+              if (docSnapshot.exists) {
+                  this.watched = true;
+                  console.log(this.watched);
+              }
+          });
+          this.firebase.getToSeeMovie(this.movie.id).subscribe(docSnapshot => {
+              if (docSnapshot.exists) {
+                  this.watchList = true;
+                  console.log(this.watchList);
+              }
+          }); 
+      }
     }
-  });
-  this.firebase.getToSeeMovie(this.movie.id).subscribe(docSnapshot => {
-    if (docSnapshot.exists) {
-      this.watchList = true;
-      console.log(this.watchList);
-    }
-  });
-}
     // for(let i=0; i < this.auth.getUserInfo().mlNotSeen.length; i++){
     //   if(this.id == this.user.mlNotSeen[i].movieID){
     //     this.watchList = true;
