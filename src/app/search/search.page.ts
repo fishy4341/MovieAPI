@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../API/movie-api.service';
 import {SelectedMovieService} from '../API/selected-movie.service';
-import {Router} from '@angular/router';
 import {LoadingController, NavController} from '@ionic/angular';
 import * as _ from 'lodash';
 
@@ -31,14 +30,12 @@ export class SearchPage implements OnInit {
     });
     this.movieService.getgenreIds().subscribe( list => {
       const gen = list['genres'];
-      console.log(gen);
       this.genres = _.mapKeys(gen, 'id' );
     });
 
   }
 
   Search(value) {
-    console.log(value);
     if (value === '') {
       console.log('empty!');
       this.searchResults = this.topRatedList;
@@ -51,17 +48,6 @@ export class SearchPage implements OnInit {
   }
 
   goToDetails(movieId) { // add async for loader
-    // const loading = await this.loader.create({
-    //   content: 'Loading',
-    //   animation: 'fade-in',
-    //   showBackdrop: true,
-    //   maxWidth: 300,
-    //   showDelay: 0
-    // });
-    // loading.present().then(_ => {
-    //   // this.router.navigate(['tournaments']);
-    // });
-    console.log(movieId);
     this.selectedMovie.movieId = movieId;
     this.navController.navigateForward('details');
   }

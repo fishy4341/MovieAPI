@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FirebaseService} from '../user-list/firebase.service';
-import {User} from '../shared/user';
 import {AuthService} from '../login/auth.service';
-import {timeInterval} from 'rxjs/operators';
-import {Movie, Movie2} from '../shared/movie';
-import {AngularFireDatabase} from '@angular/fire/database';
+import {Movie} from '../shared/movie';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Observable} from 'rxjs';
@@ -18,7 +15,7 @@ import {Comment} from '../shared/comment';
 })
 export class TestPage implements OnInit {
 
-  private testMovie: Movie2 = {
+  private testMovie: Movie = {
     title: 'Your Name',
     movieID: 372058,
     rating: 10,
@@ -35,7 +32,7 @@ export class TestPage implements OnInit {
   };
   private commentsForTest;
 
-  movies$: Observable<Movie2>;
+  movies$: Observable<Movie>;
 
   constructor(private firebase: FirebaseService,
               private authServ: AuthService,
@@ -44,7 +41,6 @@ export class TestPage implements OnInit {
               private commentService: CommentsService) { }
 
   ngOnInit() {
-    // this.movies$ = this.firebase.getHasSeen();
     this.commentsForTest = this.commentService.getCommentsFor(this.testMovie.movieID);
   }
 
