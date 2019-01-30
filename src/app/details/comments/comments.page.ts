@@ -3,7 +3,7 @@ import {CommentsService} from "../../login/comments.service";
 import {SelectedMovieService} from "../../API/selected-movie.service";
 import {MovieAPIService} from "../../API/movie-api.service";
 import {AngularFireAuth} from "@angular/fire/auth";
-
+import {Comment} from '../../shared/comment';
 
 @Component({
   selector: 'app-comments',
@@ -41,24 +41,14 @@ export class CommentsPage implements OnInit {
 
   getUserComment() {
     this.commentsService.getUserComment(this.id, this.afAuth.auth.currentUser.uid).subscribe(docSnapshot => {
-      // if (docSnapshot.exists) {
-      //   // this.userComment = docSnapshot.comment;
-      //   console.log(docSnapshot);
-      // }
       // @ts-ignore
       this.userComment = docSnapshot.comment
     });
   }
 
   postComment(comment) {
-    // let movieData: Movie2 = {
-    //   title: this.movie.title,
-    //   movieID: this.movie.id,
-    //   pic: this.movie.poster_path,
-    //   genres: this.movie.genres,
-    // };
     console.log(comment.value);
-    let commentData = {
+    let commentData: Comment = {
       userID: this.afAuth.auth.currentUser.uid,
       comment: comment.value,
     };
