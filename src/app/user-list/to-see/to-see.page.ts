@@ -71,6 +71,7 @@ export class ToSeePage implements OnInit {
   }
 
   removeItem(slidingItem: IonItemSliding, movieId) {
+    slidingItem.closeOpened();
     this.firebase.removeToSee(movieId).then(_ => {
       slidingItem.closeOpened();
     });

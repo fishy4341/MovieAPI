@@ -17,6 +17,7 @@ export class FirebaseService {
   ) { }
 
 
+
   addUser(user) {
    this.db.collection('users').doc(this.afAuth.auth.currentUser.uid).set(user);
   }
