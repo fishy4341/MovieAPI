@@ -34,6 +34,7 @@ export class ToSeePage implements OnInit {
     this.navController.navigateForward('details');
   }
   removeItem(slidingItem: IonItemSliding, movieId) {
+    slidingItem.closeOpened();
     this.firebase.removeToSee(movieId).then(_ => {
       slidingItem.closeOpened();
     });

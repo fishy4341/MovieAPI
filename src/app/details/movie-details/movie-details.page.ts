@@ -10,7 +10,6 @@ import {FirebaseService} from '../../user-list/firebase.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {CommentsService} from 'src/app/login/comments.service';
 
-
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.page.html',
@@ -46,7 +45,10 @@ export class MovieDetailsPage implements OnInit {
   ngOnInit() {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
-      this.checkWatched();
+      this.authenticated = !!this.afAuth.auth.currentUser.uid;
+      if(this.authenticated){
+        this.checkWatched();
+      }
     });
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;

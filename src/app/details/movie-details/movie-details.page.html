@@ -24,11 +24,6 @@
           </div>
         </div>
         <p class="rating">Average User Rating</p>
-        <ion-list *ngIf="movieComments | async as comments">
-          <ion-item *ngFor="let comment of comments">
-            <ion-label>{{ comment.comment}}</ion-label>
-          </ion-item>
-        </ion-list>
       </div>
     </div>
     <div class="buttons" *ngIf="authenticated" >
