@@ -14,29 +14,15 @@ export class CommentsService {
 
 
   addMovie(movie, comment: Comment): void {
-      let dbMovieData:Movie = {
+      const dbMovieData = {
           title: movie.title,
-          movieID: movie.id,
-          pic: movie.poster_path,
           genres: movie.genres,
+          movieID: movie.id,
+          pic: movie.poster_path
       };
-    this.getMovieData(dbMovieData.movieID).subscribe(movieData =>{
-        if(!movieData){
-            this.db.collection(`allComments`).doc(`${dbMovieData.movieID}`).set(dbMovieData).then(ignoreVar => {
-                this.db.collection(`allComments/${dbMovieData.movieID}/comments`).doc(`${comment.userID}`).set(comment);
-            });
-        }
-        else{
-            return this.db.collection(`allComments/${dbMovieData.movieID}/comments`).doc(comment.userID).valueChanges().subscribe(commentData =>{
-                if(commentData){
-                    this.db.collection(`allComments/${dbMovieData.movieID}/comments`).doc(comment.userID).update({'comment': comment.comment});
-                }
-                else{
-                    this.db.collection(`allComments/${dbMovieData.movieID}/comments`).doc(`${comment.userID}`).set(comment);
-                }
-            })
-        }
-    });
+      this.db.collection(`allComments`).doc(`${dbMovieData.movieID}`).set(dbMovieData).then(ignoreVar => {
+          this.db.collection(`allComments/${dbMovieData.movieID}/comments`).doc(`${comment.userID}`).set(comment);
+      });
   }
   updateMovie(movie: Movie) {
       this.db.collection(`allComments`).doc(`${movie.movieID}`).update(movie);
