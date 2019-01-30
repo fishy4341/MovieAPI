@@ -31,11 +31,9 @@ export class FirebaseService {
   getUserMovieRating(movieID: number): any{
     return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/hasSeen`).doc(`${movieID}`).valueChanges();
   }
-
   pushHasSeen(movie: Movie): any{
     this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/hasSeen`).doc(String(movie.movieID)).set(movie);
   }
-
   pushToSee(movie: Movie): any{
     this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).doc(String(movie.movieID)).set(movie);
   }

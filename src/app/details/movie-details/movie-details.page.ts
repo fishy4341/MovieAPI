@@ -45,7 +45,6 @@ export class MovieDetailsPage implements OnInit {
   ngOnInit() {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
-      this.authenticated = !!this.afAuth.auth.currentUser.uid;
       if(this.authenticated){
         this.checkWatched();
       }
