@@ -73,6 +73,9 @@ export class MovieDetailsPage implements OnInit {
         pic: data.pic,
         genres: data.genres,
       };
+      if (this.watchList) {
+          this.firebase.removeToSee(movieData.movieID);
+      }
       this.firebase.pushHasSeen(movieData);
       this.checkWatched();
     }

@@ -9,3 +9,11 @@
   margin-top: 10px;
   height: 250px;
 }
+.pad {
+  margin: 1.5em;
+}
+.space {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}

@@ -9,16 +9,20 @@
 <ion-content>
   <div *ngIf="movie">
     <div class="info">
-      <ion-img src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" class="image"></ion-img>
+      <ion-img [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/w500/' + movie.poster_path  : 'assets/images/noImage.jpeg'" class="image"></ion-img>
       <h3>{{movie.title}}</h3>
     </div>
 
-    <ion-label>Rating</ion-label>
-    <ion-range min="0" max="10" step="1" snaps="true" color="secondary" pin="true" [(ngModel)]="rating">
-      <ion-label slot="start">0</ion-label>
-      <ion-label slot="end">10</ion-label>
-    </ion-range>
-    <ion-button (click)="dismiss()">Submit</ion-button>
-    <ion-button (click)="exit()">Close Without Submitting</ion-button>
+    <div class="pad">
+      <ion-label>Rating</ion-label>
+      <ion-range min="0" max="10" step="1" snaps="true" color="secondary" pin="true" [(ngModel)]="rating">
+        <ion-label slot="start">0</ion-label>
+        <ion-label slot="end">10</ion-label>
+      </ion-range>
+      <div class="space">
+        <ion-button size="small" (click)="dismiss()">Submit</ion-button>
+        <ion-button size="small" color="secondary" (click)="exit()">Close Without Submitting</ion-button>
+      </div>
+    </div>
   </div>
 </ion-content>

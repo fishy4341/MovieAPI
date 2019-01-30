@@ -9,7 +9,7 @@
     <ion-item-sliding *ngFor="let movie of movies" #slidingItem>
       <ion-item class="hover" (click)="goToMovie(movie.movieID)">
         <ion-thumbnail slot="start">
-          <img src="https://image.tmdb.org/t/p/w500/{{movie.pic}}" onerror="this.src='assets/images/noImage.jpeg'" alt="">
+          <img [src]="movie.pic ? 'https://image.tmdb.org/t/p/w500/' + movie.pic  : 'assets/images/noImage.jpeg'" alt="">
         </ion-thumbnail>
         <div>
           <ion-label text-wrap class="title">{{ movie.title }}</ion-label>
