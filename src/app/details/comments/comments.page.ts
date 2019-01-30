@@ -40,23 +40,12 @@ export class CommentsPage implements OnInit {
 
   getUserComment() {
     this.commentsService.getUserComment(this.id, this.afAuth.auth.currentUser.uid).subscribe(docSnapshot => {
-      // if (docSnapshot.exists) {
-      //   // this.userComment = docSnapshot.comment;
-      //   console.log(docSnapshot);
-      // }
       // @ts-ignore
       this.userComment = docSnapshot.comment;
     });
   }
 
   postComment(comment) {
-    // let movieData: Movie2 = {
-    //   title: this.movie.title,
-    //   movieID: this.movie.id,
-    //   pic: this.movie.poster_path,
-    //   genres: this.movie.genres,
-    // };
-    console.log(comment.value);
     const commentData = {
       userID: this.afAuth.auth.currentUser.uid,
       comment: comment.value,
