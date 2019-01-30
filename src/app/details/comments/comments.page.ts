@@ -3,7 +3,7 @@ import {CommentsService} from "../../login/comments.service";
 import {SelectedMovieService} from "../../API/selected-movie.service";
 import {MovieAPIService} from "../../API/movie-api.service";
 import {AngularFireAuth} from "@angular/fire/auth";
-import {Movie2} from "../../shared/movie";
+
 
 @Component({
   selector: 'app-comments',
