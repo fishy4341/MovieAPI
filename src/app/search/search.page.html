@@ -17,7 +17,7 @@
 
     <ion-item class="hover" [routerDirection]="'forward'" (click)="goToDetails(movie.id)">
       <ion-thumbnail slot="start">
-        <img src="https://image.tmdb.org/t/p/w500/{{movie.backdrop_path}}" onerror="this.src='assets/images/noImage.jpeg'" alt="">
+        <img [src]="movie.backdrop_path ? 'https://image.tmdb.org/t/p/w500/' + movie.backdrop_path  : 'assets/images/noImage.jpeg'" alt="">
       </ion-thumbnail>
       <div>
         <ion-label text-wrap class="title">{{ movie.title }}</ion-label>
