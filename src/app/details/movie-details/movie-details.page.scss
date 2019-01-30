@@ -53,6 +53,16 @@
   font-size: 1.25em;
   font-weight: bold;
 }
+.userRating {
+  background-color: #0cd1e8;
+  color: white;
+  border-radius: 25px;
+  padding: 10px;
+}
+.userRating:hover {
+  @extend .userRating;
+  background-color: #3880ff;
+}
 
 
 //Circle progress bar

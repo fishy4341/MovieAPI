@@ -52,6 +52,9 @@ export class MovieDetailsPage implements OnInit {
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
         this.movieComments = this.commentsService.getCommentsFor(this.id);
+        this.firebase.getUserMovieRating(this.id).subscribe(userMovieData =>{
+          this.currentUserRating = userMovieData.rating;
+        });
     }
   }
 

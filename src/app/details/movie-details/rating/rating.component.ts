@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController, NavParams} from '@ionic/angular';
-import {Movie2} from '../../../shared/movie';
 
 @Component({
   selector: 'rating',
