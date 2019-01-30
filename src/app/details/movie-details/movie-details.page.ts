@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from '../../API/movie-api.service';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {SelectedMovieService} from '../../API/selected-movie.service';
-import {ModalController} from '@ionic/angular';
-import {RatingComponent} from './rating/rating.component';
-import {AuthService} from '../../login/auth.service';
-import {Movie, Movie2} from '../../shared/movie';
-import {FirebaseService} from '../../user-list/firebase.service';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {CommentsService} from 'src/app/login/comments.service';
-
+import {MovieAPIService} from "../../API/movie-api.service";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {SelectedMovieService} from "../../API/selected-movie.service";
+import {ModalController} from "@ionic/angular";
+import {RatingComponent} from "./rating/rating.component";
+import {AuthService} from "../../login/auth.service";
+import {Movie, Movie2} from "../../shared/movie";
+import {FirebaseService} from "../../user-list/firebase.service";
+import {AngularFireAuth} from "@angular/fire/auth";
+import {CommentsService} from "../../login/comments.service";
 
 @Component({
   selector: 'app-movie-details',
@@ -46,7 +45,10 @@ export class MovieDetailsPage implements OnInit {
   ngOnInit() {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
-      this.checkWatched();
+      this.authenticated = !!this.afAuth.auth.currentUser.uid;
+      if(this.authenticated){
+        this.checkWatched();
+      }
     });
     // console.log(this.afAuth.auth.currentUser);
     if (this.afAuth.auth.currentUser !== null) {

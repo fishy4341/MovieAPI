@@ -4,6 +4,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <div class="scrollable">
+    <ion-list *ngIf="movieComments | async as comments">
+      <ion-item *ngFor="let comment of comments">
+        <ion-label>{{ comment.comment}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div class="inputDiv">
+    <ion-input placeholder="Enter Comment Here..." [ngModel]="userComment" #input></ion-input>
+    <ion-button color="primary" (click)="postComment(input)">Comment</ion-button>
+  </div>
 
 </ion-content>

@@ -53,11 +53,15 @@ export class CommentsService {
       return this.db.collection(`allComments`).doc(`${movieID}`).valueChanges();
   }
 
+  getUserComment(movieID: number, userID: string) {
+      return this.db.collection(`allComments/${movieID}/comments`).doc(userID).valueChanges();
+  }
+
   updateAComment(movieID: number, comment: Comment): void {
     this.db.collection(`allComments/${movieID}/comments`).doc(comment.userID).update({'comment': comment.comment});
   }
   deleteCommment(movieID: number, userID: string): void {
-      this.db.collection(`allComments/${movieID}`).doc(userID).delete();
+      this.db.collection(`allComments/${movieID}/comments`).doc(userID).delete();
   }
 
   // getDocRef(movieID: number){
