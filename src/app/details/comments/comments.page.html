@@ -8,7 +8,7 @@
   <div class="scrollable">
     <ion-list *ngIf="movieComments | async as comments">
       <ion-item *ngFor="let comment of comments">
-        <ion-label>{{ comment.comment}}</ion-label>
+        <ion-label text-wrap>{{ comment.comment}}</ion-label>
       </ion-item>
     </ion-list>
   </div>
