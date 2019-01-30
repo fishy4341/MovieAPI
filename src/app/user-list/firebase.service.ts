@@ -121,6 +121,9 @@ export class FirebaseService {
     getUserData() {
       return this.db.collection(`users`).doc(this.afAuth.auth.currentUser.uid).valueChanges();
     }
+    getUserMovieRating(movieID: number){
+      return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/hasSeen`).doc(`${movieID}`).valueChanges();
+    }
 
     pushHasSeen(movie: Movie2) {
       this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/hasSeen`).doc(String(movie.movieID)).set(movie);

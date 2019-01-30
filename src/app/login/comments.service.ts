@@ -17,16 +17,23 @@ export class CommentsService {
   ) { }
 
 
-  addMovie(movie, comment: Comment): void{
-    let dbMovieData:Movie2 = {
-        title: movie.title,
-        genres: movie.genres,
-        movieID: movie.id,
-        pic: movie.poster_path
-    };
-
-    this.db.collection(`allComments`).doc(`${dbMovieData.movieID}`).set(dbMovieData).then(ignoreVar =>{
-        this.db.collection(`allComments/${dbMovieData.movieID}/comments`).doc(`${comment.userID}`).set(comment);
+  addMovie(movie: Movie2, comment: Comment): void {
+    this.getMovieData(movie.movieID).subscribe(movieData =>{
+        if(!movieData){
+            this.db.collection(`allComments`).doc(`${movie.movieID}`).set(movie).then(ignoreVar => {
+                this.db.collection(`allComments/${movie.movieID}/comments`).doc(`${comment.userID}`).set(comment);
+            });
+        }
+        else{
+            return this.db.collection(`allComments/${movie.movieID}/comments`).doc(comment.userID).valueChanges().subscribe(commentData =>{
+                if(commentData){
+                    this.db.collection(`allComments/${movie.movieID}/comments`).doc(comment.userID).update({'comment': comment.comment});
+                }
+                else{
+                    this.db.collection(`allComments/${movie.movieID}/comments`).doc(`${comment.userID}`).set(comment);
+                }
+            })
+        }
     });
   }
 
@@ -41,6 +48,9 @@ export class CommentsService {
 
   getCommentsFor(movieID: number) {
       return this.db.collection(`allComments/${movieID}/comments`).valueChanges();
+  }
+  getMovieData(movieID: number){
+      return this.db.collection(`allComments`).doc(`${movieID}`).valueChanges();
   }
 
   getUserComment(movieID: number, userID: string) {
