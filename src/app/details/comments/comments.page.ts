@@ -21,6 +21,7 @@ export class CommentsPage implements OnInit {
   id;
   movie;
   authenticated;
+  userComment;
 
   get movieId(): number {
     return this.selectedMovie.movieId;
@@ -32,9 +33,21 @@ export class CommentsPage implements OnInit {
       this.movie = data;
       this.authenticated = !!this.afAuth.auth.currentUser.uid;
       this.movieComments = this.commentsService.getCommentsFor(this.id);
+      this.getUserComment();
     });
 
 
+  }
+
+  getUserComment() {
+    this.commentsService.getUserComment(this.id, this.afAuth.auth.currentUser.uid).subscribe(docSnapshot => {
+      // if (docSnapshot.exists) {
+      //   // this.userComment = docSnapshot.comment;
+      //   console.log(docSnapshot);
+      // }
+      // @ts-ignore
+      this.userComment = docSnapshot.comment
+    });
   }
 
   postComment(comment) {

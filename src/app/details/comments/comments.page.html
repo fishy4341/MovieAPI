@@ -13,7 +13,7 @@
     </ion-list>
   </div>
   <div class="inputDiv">
-    <ion-input placeholder="Enter Comment Here..." #input></ion-input>
+    <ion-input placeholder="Enter Comment Here..." [ngModel]="userComment" #input></ion-input>
     <ion-button color="primary" (click)="postComment(input)">Comment</ion-button>
   </div>
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalController, NavParams} from "@ionic/angular";
-import {Movie2} from "../../../shared/movie";
+import {ModalController, NavParams} from '@ionic/angular';
+import {Movie2} from '../../../shared/movie';
 
 @Component({
   selector: 'rating',
@@ -27,6 +27,9 @@ export class RatingComponent implements OnInit {
       'pic': this.movie.poster_path,
       'genres': this.movie.genres
     });
+  }
+  exit() {
+    this.modalController.dismiss();
   }
 
 }

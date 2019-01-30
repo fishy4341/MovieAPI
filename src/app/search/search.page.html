@@ -15,7 +15,7 @@
   <ion-list  *ngFor="let movie of searchResults">
 
 
-    <ion-item  [routerDirection]="'forward'" (click)="goToDetails(movie.id)">
+    <ion-item class="hover" [routerDirection]="'forward'" (click)="goToDetails(movie.id)">
       <ion-thumbnail slot="start">
         <img src="https://image.tmdb.org/t/p/w500/{{movie.backdrop_path}}" onerror="this.src='assets/images/noImage.jpeg'" alt="">
       </ion-thumbnail>

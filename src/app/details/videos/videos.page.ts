@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from "../../API/movie-api.service";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
-import {SelectedMovieService} from "../../API/selected-movie.service";
+import {MovieAPIService} from '../../API/movie-api.service';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {SelectedMovieService} from '../../API/selected-movie.service';
 
 @Component({
   selector: 'app-videos',
@@ -27,7 +27,7 @@ export class VideosPage implements OnInit {
   }
 
   cleanUrl(url) {
-    let newUrl = `https://www.youtube.com/embed/${url}?showinfo=0&rel=0`;
+    const newUrl = `https://www.youtube.com/embed/${url}?showinfo=0&rel=0`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(newUrl);
   }
 

@@ -28,7 +28,7 @@ export class MovieDetailsPage implements OnInit {
               private auth: AuthService,
               private firebase: FirebaseService,
               private commentsService: CommentsService,
-              public afAuth: AngularFireAuth
+              private afAuth: AngularFireAuth
   ) { }
 
   authenticated;
@@ -49,7 +49,6 @@ export class MovieDetailsPage implements OnInit {
         this.checkWatched();
       }
     });
-
     // this.movieApi.getMovieVideo(this.id).subscribe(data => {
     //   this.url = `https://www.youtube.com/embed/?controls=0&showinfo=0&rel=0`;
     //   this.video = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
@@ -72,15 +71,17 @@ export class MovieDetailsPage implements OnInit {
     await modal.present();
     const { data } = await modal.onDidDismiss();
     console.log(data);
-    const movieData: Movie2 = {
-      title: data.title,
-      movieID: data.movieId,
-      rating: data.rating,
-      pic: data.pic,
-      genres: data.genres,
-    };
-    this.firebase.pushHasSeen(movieData);
-    this.checkWatched();
+    if (data) {
+      const movieData: Movie2 = {
+        title: data.title,
+        movieID: data.movieId,
+        rating: data.rating,
+        pic: data.pic,
+        genres: data.genres,
+      };
+      this.firebase.pushHasSeen(movieData);
+      this.checkWatched();
+    }
   }
 
   addToSee() {
@@ -95,23 +96,23 @@ export class MovieDetailsPage implements OnInit {
   }
 
   checkWatched() {
-    this.firebase.getHasSeenMovie(this.movie.id).subscribe(docSnapshot => {
-      if (docSnapshot.exists){
-        this.watched = true;
-        console.log(this.watched);
-      }
-    });
-    this.firebase.getToSeeMovie(this.movie.id).subscribe(docSnapshot => {
-      if (docSnapshot.exists){
-        this.watchList = true;
-        console.log(this.watchList);
-      }
-    });
+  this.firebase.getHasSeenMovie(this.movie.id).subscribe(docSnapshot => {
+    if (docSnapshot.exists) {
+      this.watched = true;
+      console.log(this.watched);
+    }
+  });
+  this.firebase.getToSeeMovie(this.movie.id).subscribe(docSnapshot => {
+    if (docSnapshot.exists) {
+      this.watchList = true;
+      console.log(this.watchList);
+    }
+  });
+}
     // for(let i=0; i < this.auth.getUserInfo().mlNotSeen.length; i++){
     //   if(this.id == this.user.mlNotSeen[i].movieID){
     //     this.watchList = true;
     //   }
     // }
-  }
 
 }
