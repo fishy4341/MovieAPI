@@ -30,7 +30,7 @@ export class CommentsService {
   getCommentsFor(movieID: number) {
       return this.db.collection(`allComments/${movieID}/comments`).valueChanges();
   }
-  getMovieData(movieID: number){
+  getMovieData(movieID: number) {
       return this.db.collection(`allComments`).doc(`${movieID}`).valueChanges();
   }
   getUserComment(movieID: number, userID: string) {
