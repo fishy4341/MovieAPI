@@ -12,9 +12,9 @@
       </ion-item>
     </ion-list>
   </div>
-  <div class="inputDiv">
+  <div *ngIf="authenticated" class="inputDiv">
     <ion-textarea placeholder="Enter Comment Here..." [ngModel]="userComment" #input></ion-textarea>
-    <ion-button color="primary" (click)="postComment(input)">Comment</ion-button>
+    <ion-button color="primary" (click)="postComment(input)">Post</ion-button>
   </div>
 
 </ion-content>
