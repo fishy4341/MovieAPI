@@ -63,6 +63,10 @@
   @extend .userRating;
   background-color: #3880ff;
 }
+.tooLong{
+  color: #3880ff;
+  text-decoration: underline;
+}
 
 
 //Circle progress bar

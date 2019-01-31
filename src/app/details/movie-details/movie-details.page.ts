@@ -38,10 +38,14 @@ export class MovieDetailsPage implements OnInit {
   user;
   private currentUserRating: number;
   private movieComments;
+  private showRating: boolean = false;
+  private displayOverview;
+  private isTooLong: boolean = false;
 
   ngOnInit() {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
+      this.checkOverviewLength();
       if(this.authenticated){
         this.checkWatched();
       }
@@ -50,7 +54,10 @@ export class MovieDetailsPage implements OnInit {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
         this.movieComments = this.commentsService.getCommentsFor(this.id);
         this.firebase.getUserMovieRating(this.id).subscribe(userMovieData =>{
-          this.currentUserRating = userMovieData.rating;
+          if(userMovieData){
+            this.showRating = true;
+            this.currentUserRating = userMovieData.rating;
+          }
         });
     }
   }
@@ -102,5 +109,21 @@ export class MovieDetailsPage implements OnInit {
               }
           });
       }
-    }
+  }
+
+  checkOverviewLength(): void{
+      if(this.movie){
+          if(this.movie.overview.length > 200){
+              this.displayOverview =  this.movie.overview.slice(0,199);
+              this.isTooLong = true;
+          }
+          else{
+              this.displayOverview = this.movie.overview;
+          }
+      }
+  }
+  showAllDetails(): void{
+      this.displayOverview = this.movie.overview;
+      this.isTooLong = false;
+  }
 }
