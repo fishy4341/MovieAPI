@@ -14,12 +14,14 @@ const routes: Routes = [
   { path: 'search',
     loadChildren: './search/search.module#SearchPageModule'
   },
-  { path: 'details',
+  { path: 'details/:id',
     loadChildren: './details/details.module#DetailsPageModule',
+    // children : [
+    //   { path: 'movie-details', loadChildren: './details/movie-details/movie-details.module#MovieDetailsPageModule' },
+    //   { path: 'videos', loadChildren: './details/videos/videos.module#VideosPageModule' },
+    //   { path: 'comments', loadChildren: './details/comments/comments.module#CommentsPageModule' },
+    // ]
   },
-  { path: 'movie-details', loadChildren: './details/movie-details/movie-details.module#MovieDetailsPageModule' },
-  { path: 'videos', loadChildren: './details/videos/videos.module#VideosPageModule' },
-  { path: 'comments', loadChildren: './details/comments/comments.module#CommentsPageModule' },
   { path: 'user-list',
     loadChildren: './user-list/user-list.module#UserListPageModule',
     canActivate: [AuthGuardGuard]
@@ -42,7 +44,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    paramsInheritanceStrategy: 'always',
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

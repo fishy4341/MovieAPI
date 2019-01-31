@@ -4,6 +4,7 @@ import {SelectedMovieService} from '../../API/selected-movie.service';
 import {IonItemSliding, NavController} from '@ionic/angular';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {FirebaseService} from '../firebase.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-seen',
@@ -18,6 +19,7 @@ export class SeenPage implements OnInit {
       private navController: NavController,
       private movieService: MovieAPIService,
       private firebase: FirebaseService,
+      private router: Router,
   ) {
 
 
@@ -30,9 +32,10 @@ export class SeenPage implements OnInit {
 
 
   goToMovie(movieID: number) {
-    console.log(movieID);
-    this.selectedMovie.movieId = movieID;
-    this.navController.navigateForward('details');
+    // console.log(movieID);
+    // this.selectedMovie.movieId = movieID;
+    // this.navController.navigateForward('details');
+    this.router.navigate(['details', movieID]);
   }
   removeItem(slidingItem: IonItemSliding, movieId) {
     slidingItem.closeOpened();

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {SelectedMovieService} from '../../API/selected-movie.service';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-videos',
@@ -10,13 +11,10 @@ import {SelectedMovieService} from '../../API/selected-movie.service';
 })
 export class VideosPage implements OnInit {
 
-  get movieId(): number {
-    return this.selectedMovie.movieId;
-  }
+  constructor(private movieApi: MovieAPIService, public sanitizer: DomSanitizer,
+              private route: ActivatedRoute) { }
 
-  constructor(private movieApi: MovieAPIService, public sanitizer: DomSanitizer, private selectedMovie: SelectedMovieService) { }
-
-  id = this.movieId;
+  id = Number(this.route.parent.snapshot.paramMap.get('id'));
   movie$;
   private url: string;
   video$;

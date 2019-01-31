@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../API/movie-api.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {SelectedMovieService} from '../API/selected-movie.service';
+import {NavParams} from "@ionic/angular";
 
 @Component({
   selector: 'app-details',
@@ -11,10 +12,10 @@ import {SelectedMovieService} from '../API/selected-movie.service';
 })
 export class DetailsPage implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-
+    this.router.navigate(['details', this.route.snapshot.paramMap.get('id'), 'movie-details']);
 
   }
 

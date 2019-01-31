@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../API/movie-api.service';
 import {SelectedMovieService} from '../API/selected-movie.service';
-import {LoadingController, NavController} from '@ionic/angular';
+import {LoadingController} from '@ionic/angular';
 import * as _ from 'lodash';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-search',
@@ -14,7 +15,7 @@ export class SearchPage implements OnInit {
   constructor(
     private movieService: MovieAPIService,
     private selectedMovie: SelectedMovieService,
-    private navController: NavController,
+    private router: Router,
     private loader: LoadingController) { }
 
   topRatedList;
@@ -49,7 +50,7 @@ export class SearchPage implements OnInit {
 
   goToDetails(movieId) { // add async for loader
     this.selectedMovie.movieId = movieId;
-    this.navController.navigateForward('details');
+    this.router.navigate(['details', movieId]);
   }
 
 
