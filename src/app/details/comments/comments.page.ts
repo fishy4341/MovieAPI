@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {CommentsService} from "../../login/comments.service";
-import {SelectedMovieService} from "../../API/selected-movie.service";
-import {MovieAPIService} from "../../API/movie-api.service";
-import {AngularFireAuth} from "@angular/fire/auth";
+import {CommentsService} from '../../login/comments.service';
+import {SelectedMovieService} from '../../API/selected-movie.service';
+import {MovieAPIService} from '../../API/movie-api.service';
+import {AngularFireAuth} from '@angular/fire/auth';
 import {Comment} from '../../shared/comment';
 
 @Component({
@@ -29,27 +29,33 @@ export class CommentsPage implements OnInit {
 
   ngOnInit() {
     this.id = this.movieId;
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.authenticated = true;
+      } else {
+        this.authenticated = false;
+      }
+    this.getUserComment();
+    } );
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
-      this.authenticated = !!this.afAuth.auth.currentUser.uid;
-      this.movieComments = this.commentsService.getCommentsFor(this.id);
-      this.getUserComment();
     });
-
-
+    this.movieComments = this.commentsService.getCommentsFor(this.id);
   }
 
   getUserComment() {
+    if (this.authenticated) {
     this.commentsService.getUserComment(this.id, this.afAuth.auth.currentUser.uid).subscribe(docSnapshot => {
-      if(docSnapshot){
+      if (docSnapshot) {
         // @ts-ignore
         this.userComment = docSnapshot.comment;
       }
     });
+    }
   }
 
   postComment(comment) {
-    let commentData: Comment = {
+    const commentData: Comment = {
       userID: this.afAuth.auth.currentUser.uid,
       comment: comment.value,
     };
