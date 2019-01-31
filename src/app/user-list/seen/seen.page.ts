@@ -30,7 +30,6 @@ export class SeenPage implements OnInit {
 
 
   goToMovie(movieID: number) {
-    console.log(movieID);
     this.selectedMovie.movieId = movieID;
     this.navController.navigateForward('details');
   }
