@@ -12,7 +12,12 @@
     <p class="subtitle">{{movie.tagline}}</p>
   </div>
   <div padding class="main-content">
-    <p class="about"><span class="heading">About:</span><br> {{movie.overview}}</p>
+    <p class="about">
+      <span class="heading">About:</span>
+      <br>
+      {{displayOverview}}
+      <span *ngIf="isTooLong" class="tooLong" (click)="showAllDetails()">See More . . .</span>
+    </p>
     <div class="info">
       <div>
         <p><span>Runtime: {{movie.runtime}} min.</span></p>
