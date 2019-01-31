@@ -13,8 +13,8 @@
     </ion-list>
   </div>
   <div *ngIf="authenticated" class="inputDiv">
-    <ion-textarea placeholder="Enter Comment Here..." [ngModel]="userComment" #input></ion-textarea>
-    <ion-button color="primary" (click)="postComment(input)">Post</ion-button>
+    <ion-textarea maxlength=300 placeholder="Enter Comment Here..." [ngModel]="userComment" #input></ion-textarea>
+    <ion-button slot="end" color="primary" (click)="postComment(input)">Post</ion-button>
   </div>
 
 </ion-content>
