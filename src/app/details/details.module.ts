@@ -39,11 +39,11 @@ const routes: Routes = [
           }
         ]
       },
-      {
-        path: '',
-        redirectTo: '/details/movie-details',
-        pathMatch: 'full'
-      }
+      // {
+      //   path: '',
+      //   redirectTo: '/details/movie-details',
+      //   pathMatch: 'full'
+      // }
     ]
   }
 ];

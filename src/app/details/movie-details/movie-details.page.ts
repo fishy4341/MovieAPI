@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {SelectedMovieService} from '../../API/selected-movie.service';
 import {ModalController} from '@ionic/angular';
 import {RatingComponent} from './rating/rating.component';
 import {AuthService} from '../../login/auth.service';
@@ -9,6 +8,7 @@ import {Movie} from '../../shared/movie';
 import {FirebaseService} from '../../user-list/firebase.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {CommentsService} from 'src/app/login/comments.service';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-movie-details',
@@ -17,22 +17,19 @@ import {CommentsService} from 'src/app/login/comments.service';
 })
 export class MovieDetailsPage implements OnInit {
 
-  get movieId(): number {
-    return this.selectedMovie.movieId;
-  }
 
   constructor(private movieApi: MovieAPIService,
               public sanitizer: DomSanitizer,
-              private selectedMovie: SelectedMovieService,
               public modalController: ModalController,
               private auth: AuthService,
               private firebase: FirebaseService,
               private commentsService: CommentsService,
-              private afAuth: AngularFireAuth
+              private afAuth: AngularFireAuth,
+              private route: ActivatedRoute,
   ) { }
 
   authenticated;
-  id = this.movieId;
+  id = Number(this.route.parent.snapshot.paramMap.get('id'));
   movie;
   private url: string;
   video: SafeResourceUrl;
