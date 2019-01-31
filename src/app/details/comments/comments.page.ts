@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
+import {CommentsService} from "../../login/comments.service";
+// import {SelectedMovieService} from "../../API/selected-movie.service";
+import {MovieAPIService} from "../../API/movie-api.service";
+import {AngularFireAuth} from "@angular/fire/auth";
+=======
 import {CommentsService} from '../../login/comments.service';
 import {SelectedMovieService} from '../../API/selected-movie.service';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {AngularFireAuth} from '@angular/fire/auth';
+>>>>>>> df2850556c5078a81699b5a82f9398982f2e169c
 import {Comment} from '../../shared/comment';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-comments',
@@ -13,9 +21,9 @@ import {Comment} from '../../shared/comment';
 export class CommentsPage implements OnInit {
 
   constructor(private commentsService: CommentsService,
-              private selectedMovie: SelectedMovieService,
               private movieApi: MovieAPIService,
-              private afAuth: AngularFireAuth) { }
+              private afAuth: AngularFireAuth,
+              private route: ActivatedRoute) { }
 
   movieComments;
   id;
@@ -23,12 +31,9 @@ export class CommentsPage implements OnInit {
   authenticated;
   userComment;
 
-  get movieId(): number {
-    return this.selectedMovie.movieId;
-  }
 
   ngOnInit() {
-    this.id = this.movieId;
+    this.id = Number(this.route.parent.snapshot.paramMap.get('id'));
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.authenticated = true;
