@@ -36,8 +36,8 @@ export class CommentsService {
   getUserComment(movieID: number, userID: string) {
       return this.db.collection(`allComments/${movieID}/comments`).doc(userID).valueChanges();
   }
-  updateAComment(movieID: number, comment: Comment): void {
-    this.db.collection(`allComments/${movieID}/comments`).doc(comment.userID).update({'comment': comment.comment});
+  updateCommentRating(movieID: number, userID: string, rating: number): void {
+    this.db.collection(`allComments/${movieID}/comments`).doc(userID).update({'rating': rating});
   }
   deleteCommment(movieID: number, userID: string): void {
       this.db.collection(`allComments/${movieID}/comments`).doc(userID).delete();
