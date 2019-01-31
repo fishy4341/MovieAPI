@@ -41,6 +41,7 @@ export class MovieDetailsPage implements OnInit {
   user;
   private currentUserRating: number;
   private movieComments;
+  private showRating: boolean = false;
 
   ngOnInit() {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
@@ -53,7 +54,10 @@ export class MovieDetailsPage implements OnInit {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
         this.movieComments = this.commentsService.getCommentsFor(this.id);
         this.firebase.getUserMovieRating(this.id).subscribe(userMovieData =>{
-          this.currentUserRating = userMovieData.rating;
+          if(userMovieData){
+            this.showRating = true;
+            this.currentUserRating = userMovieData.rating;
+          }
         });
     }
   }
