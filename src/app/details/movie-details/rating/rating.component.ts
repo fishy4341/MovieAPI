@@ -19,6 +19,9 @@ export class RatingComponent implements OnInit {
   }
 
   dismiss() {
+    if(!this.rating){
+      this.rating = 0;
+    }
     this.modalController.dismiss({
       'rating': this.rating,
       'title': this.movie.title,
