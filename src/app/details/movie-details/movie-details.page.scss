@@ -67,6 +67,10 @@
   color: #3880ff;
   text-decoration: underline;
 }
+.tooLong:hover{
+  @extend .tooLong;
+  color: #0cd1e8;
+}
 
 
 //Circle progress bar

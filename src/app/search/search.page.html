@@ -7,7 +7,7 @@
     <ion-title>Movie List</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar placeholder="Search Movies" [(ngModel)]="search" (ionInput)="Search($event.detail.currentTarget.value)"></ion-searchbar>
+    <ion-searchbar placeholder="Search Movies" [(ngModel)]="search" (ionInput)="Search(nameItSomething)" #nameItSomething></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
