@@ -57,14 +57,13 @@ export class CommentsPage implements OnInit {
 
   postComment(comment) {
     const commentData: Comment = {
-      userID: this.afAuth.auth.currentUser.uid,
       comment: comment.value
     };
     this.firebase.getUserMovieRating(this.movie.id).subscribe(movieDoc =>{
       if(commentData.rating){
         commentData.rating = movieDoc.rating;
       }
-      this.commentsService.addMovie(this.movie, commentData);
+      this.commentsService.addMovie(this.movie, commentData, this.afAuth.auth.currentUser.uid);
     });
   }
   deleteComment(){
