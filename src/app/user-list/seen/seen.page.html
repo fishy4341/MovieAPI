@@ -2,11 +2,14 @@
   <ion-toolbar>
     <ion-title>Movies I've Seen</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Search My List" [(ngModel)]="filterText"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <ion-list *ngIf="movies$ | async as movies">
-    <ion-item-sliding *ngFor="let movie of movies" #slidingItem>
+    <ion-item-sliding *ngFor="let movie of movies | filter : filterText" #slidingItem>
       <ion-item class="hover" (click)="goToMovie(movie.movieID)">
         <ion-thumbnail slot="start" >
           <img [src]="movie.pic ? 'https://image.tmdb.org/t/p/w500/' + movie.pic  : 'assets/images/noImage.jpeg'" alt="">

@@ -59,7 +59,7 @@ export class CommentsPage implements OnInit {
     const commentData: Comment = {
       comment: comment.value
     };
-    this.firebase.getUserMovieRating(this.movie.id).subscribe(movieDoc =>{
+    this.firebase.getUserMovieRating(this.movie.id).subscribe(movieDoc => {
       if (commentData.rating) {
         commentData.rating = movieDoc.rating;
       }
