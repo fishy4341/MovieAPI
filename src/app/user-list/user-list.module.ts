@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { UserListPage } from './user-list.page';
+import { RecommendComponent } from './recommend/recommend.component';
 
 
 const routes: Routes = [
@@ -41,12 +42,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [RecommendComponent],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [UserListPage,]
+  declarations: [UserListPage, RecommendComponent,]
 })
 export class UserListPageModule {}

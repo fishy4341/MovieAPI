@@ -38,7 +38,8 @@ const routes: Routes = [
   },
   { path: '**',
     loadChildren: './not-found/not-found.module#NotFoundPageModule'
-  },
+  },  { path: 'related', loadChildren: './details/related/related.module#RelatedPageModule' },
+
 
 
 ];

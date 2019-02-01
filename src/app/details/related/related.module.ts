@@ -5,25 +5,22 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SeenPage } from './seen.page';
-import {RecommendComponent} from "../recommend/recommend.component";
+import { RelatedPage } from './related.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: SeenPage
+    component: RelatedPage
   }
 ];
 
 @NgModule({
-
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SeenPage]
+  declarations: [RelatedPage]
 })
-
-export class SeenPageModule {}
+export class RelatedPageModule {}

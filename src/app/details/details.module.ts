@@ -39,6 +39,15 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'related',
+        children: [
+          {
+            path: '',
+            loadChildren: './related/related.module#RelatedPageModule'
+          }
+        ]
+      },
       // {
       //   path: '',
       //   redirectTo: '/details/movie-details',

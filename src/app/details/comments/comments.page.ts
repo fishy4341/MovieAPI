@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
 import {CommentsService} from "../../login/comments.service";
 // import {SelectedMovieService} from "../../API/selected-movie.service";
 import {MovieAPIService} from "../../API/movie-api.service";
 import {AngularFireAuth} from "@angular/fire/auth";
-=======
-import {CommentsService} from '../../login/comments.service';
-import {SelectedMovieService} from '../../API/selected-movie.service';
-import {MovieAPIService} from '../../API/movie-api.service';
-import {AngularFireAuth} from '@angular/fire/auth';
->>>>>>> df2850556c5078a81699b5a82f9398982f2e169c
 import {Comment} from '../../shared/comment';
 import {ActivatedRoute} from "@angular/router";
 
