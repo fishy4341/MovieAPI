@@ -57,7 +57,8 @@ export class CommentsPage implements OnInit {
 
   postComment(comment) {
     const commentData: Comment = {
-      comment: comment.value
+      comment: comment.value,
+      userID: this.afAuth.auth.currentUser.uid
     };
     this.firebase.getUserMovieRating(this.movie.id).subscribe(movieDoc =>{
       if(movieDoc){
