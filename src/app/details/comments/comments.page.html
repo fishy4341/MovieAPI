@@ -8,13 +8,16 @@
   <div class="scrollable">
     <ion-list *ngIf="movieComments | async as comments">
       <ion-item *ngFor="let comment of comments">
-        <ion-label text-wrap>{{ comment.comment}}</ion-label>
+        <ion-label class="commentWithRating"><span text-wrap>{{ comment.comment}}</span><span *ngIf="comment.rating">Rating: {{comment.rating}}</span></ion-label>
       </ion-item>
     </ion-list>
   </div>
   <div *ngIf="authenticated" class="inputDiv">
     <ion-textarea maxlength=300 placeholder="Enter Comment Here..." [ngModel]="userComment" #input></ion-textarea>
-    <ion-button slot="end" color="primary" (click)="postComment(input)">Post</ion-button>
+    <div class="commentControls">
+      <ion-button slot="end" color="primary" (click)="postComment(input)">Post</ion-button>
+      <ion-button color="secondary" (click)="deleteComment()">Delete</ion-button>
+    </div>
   </div>
 
 </ion-content>
