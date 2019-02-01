@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {CommentsService} from '../../login/comments.service';
-import {SelectedMovieService} from '../../API/selected-movie.service';
-import {MovieAPIService} from '../../API/movie-api.service';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {CommentsService} from "../../login/comments.service";
+import {MovieAPIService} from "../../API/movie-api.service";
+import {AngularFireAuth} from "@angular/fire/auth";
 import {Comment} from '../../shared/comment';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute} from "@angular/router";
+import {FirebaseService} from "../../user-list/firebase.service";
 
 @Component({
   selector: 'app-comments',
@@ -13,10 +13,13 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class CommentsPage implements OnInit {
 
-  constructor(private commentsService: CommentsService,
-              private movieApi: MovieAPIService,
-              private afAuth: AngularFireAuth,
-              private route: ActivatedRoute) { }
+  constructor(
+      private commentsService: CommentsService,
+      private movieApi: MovieAPIService,
+      private afAuth: AngularFireAuth,
+      private route: ActivatedRoute,
+      private firebase: FirebaseService
+  ) { }
 
   movieComments;
   id;
@@ -54,11 +57,17 @@ export class CommentsPage implements OnInit {
 
   postComment(comment) {
     const commentData: Comment = {
-      userID: this.afAuth.auth.currentUser.uid,
-      comment: comment.value,
+      comment: comment.value
     };
-
-    this.commentsService.addMovie(this.movie, commentData);
+    this.firebase.getUserMovieRating(this.movie.id).subscribe(movieDoc =>{
+      if(commentData.rating){
+        commentData.rating = movieDoc.rating;
+      }
+      this.commentsService.addMovie(this.movie, commentData, this.afAuth.auth.currentUser.uid);
+    });
+  }
+  deleteComment(){
+    this.commentsService.deleteCommment(this.movie.id, this.afAuth.auth.currentUser.uid);
   }
 
 }

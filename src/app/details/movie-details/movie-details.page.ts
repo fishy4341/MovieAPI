@@ -82,6 +82,12 @@ export class MovieDetailsPage implements OnInit {
       }
       this.firebase.pushHasSeen(movieData);
       this.checkWatched();
+      this.commentsService.getUserComment(this.movie.id, this.afAuth.auth.currentUser.uid).subscribe(commentData =>{
+          if(commentData){
+              this.commentsService.updateCommentRating(this.movie.id, this.afAuth.auth.currentUser.uid, movieData.rating);
+          }
+      });
+      // this.commentsService.addMovie(this.movie,)
     }
   }
 

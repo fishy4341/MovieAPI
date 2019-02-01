@@ -27,7 +27,6 @@ export class TestPage implements OnInit {
     pic: 'https://image.tmdb.org/t/p/w500//6vkhRvsRvWpmaRVyCXaxTkIEb7j.jpg'
   };
   private testComment: Comment = {
-    userID: 'LJuxxceTALf4WNGZFP9WjPbZfF42',
     comment: 'Testing 123, Favorite Movie, Beep the Bleep'
   };
   private commentsForTest;
@@ -45,7 +44,7 @@ export class TestPage implements OnInit {
   }
 
   methOne() {
-    this.commentService.addMovie(this.testMovie, this.testComment);
+    this.commentService.addMovie(this.testMovie, this.testComment, 'LJuxxceTALf4WNGZFP9WjPbZfF42');
   }
 
   getHasSeen() {
