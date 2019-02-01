@@ -60,7 +60,7 @@ export class CommentsPage implements OnInit {
       comment: comment.value
     };
     this.firebase.getUserMovieRating(this.movie.id).subscribe(movieDoc =>{
-      if(commentData.rating){
+      if(movieDoc){
         commentData.rating = movieDoc.rating;
       }
       this.commentsService.addMovie(this.movie, commentData, this.afAuth.auth.currentUser.uid);
