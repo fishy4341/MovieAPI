@@ -3,7 +3,7 @@ import {MovieAPIService} from '../API/movie-api.service';
 import {SelectedMovieService} from '../API/selected-movie.service';
 import {LoadingController} from '@ionic/angular';
 import * as _ from 'lodash';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-search',
@@ -16,7 +16,8 @@ export class SearchPage implements OnInit {
     private movieService: MovieAPIService,
     private selectedMovie: SelectedMovieService,
     private router: Router,
-    private loader: LoadingController) { }
+    private loader: LoadingController,
+    private route: ActivatedRoute) { }
 
   topRatedList;
   search: string;
@@ -25,6 +26,7 @@ export class SearchPage implements OnInit {
   genreFilter;
 
   ngOnInit() {
+    console.log(this.route.snapshot.paramMap);
     this.movieService.getTopRated().subscribe( list => {
       this.topRatedList = list['results'];
       if ( !this.searchResults ) {this.searchResults = this.topRatedList; }
@@ -48,11 +50,31 @@ export class SearchPage implements OnInit {
 
   }
 
-  goToDetails(movieId) { // add async for loader
-    this.selectedMovie.movieId = movieId;
-    this.router.navigate(['details', movieId]);
+  async goToDetails(movieId) { // add async for loader
+    const loading = await this.loader.create({
+    });
+    loading.present().then(_ => {
+      this.router.navigate(['details', movieId]);
+    });
   }
 
-
+  // async presentLoadingCustom() {
+  //   let loading = this.loader.create({
+  //     spinner: null,
+  //     message: `
+  //     <div class="custom-spinner-container">
+  //       <div class="custom-spinner-box">
+  //          <img src="assets/imgs/loader.gif" />
+  //       </div>
+  //     </div>`,
+  //     duration: 5000
+  //   });
+  //
+  //   // loading.onDidDismiss(() => {
+  //   //   console.log('Dismissed loading');
+  //   // });
+  //
+  //   return await loading.present();
+  // }
 
 }

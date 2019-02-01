@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../login/auth.service';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {SelectedMovieService} from '../../API/selected-movie.service';
-import {IonItemSliding, NavController} from '@ionic/angular';
+import {IonItemSliding, ModalController, NavController} from '@ionic/angular';
 import {FirebaseService} from '../firebase.service';
 import {Router} from "@angular/router";
+import {RecommendComponent} from "../recommend/recommend.component";
 
 @Component({
   selector: 'app-to-see',
@@ -20,6 +21,7 @@ export class ToSeePage implements OnInit {
       private navController: NavController,
       private firebase: FirebaseService,
       private router: Router,
+      private modalController: ModalController
   ) {
 
   }
@@ -41,5 +43,14 @@ export class ToSeePage implements OnInit {
     this.firebase.removeToSee(movieId).then(_ => {
       slidingItem.closeOpened();
     });
+  }
+
+  async recommend(slidingItem: IonItemSliding, movieID: number, title: string) {
+    const modal = await this.modalController.create({
+      component: RecommendComponent,
+      componentProps: {movieId: movieID, title: title}
+    });
+    slidingItem.close();
+    await modal.present();
   }
 }
