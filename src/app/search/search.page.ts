@@ -40,7 +40,6 @@ export class SearchPage implements OnInit {
 
   Search(element) {
     if (element.value === '') {
-      console.log('empty!');
       this.searchResults = this.topRatedList;
     } else {
       this.movieService.searchMovies(element.value).subscribe(data => {

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {CommentsService} from "../../login/comments.service";
-import {MovieAPIService} from "../../API/movie-api.service";
-import {AngularFireAuth} from "@angular/fire/auth";
+import {CommentsService} from '../../login/comments.service';
+import {MovieAPIService} from '../../API/movie-api.service';
+import {AngularFireAuth} from '@angular/fire/auth';
 import {Comment} from '../../shared/comment';
-import {ActivatedRoute} from "@angular/router";
-import {FirebaseService} from "../../user-list/firebase.service";
+import {ActivatedRoute} from '@angular/router';
+import {FirebaseService} from '../../user-list/firebase.service';
 
 @Component({
   selector: 'app-comments',
@@ -57,16 +57,17 @@ export class CommentsPage implements OnInit {
 
   postComment(comment) {
     const commentData: Comment = {
-      comment: comment.value
+      comment: comment.value,
+      userID: this.afAuth.auth.currentUser.uid
     };
-    this.firebase.getUserMovieRating(this.movie.id).subscribe(movieDoc =>{
-      if(movieDoc){
+    this.firebase.getUserMovieRating(this.movie.id).subscribe(movieDoc => {
+      if (movieDoc) {
         commentData.rating = movieDoc.rating;
       }
       this.commentsService.addMovie(this.movie, commentData, this.afAuth.auth.currentUser.uid);
     });
   }
-  deleteComment(){
+  deleteComment() {
     this.commentsService.deleteCommment(this.movie.id, this.afAuth.auth.currentUser.uid);
   }
 

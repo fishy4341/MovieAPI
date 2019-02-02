@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { SeenPage } from './seen.page';
-import {RecommendComponent} from "../recommend/recommend.component";
+import { FilterModule } from '../filter/filter.module';
 
 const routes: Routes = [
   {
@@ -21,7 +21,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FilterModule
   ],
   declarations: [SeenPage]
 })

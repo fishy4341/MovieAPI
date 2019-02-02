@@ -5,13 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ToSeePage } from './to-see.page';
-import { FilterModule } from '../filter/filter.module';
+import { UpcomingPage } from './upcoming.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ToSeePage
+    component: UpcomingPage
   }
 ];
 
@@ -20,9 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
-    FilterModule
+    RouterModule.forChild(routes)
   ],
-  declarations: [ToSeePage]
+  declarations: [UpcomingPage]
 })
-export class ToSeePageModule {}
+export class UpcomingPageModule {}

@@ -14,6 +14,7 @@ import {RecommendComponent} from "../recommend/recommend.component";
 })
 export class SeenPage implements OnInit {
   private genres = {};
+  filterText = '';
   constructor(
       private auth: AuthService,
       private selectedMovie: SelectedMovieService,

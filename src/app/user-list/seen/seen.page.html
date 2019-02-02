@@ -2,11 +2,14 @@
   <ion-toolbar>
     <ion-title>Movies I've Seen</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Search My List" [(ngModel)]="filterText"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list *ngIf="movies$ | async as movies">
-    <ion-item-sliding *ngFor="let movie of movies" #slidingItem>
+    <ion-item-sliding *ngFor="let movie of movies | filter : filterText" #slidingItem>
       <ion-item-options side="start">
         <button color="danger" (click)="recommend(slidingItem, movie.movieID, movie.title)"><ion-icon slot="start" [name]="'megaphone'"></ion-icon> Get Recommendations</button>
       </ion-item-options>

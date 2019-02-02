@@ -53,4 +53,5 @@ export class FirebaseService {
   getToSeeMovie(movieId: number): any{
     return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/toSee`).doc(String(movieId)).get();
   }
+
 }

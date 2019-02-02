@@ -12,23 +12,27 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list  *ngFor="let movie of searchResults">
+  <app-explore *ngIf="!nameItSomething.value"></app-explore>
+  <div *ngIf="nameItSomething.value">
+    <ion-list  *ngFor="let movie of searchResults" >
 
 
-    <ion-item class="hover" [routerDirection]="'forward'" (click)="goToDetails(movie.id)">
-      <ion-thumbnail slot="start">
-        <img [src]="movie.backdrop_path ? 'https://image.tmdb.org/t/p/w500/' + movie.backdrop_path  : 'assets/images/noImage.jpeg'" alt="">
-      </ion-thumbnail>
-      <div>
-        <ion-label text-wrap class="title">{{ movie.title }}</ion-label>
+      <ion-item class="hover" [routerDirection]="'forward'" (click)="goToDetails(movie.id)">
+        <ion-thumbnail slot="start">
+          <img [src]="movie.backdrop_path ? 'https://image.tmdb.org/t/p/w500/' + movie.backdrop_path  : 'assets/images/noImage.jpeg'" alt="">
+        </ion-thumbnail>
+        <div>
+          <ion-label text-wrap class="title">{{ movie.title }}</ion-label>
           <ion-label color="tertiary" class="row" >
-              <p *ngFor="let genre of movie?.genre_ids">{{ genres[genre]?.name }}</p>
+            <p *ngFor="let genre of movie?.genre_ids">{{ genres[genre]?.name }}</p>
           </ion-label>
-      </div>
-    </ion-item>
+        </div>
+      </ion-item>
 
 
-  </ion-list>
+    </ion-list>
+  </div>
+
 
 
 </ion-content>
