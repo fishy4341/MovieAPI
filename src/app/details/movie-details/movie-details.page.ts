@@ -8,7 +8,7 @@ import {Movie} from '../../shared/movie';
 import {FirebaseService} from '../../user-list/firebase.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {CommentsService} from 'src/app/login/comments.service';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-movie-details',
@@ -39,15 +39,15 @@ export class MovieDetailsPage implements OnInit {
   user;
   private currentUserRating: number;
   private movieComments;
-  private showRating: boolean = false;
+  private showRating = false;
   private displayOverview;
-  private isTooLong: boolean = false;
+  private isTooLong = false;
 
   ngOnInit() {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
       this.checkOverviewLength();
-      if(this.authenticated){
+      if (this.authenticated) {
         this.checkWatched();
       }
       this.loader.dismiss();
@@ -55,8 +55,8 @@ export class MovieDetailsPage implements OnInit {
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
         this.movieComments = this.commentsService.getCommentsFor(this.id);
-        this.firebase.getUserMovieRating(this.id).subscribe(userMovieData =>{
-          if(userMovieData){
+        this.firebase.getUserMovieRating(this.id).subscribe(userMovieData => {
+          if (userMovieData) {
             this.showRating = true;
             this.currentUserRating = userMovieData.rating;
           }
@@ -84,8 +84,8 @@ export class MovieDetailsPage implements OnInit {
       }
       this.firebase.pushHasSeen(movieData);
       this.checkWatched();
-      this.commentsService.getUserComment(this.movie.id, this.afAuth.auth.currentUser.uid).subscribe(commentData =>{
-          if(commentData){
+      this.commentsService.getUserComment(this.movie.id, this.afAuth.auth.currentUser.uid).subscribe(commentData => {
+          if (commentData) {
               this.commentsService.updateCommentRating(this.movie.id, this.afAuth.auth.currentUser.uid, movieData.rating);
           }
       });
@@ -105,7 +105,7 @@ export class MovieDetailsPage implements OnInit {
   }
 
   checkWatched() {
-      if(this.afAuth.auth.currentUser !== null){
+      if (this.afAuth.auth.currentUser !== null) {
           this.firebase.getHasSeenMovie(this.movie.id).subscribe(docSnapshot => {
               if (docSnapshot.exists) {
                   this.watched = true;
@@ -119,18 +119,17 @@ export class MovieDetailsPage implements OnInit {
       }
   }
 
-  checkOverviewLength(): void{
-      if(this.movie){
-          if(this.movie.overview.length > 200){
-              this.displayOverview =  this.movie.overview.slice(0,199);
+  checkOverviewLength(): void {
+      if (this.movie) {
+          if (this.movie.overview.length > 200) {
+              this.displayOverview =  this.movie.overview.slice(0, 199);
               this.isTooLong = true;
-          }
-          else{
+          } else {
               this.displayOverview = this.movie.overview;
           }
       }
   }
-  showAllDetails(): void{
+  showAllDetails(): void {
       this.displayOverview = this.movie.overview;
       this.isTooLong = false;
   }

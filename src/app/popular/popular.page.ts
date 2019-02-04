@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from "../API/movie-api.service";
-import {Router} from "@angular/router";
-import {LoadingController} from "@ionic/angular";
+import {MovieAPIService} from '../API/movie-api.service';
+import {Router} from '@angular/router';
+import {LoadingController} from '@ionic/angular';
 
 @Component({
   selector: 'app-popular',
@@ -23,7 +23,7 @@ export class PopularPage implements OnInit {
     this.movie$ = this.movieApi.getPopular(this.page);
   }
 
-  next(){
+  next() {
     this.page = this.page + 1;
     this.movie$ = this.movieApi.getPopular(this.page);
   }
@@ -32,7 +32,7 @@ export class PopularPage implements OnInit {
     this.page = this.page - 1;
     this.movie$ = this.movieApi.getPopular(this.page);
   }
-  async goToMovie(movieId){
+  async goToMovie(movieId) {
     const loading = await this.loader.create({
     });
     loading.present().then(_ => {

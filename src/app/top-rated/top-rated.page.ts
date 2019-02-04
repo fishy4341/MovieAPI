@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from "../API/movie-api.service";
-import {Router} from "@angular/router";
-import {LoadingController} from "@ionic/angular";
+import {MovieAPIService} from '../API/movie-api.service';
+import {Router} from '@angular/router';
+import {LoadingController} from '@ionic/angular';
 
 @Component({
   selector: 'app-top-rated',
@@ -23,7 +23,7 @@ export class TopRatedPage implements OnInit {
     this.movie$ = this.movieApi.getTopRated(this.page);
   }
 
-  next(){
+  next() {
     this.page = this.page + 1;
     this.movie$ = this.movieApi.getTopRated(this.page);
   }
@@ -32,7 +32,7 @@ export class TopRatedPage implements OnInit {
     this.page = this.page - 1;
     this.movie$ = this.movieApi.getTopRated(this.page);
   }
-  async goToMovie(movieId){
+  async goToMovie(movieId) {
     const loading = await this.loader.create({
     });
     loading.present().then(_ => {

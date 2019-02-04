@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {LoadingController, ModalController, NavParams} from "@ionic/angular";
-import {MovieAPIService} from "../../API/movie-api.service";
-import {Router} from "@angular/router";
+import {LoadingController, ModalController, NavParams} from '@ionic/angular';
+import {MovieAPIService} from '../../API/movie-api.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-recommend',
@@ -31,7 +31,7 @@ export class RecommendComponent implements OnInit {
   close() {
     this.modalController.dismiss();
   }
-  async goToMovie(movieId){
+  async goToMovie(movieId) {
     const loading = await this.loader.create({
     });
     loading.present().then(_ => {

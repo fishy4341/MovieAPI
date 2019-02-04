@@ -25,5 +25,18 @@
 
 .button-div{
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
+  justify-content: center; 
+  padding-bottom: .5em;
 }
+
+.button-div > div {
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+.pages {
+  color: #757575;
+}
+
+ 
