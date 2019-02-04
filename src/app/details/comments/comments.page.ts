@@ -26,9 +26,13 @@ export class CommentsPage implements OnInit {
   movie;
   authenticated;
   userComment;
+  private userID: string = 'none';
 
 
   ngOnInit() {
+    if(this.afAuth.auth.currentUser){
+      this.userID = this.afAuth.auth.currentUser.uid;
+    }
     this.id = Number(this.route.parent.snapshot.paramMap.get('id'));
     this.afAuth.authState.subscribe(user => {
       if (user) {
