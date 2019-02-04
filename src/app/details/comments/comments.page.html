@@ -6,8 +6,8 @@
 
 <ion-content>
   <div class="scrollable">
-    <ion-list *ngIf="movieComments | async as comments">
-      <ion-item *ngFor="let comment of comments">
+    <ion-list *ngIf="movieComments">
+      <ion-item *ngFor="let comment of movieComments">
         <ion-label *ngIf="comment.userID === userID" class="commentWithRating highlightedComment"><span class="highlightedComment" text-wrap>{{ comment.comment}}</span><span class="highlightedComment" *ngIf="comment.rating">Rating: {{comment.rating}}</span></ion-label>
         <ion-label *ngIf="comment.userID !== userID" class="commentWithRating"><span text-wrap>{{ comment.comment}}</span><span *ngIf="comment.rating">Rating: {{comment.rating}}</span></ion-label>
       </ion-item>

@@ -30,9 +30,6 @@ export class CommentsPage implements OnInit {
 
 
   ngOnInit() {
-    if(this.afAuth.auth.currentUser){
-      this.userID = this.afAuth.auth.currentUser.uid;
-    }
     this.id = Number(this.route.parent.snapshot.paramMap.get('id'));
     this.afAuth.authState.subscribe(user => {
       if (user) {
@@ -45,7 +42,12 @@ export class CommentsPage implements OnInit {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
     });
-    this.movieComments = this.commentsService.getCommentsFor(this.id);
+    this.commentsService.getCommentsFor(this.id).subscribe(commentData =>{
+      if(this.afAuth.auth.currentUser){
+        this.userID = this.afAuth.auth.currentUser.uid;
+      }
+      this.movieComments = commentData;
+    });
   }
 
   getUserComment() {
