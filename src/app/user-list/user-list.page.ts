@@ -21,12 +21,11 @@ export class UserListPage implements OnInit {
   ngOnInit() {
   }
 
-  checkNameLength(): string{
-    if (this.userName.length > 6){
-      return this.userName.slice(0,5) + '...';
-    }
-    else{
-      return this.userName + "'s";
+  checkNameLength(): string {
+    if (this.userName.length > 6) {
+      return this.userName.slice(0, 5) + '...';
+    } else {
+      return this.userName + '\'s';
     }
   }
 
