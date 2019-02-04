@@ -93,9 +93,11 @@ export class CommentsPage implements OnInit {
 
   checkYesRating(){
     this.yesRating = !this.yesRating;
+    // console.log(this.commentsWRating);
   }
   checkNoRating(){
     this.noRating = !this.noRating;
+    // console.log(this.commentsNoRating);
   }
 
 }
