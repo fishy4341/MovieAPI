@@ -23,7 +23,7 @@ export class RatingComponent implements OnInit {
   }
 
   dismiss() {
-    if(!this.rating){
+    if (!this.rating) {
       this.rating = 0;
     }
     this.modalController.dismiss({
