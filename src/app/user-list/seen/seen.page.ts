@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../login/auth.service';
 import {SelectedMovieService} from '../../API/selected-movie.service';
-import {IonItemSliding, ModalController, NavController} from '@ionic/angular';
+import {IonItemSliding, LoadingController, ModalController, NavController} from '@ionic/angular';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {FirebaseService} from '../firebase.service';
 import {Router} from '@angular/router';
@@ -23,6 +23,7 @@ export class SeenPage implements OnInit {
       private firebase: FirebaseService,
       private router: Router,
       private modalController: ModalController,
+      private loader: LoadingController
   ) {
 
 
@@ -34,11 +35,12 @@ export class SeenPage implements OnInit {
   }
 
 
-  goToMovie(movieID: number) {
-    // console.log(movieID);
-    // this.selectedMovie.movieId = movieID;
-    // this.navController.navigateForward('details');
-    this.router.navigate(['details', movieID]);
+  async goToMovie(movieID: number) {
+    const loading = await this.loader.create({
+    });
+    loading.present().then(_ => {
+      this.router.navigate(['details', movieID]);
+    });
   }
   removeItem(slidingItem: IonItemSliding, movieId) {
     slidingItem.closeOpened();
