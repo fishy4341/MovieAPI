@@ -17,7 +17,7 @@
     <ion-textarea maxlength=300 placeholder="Enter Comment Here..." [ngModel]="userComment" #input></ion-textarea>
     <div class="commentControls">
       <ion-button slot="end" color="primary" (click)="postComment(input)">{{ userComment ? 'Edit' : 'Post' }}</ion-button>
-      <ion-button color="secondary" (click)="deleteComment()">Delete</ion-button>
+      <ion-button *ngIf="userComment" color="secondary" (click)="deleteComment()">Delete</ion-button>
     </div>
   </div>
 

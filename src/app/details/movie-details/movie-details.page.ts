@@ -67,7 +67,7 @@ export class MovieDetailsPage implements OnInit {
   async presentModal() {
     const modal = await this.modalController.create({
       component: RatingComponent,
-      componentProps: { value: this.movie}
+      componentProps: { value: this.movie, rating: this.currentUserRating}
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();
