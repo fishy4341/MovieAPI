@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {ModalController} from '@ionic/angular';
+import {LoadingController, ModalController} from '@ionic/angular';
 import {RatingComponent} from './rating/rating.component';
 import {AuthService} from '../../login/auth.service';
 import {Movie} from '../../shared/movie';
@@ -26,6 +26,7 @@ export class MovieDetailsPage implements OnInit {
               private commentsService: CommentsService,
               private afAuth: AngularFireAuth,
               private route: ActivatedRoute,
+              private loader: LoadingController
   ) { }
 
   authenticated;
@@ -49,6 +50,7 @@ export class MovieDetailsPage implements OnInit {
       if(this.authenticated){
         this.checkWatched();
       }
+      this.loader.dismiss()
     });
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
