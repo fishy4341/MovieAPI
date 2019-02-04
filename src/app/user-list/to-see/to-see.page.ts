@@ -4,7 +4,7 @@ import {MovieAPIService} from '../../API/movie-api.service';
 import {SelectedMovieService} from '../../API/selected-movie.service';
 import {IonItemSliding, NavController} from '@ionic/angular';
 import {FirebaseService} from '../firebase.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-to-see',
@@ -13,6 +13,7 @@ import {Router} from "@angular/router";
 })
 export class ToSeePage implements OnInit {
   private genres = {};
+  filterText = '';
   constructor(
       private auth: AuthService,
       private movieService: MovieAPIService,
