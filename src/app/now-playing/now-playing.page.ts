@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from "../API/movie-api.service";
 import {Router} from "@angular/router";
+import {LoadingController} from "@ionic/angular";
 
 @Component({
   selector: 'app-now-playing',
@@ -12,6 +13,7 @@ export class NowPlayingPage implements OnInit {
   constructor(
       private movieApi: MovieAPIService,
       private router: Router,
+      private loader: LoadingController
   ) { }
 
   page: number;
@@ -30,8 +32,12 @@ export class NowPlayingPage implements OnInit {
     this.page = this.page - 1;
     this.movie$ = this.movieApi.getNowPlaying(this.page);
   }
-  goToMovie(movieId){
-    this.router.navigate(['details', movieId]);
+  async goToMovie(movieId){
+    const loading = await this.loader.create({
+    });
+    loading.present().then(_ => {
+      this.router.navigate(['details', movieId]);
+    });
   }
 
 }
