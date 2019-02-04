@@ -50,7 +50,7 @@ export class MovieDetailsPage implements OnInit {
       if(this.authenticated){
         this.checkWatched();
       }
-      this.loader.dismiss()
+      this.loader.dismiss();
     });
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
