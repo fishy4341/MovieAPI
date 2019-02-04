@@ -4,8 +4,8 @@ import {MovieAPIService} from '../../API/movie-api.service';
 import {SelectedMovieService} from '../../API/selected-movie.service';
 import {IonItemSliding, ModalController, NavController} from '@ionic/angular';
 import {FirebaseService} from '../firebase.service';
-import {Router} from "@angular/router";
-import {RecommendComponent} from "../recommend/recommend.component";
+import {Router} from '@angular/router';
+import {RecommendComponent} from '../recommend/recommend.component';
 
 @Component({
   selector: 'app-to-see',

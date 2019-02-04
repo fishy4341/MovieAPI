@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalController, NavParams} from "@ionic/angular";
-import {MovieAPIService} from "../../API/movie-api.service";
-import {Router} from "@angular/router";
+import {ModalController, NavParams} from '@ionic/angular';
+import {MovieAPIService} from '../../API/movie-api.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-recommend',

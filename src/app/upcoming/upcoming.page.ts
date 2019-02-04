@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from "../API/movie-api.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {MovieAPIService} from '../API/movie-api.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-upcoming',
@@ -21,7 +21,7 @@ export class UpcomingPage implements OnInit {
     this.movie$ = this.movieApi.getUpcoming(this.page);
   }
 
-  next(){
+  next() {
     this.page = this.page + 1;
     this.movie$ = this.movieApi.getUpcoming(this.page);
   }
@@ -30,7 +30,7 @@ export class UpcomingPage implements OnInit {
     this.page = this.page - 1;
     this.movie$ = this.movieApi.getUpcoming(this.page);
   }
-  goToMovie(movieId){
+  goToMovie(movieId) {
     this.router.navigate(['details', movieId]);
   }
 
