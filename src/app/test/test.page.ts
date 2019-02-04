@@ -27,7 +27,8 @@ export class TestPage implements OnInit {
     pic: 'https://image.tmdb.org/t/p/w500//6vkhRvsRvWpmaRVyCXaxTkIEb7j.jpg'
   };
   private testComment: Comment = {
-    comment: 'Testing 123, Favorite Movie, Beep the Bleep'
+    comment: 'Testing 123, Favorite Movie, Beep the Bleep',
+    userID: 'LJuxxceTALf4WNGZFP9WjPbZfF42'
   };
   private commentsForTest;
 
