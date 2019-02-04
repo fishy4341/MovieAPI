@@ -26,6 +26,7 @@ export class CommentsPage implements OnInit {
   movie;
   authenticated;
   userComment;
+  private userID: string = 'none';
 
 
   ngOnInit() {
@@ -41,7 +42,12 @@ export class CommentsPage implements OnInit {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
     });
-    this.movieComments = this.commentsService.getCommentsFor(this.id);
+    this.commentsService.getCommentsFor(this.id).subscribe(commentData =>{
+      if(this.afAuth.auth.currentUser){
+        this.userID = this.afAuth.auth.currentUser.uid;
+      }
+      this.movieComments = commentData;
+    });
   }
 
   getUserComment() {
