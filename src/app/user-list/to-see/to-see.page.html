@@ -1,19 +1,23 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Movies I want to See</ion-title>
   </ion-toolbar>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-searchbar placeholder="Search My List" [(ngModel)]="filterText"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding color="dark">
   <ion-list *ngIf="movie$ | async as movies ">
     <ion-item-sliding *ngFor="let movie of movies | filter : filterText" #slidingItem>
       <ion-item-options side="start" color="danger">
         <button color="danger" (click)="recommend(slidingItem, movie.movieID, movie.title)"><ion-icon slot="start" [name]="'megaphone'"></ion-icon> Get Recommendations</button>
       </ion-item-options>
-      <ion-item class="hover" (click)="goToMovie(movie.movieID)">
+      <ion-item class="hover" (click)="goToMovie(movie.movieID)" color="dark">
         <ion-thumbnail slot="start">
           <img [src]="movie.pic ? 'https://image.tmdb.org/t/p/original/' + movie.pic  : 'assets/images/noImage.jpeg'" alt="">
         </ion-thumbnail>

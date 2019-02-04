@@ -1,6 +1,5 @@
 .flex-div {
   text-align: center;
-  color: black;
 }
 .title {
   font-size: 1.5em;
@@ -82,7 +81,7 @@
   padding: 0;
   width: 5em;
   height: 5em;
-  background-color: #F2E9E1;
+  background-color: black;
   border-radius: 50%;
   line-height: 5em;
 }
@@ -97,7 +96,7 @@
   border-radius: 50%;
   width: 4.3em;
   height: 4.3em;
-  background-color: white;
+  background-color: #222428;
   content: " ";
 }
 /* Text inside the control */
@@ -107,7 +106,7 @@
   width: 5em;
   text-align: center;
   display: block;
-  color: #53777A;
+  color: #adadad;
   z-index: 2;
 }
 .left-half-clipper {
@@ -131,9 +130,10 @@
   width: 5em;
   height: 5em;
   border-radius: 50%;
-  border: 0.45em solid #53777A; /*The border is 0.35 but making it larger removes visual artifacts */
+  border: 0.45em solid #adadad; /*The border is 0.35 but making it larger removes visual artifacts */
   /*background-color: #4D642D;*/ /* for debug */
   box-sizing: border-box;
+  background-color: #adadad
 
 }
 /* Progress bar filling the whole right half for values above 50% */
@@ -141,7 +141,7 @@
   /*Progress bar for the first 50%, filling the whole right half*/
   position: absolute; /*needed for clipping*/
   clip: rect(0, 5em, 5em, 2.5em);
-  background-color: #53777A;
+  background-color: #adadad !important;
   border-radius: 50%;
   width: 5em;
   height: 5em;
