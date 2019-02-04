@@ -1,9 +1,23 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>TopRated</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Top Rated</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <div class="card-container" *ngIf="movie$ | async as movies">
+    <div class="card" *ngFor="let movie of movies.results" (click)="goToMovie(movie.id)">
+      <ion-img src='https://image.tmdb.org/t/p/w500/{{movie.poster_path}}' class="image"></ion-img>
+      <p class="title">{{movie.title}}</p>
+    </div>
+  </div>
+  <div class="button-div">
+    <ion-button (click)="back()" *ngIf="page > 1">Previous Page</ion-button>
+    <p>page: {{page}}</p>
+    <ion-button (click)="next()" *ngIf="page < 99">Next Page</ion-button>
+  </div>
 </ion-content>

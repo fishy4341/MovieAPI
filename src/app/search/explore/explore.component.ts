@@ -22,11 +22,11 @@ export class ExploreComponent implements OnInit {
   upcoming$;
 
   ngOnInit() {
-    this.latest$ = this.movieApi.getLatest();
-    this.nowPlaying$ = this.movieApi.getNowPlaying();
-    this.popular$ = this.movieApi.getPopular();
-    this.topRated$ = this.movieApi.getTopRated();
-    this.upcoming$ = this.movieApi.getUpcoming();
+    this.latest$ = this.movieApi.getLatest(1);
+    this.nowPlaying$ = this.movieApi.getNowPlaying(1);
+    this.popular$ = this.movieApi.getPopular(1);
+    this.topRated$ = this.movieApi.getTopRated(1);
+    this.upcoming$ = this.movieApi.getUpcoming(1);
 
   }
 

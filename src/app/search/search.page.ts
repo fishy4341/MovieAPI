@@ -27,7 +27,7 @@ export class SearchPage implements OnInit {
 
   ngOnInit() {
     console.log(this.route.snapshot.paramMap);
-    this.movieService.getTopRated().subscribe( list => {
+    this.movieService.getTopRated(1).subscribe( list => {
       this.topRatedList = list['results'];
       if ( !this.searchResults ) {this.searchResults = this.topRatedList; }
     });

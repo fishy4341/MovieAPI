@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list *ngIf="movie$ | async as movies | filter : filterText">
-    <ion-item-sliding *ngFor="let movie of movies" #slidingItem>
+  <ion-list *ngIf="movie$ | async as movies ">
+    <ion-item-sliding *ngFor="let movie of movies | filter : filterText" #slidingItem>
       <ion-item-options side="start" color="danger">
         <button color="danger" (click)="recommend(slidingItem, movie.movieID, movie.title)"><ion-icon slot="start" [name]="'megaphone'"></ion-icon> Get Recommendations</button>
       </ion-item-options>
