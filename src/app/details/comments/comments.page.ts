@@ -31,6 +31,7 @@ export class CommentsPage implements OnInit {
   private yesRating: boolean = false;
   private commentsWRating = [];
   private commentsNoRating = [];
+  rating;
 
 
   ngOnInit() {
