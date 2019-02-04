@@ -14,10 +14,11 @@ import { APIKeys } from './APIKeys';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { LoadingModalComponent } from './loading-modal/loading-modal.component';
 const firebaseConfig = APIKeys.firebaseConfig;
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoadingModalComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

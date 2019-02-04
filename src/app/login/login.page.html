@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="danger">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
       <ion-back-button></ion-back-button>
@@ -8,7 +8,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding color="dark">
   <ion-card>
     <ion-card-content>
       <ion-button expand='block' *ngIf="!authenticated" (click)="signIn()">Sign In Using Google</ion-button>
