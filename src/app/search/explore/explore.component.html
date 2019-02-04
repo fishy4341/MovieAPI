@@ -1,0 +1,47 @@
+<h5 routerLink="/now-playing">Now Playing <ion-icon name="arrow-dropright"></ion-icon></h5>
+<div class="card-container" *ngIf="nowPlaying$ | async as nowPlaying">
+  <div class="card" *ngFor="let movie of nowPlaying.results" (click)="goToMovie(movie.id)">
+    <ion-img src='https://image.tmdb.org/t/p/w500/{{movie.poster_path}}' class="image"></ion-img>
+    <p class="title">{{movie.title}}</p>
+  </div>
+  <div class="card more" routerLink="/now-playing">
+    <ion-icon name="arrow-dropright-circle" class="arrow"></ion-icon>
+    <p class="title">See More</p>
+  </div>
+</div>
+
+<h5 routerLink="/popular">Popular <ion-icon name="arrow-dropright"></ion-icon></h5>
+<div class="card-container" *ngIf="popular$ | async as popular">
+  <div class="card" *ngFor="let movie of popular.results" (click)="goToMovie(movie.id)">
+    <ion-img src='https://image.tmdb.org/t/p/w500/{{movie.poster_path}}' class="image"></ion-img>
+    <p class="title">{{movie.title}}</p>
+  </div>
+  <div class="card more" routerLink="/popular">
+    <ion-icon name="arrow-dropright-circle" class="arrow"></ion-icon>
+    <p class="title">See More</p>
+  </div>
+</div>
+
+<h5 routerLink="/top-rated">Top Rated <ion-icon name="arrow-dropright"></ion-icon></h5>
+<div class="card-container" *ngIf="topRated$ | async as topRated">
+  <div class="card" *ngFor="let movie of topRated.results" (click)="goToMovie(movie.id)">
+    <ion-img src='https://image.tmdb.org/t/p/w500/{{movie.poster_path}}' class="image"></ion-img>
+    <p class="title">{{movie.title}}</p>
+  </div>
+  <div class="card more" routerLink="/top-rated">
+    <ion-icon name="arrow-dropright-circle" class="arrow"></ion-icon>
+    <p class="title">See More</p>
+  </div>
+</div>
+
+<h5 routerLink="/upcoming">Upcoming <ion-icon name="arrow-dropright"></ion-icon></h5>
+<div class="card-container" *ngIf="upcoming$ | async as upcoming">
+  <div class="card" *ngFor="let movie of upcoming.results" (click)="goToMovie(movie.id)">
+    <ion-img src='https://image.tmdb.org/t/p/w500/{{movie.poster_path}}' class="image"></ion-img>
+    <p class="title">{{movie.title}}</p>
+  </div>
+  <div class="card more" routerLink="/upcoming">
+    <ion-icon name="arrow-dropright-circle" class="arrow"></ion-icon>
+    <p class="title">See More</p>
+  </div>
+</div>

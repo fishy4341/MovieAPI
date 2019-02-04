@@ -7,9 +7,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-list *ngIf="movies$ | async as movies">
     <ion-item-sliding *ngFor="let movie of movies | filter : filterText" #slidingItem>
+      <ion-item-options side="start">
+        <button color="danger" (click)="recommend(slidingItem, movie.movieID, movie.title)"><ion-icon slot="start" [name]="'megaphone'"></ion-icon> Get Recommendations</button>
+      </ion-item-options>
       <ion-item class="hover" (click)="goToMovie(movie.movieID)">
         <ion-thumbnail slot="start" >
           <img [src]="movie.pic ? 'https://image.tmdb.org/t/p/w500/' + movie.pic  : 'assets/images/noImage.jpeg'" alt="">
@@ -21,7 +24,7 @@
           </ion-label>
         </div>
       </ion-item>
-      <ion-item-options>
+      <ion-item-options side="end">
         <button color="danger" (click)="removeItem(slidingItem, movie.movieID)"><ion-icon slot="start" [name]="'trash'"></ion-icon> Remove from List</button>
       </ion-item-options>
 

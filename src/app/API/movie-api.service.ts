@@ -18,9 +18,22 @@ export class MovieAPIService {
     return this.http.get(`https://api.themoviedb.org/3/search/movie?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&query=${searchTerms}&page=1&include_adult=false`);
   }
 
-  getTopRated() {
-    return this.http.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=1`);
+  getTopRated(page) {
+    return this.http.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
   }
+  getLatest(page) {
+    return this.http.get(`https://api.themoviedb.org/3/movie/latest?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
+  }
+  getNowPlaying(page) {
+    return this.http.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
+  }
+  getPopular(page) {
+    return this.http.get(`https://api.themoviedb.org/3/movie/popular?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
+  }
+  getUpcoming(page) {
+    return this.http.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
+  }
+
 
   getMovieDetail(id: number) {
     return this.http.get(`https://api.themoviedb.org/3/movie/${id}?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US`);
@@ -32,6 +45,14 @@ export class MovieAPIService {
 
   getgenreIds() {
     return this.http.get('https://api.themoviedb.org/3/genre/movie/list?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US');
+  }
+
+  getRelated(id: number) {
+    return this.http.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US`);
+  }
+
+  getRecommended(id: number) {
+    return this.http.get(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US`);
   }
 
 
