@@ -12,6 +12,7 @@ export class RatingComponent implements OnInit {
   // @input() value;
   movie;
   rating;
+  private start: number;
 
   constructor(
       public navParams: NavParams,
@@ -20,6 +21,7 @@ export class RatingComponent implements OnInit {
 
   ngOnInit() {
     this.movie = this.navParams.data.value;
+    this.start = this.navParams.data.rating;
   }
 
   dismiss() {

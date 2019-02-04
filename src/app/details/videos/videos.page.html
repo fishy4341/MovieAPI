@@ -4,10 +4,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding color="dark">
 
   <div *ngIf="video$ | async as videos">
-    <ion-card *ngFor="let video of videos.results">
+    <ion-card *ngFor="let video of videos.results" color="tertiary">
       <ion-card-content>
         <iframe [src]="cleanUrl(video.key)" frameborder="0" allowfullscreen class="video"></iframe>
       </ion-card-content>

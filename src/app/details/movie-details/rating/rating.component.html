@@ -17,6 +17,7 @@
       <ion-label>Rating</ion-label>
       <ion-range min="0" max="10" step="1" snaps="true" color="secondary" pin="true" [(ngModel)]="rating">
         <ion-label slot="start">0</ion-label>
+        <ion-label *ngIf="start" slot="start"></ion-label>
         <ion-label slot="end">10</ion-label>
       </ion-range>
       <div class="space">

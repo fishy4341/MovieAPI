@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="dark">
   <div class="card-container" *ngIf="related$ | async as related">
     <div class="card" *ngFor="let relate of related.results" (click)="goToMovie(relate.id)">
       <ion-img src='https://image.tmdb.org/t/p/w500/{{relate.poster_path}}' class="image"></ion-img>

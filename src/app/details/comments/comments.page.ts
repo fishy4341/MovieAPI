@@ -27,6 +27,11 @@ export class CommentsPage implements OnInit {
   authenticated;
   userComment;
   private userID: string = 'none';
+  private noRating: boolean = false;
+  private yesRating: boolean = false;
+  private commentsWRating = [];
+  private commentsNoRating = [];
+  rating;
 
 
   ngOnInit() {
@@ -47,6 +52,15 @@ export class CommentsPage implements OnInit {
         this.userID = this.afAuth.auth.currentUser.uid;
       }
       this.movieComments = commentData;
+      for(let i: number = 0; i < commentData.length; i++){
+        // @ts-ignore
+        if(commentData[i].rating){
+          this.commentsWRating.push(commentData[i]);
+        }
+        else{
+          this.commentsNoRating.push(commentData[i]);
+        }
+      }
     });
   }
 
@@ -75,6 +89,13 @@ export class CommentsPage implements OnInit {
   }
   deleteComment() {
     this.commentsService.deleteCommment(this.movie.id, this.afAuth.auth.currentUser.uid);
+  }
+
+  checkYesRating(){
+    this.yesRating = !this.yesRating;
+  }
+  checkNoRating(){
+    this.noRating = !this.noRating;
   }
 
 }
