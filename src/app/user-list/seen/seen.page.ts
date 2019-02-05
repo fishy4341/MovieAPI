@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../login/auth.service';
 import {SelectedMovieService} from '../../API/selected-movie.service';
 import {IonItemSliding, LoadingController, ModalController, NavController} from '@ionic/angular';
@@ -12,7 +12,7 @@ import {RecommendComponent} from '../recommend/recommend.component';
   templateUrl: './seen.page.html',
   styleUrls: ['./seen.page.scss'],
 })
-export class SeenPage implements OnInit {
+export class SeenPage implements OnInit, OnDestroy {
   private genres = {};
   filterText = '';
   constructor(
@@ -30,8 +30,13 @@ export class SeenPage implements OnInit {
   }
 
   movies$;
+  // private movies;
   ngOnInit() {
     this.movies$ = this.firebase.getHasSeen();
+  }
+
+  ngOnDestroy(): void {
+    // this.firebase.getHasSeen().unsubscribe();
   }
 
 

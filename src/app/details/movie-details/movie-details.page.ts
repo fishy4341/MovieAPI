@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {LoadingController, ModalController} from '@ionic/angular';
@@ -9,13 +9,15 @@ import {FirebaseService} from '../../user-list/firebase.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {CommentsService} from 'src/app/login/comments.service';
 import {ActivatedRoute} from '@angular/router';
+import {Subject} from "rxjs";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.page.html',
   styleUrls: ['./movie-details.page.scss'],
 })
-export class MovieDetailsPage implements OnInit {
+export class MovieDetailsPage implements OnInit, OnDestroy {
 
 
   constructor(private movieApi: MovieAPIService,
@@ -38,10 +40,11 @@ export class MovieDetailsPage implements OnInit {
   watchList: boolean;
   user;
   private currentUserRating: number;
-  private movieComments;
+  // private movieComments;
   private showRating = false;
   private displayOverview;
   private isTooLong = false;
+  private unsubscribe$ = new Subject();
 
   ngOnInit() {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
@@ -49,22 +52,30 @@ export class MovieDetailsPage implements OnInit {
       this.checkOverviewLength();
       if (this.authenticated) {
         this.checkWatched();
-      }
+      } // end of if statement
       this.loader.dismiss();
-    });
+    });// end up sub callback
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
-        this.movieComments = this.commentsService.getCommentsFor(this.id);
-        this.firebase.getUserMovieRating(this.id).subscribe(userMovieData => {
-          if (userMovieData) {
-            this.showRating = true;
-            this.currentUserRating = userMovieData.rating;
-          }
-        });
-    }
+        // this.movieComments = this.commentsService.getCommentsFor(this.id);
+        this.firebase.getUserMovieRating(this.id).pipe(
+            takeUntil(this.unsubscribe$),
+            (userMovieData => {
+                if (userMovieData) {
+                    this.showRating = true;
+                    this.currentUserRating = userMovieData.rating;
+                }//end of if statement
+            })//end of sub callback
+        )//end of pipe
+    }//end of auth if statement
+  } //end of ngOnInit
+
+  ngOnDestroy(): void {
+      this.unsubscribe$.next();
+      this.unsubscribe$.complete();
   }
 
-  async presentModal() {
+    async presentModal() {
     const modal = await this.modalController.create({
       component: RatingComponent,
       componentProps: { value: this.movie, rating: this.currentUserRating}
@@ -87,11 +98,10 @@ export class MovieDetailsPage implements OnInit {
       this.commentsService.getUserComment(this.movie.id, this.afAuth.auth.currentUser.uid).subscribe(commentData => {
           if (commentData) {
               this.commentsService.updateCommentRating(this.movie.id, this.afAuth.auth.currentUser.uid, movieData.rating);
-          }
-      });
-      // this.commentsService.addMovie(this.movie,)
-    }
-  }
+          }//end of if(commentData) statement
+      });//end of sub callback
+    }//end of if(data) statement
+  }//end of presentModal()
 
   addToSee() {
     const movieData: Movie = {
