@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CommentsService} from '../../login/comments.service';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Comment} from '../../shared/comment';
 import {ActivatedRoute} from '@angular/router';
 import {FirebaseService} from '../../user-list/firebase.service';
+import {Subject} from "rxjs";
+import {takeUntil, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.page.html',
   styleUrls: ['./comments.page.scss'],
 })
-export class CommentsPage implements OnInit {
+export class CommentsPage implements OnInit, OnDestroy {
 
   constructor(
       private commentsService: CommentsService,
@@ -30,7 +32,7 @@ export class CommentsPage implements OnInit {
   private noRating: boolean = false;
   private yesRating: boolean = false;
   private commentsWRating = [];
-  private commentsNoRating = [];
+  private unsubscribe$ = new Subject();
   rating;
 
 
@@ -57,11 +59,13 @@ export class CommentsPage implements OnInit {
         if(commentData[i].rating){
           this.commentsWRating.push(commentData[i]);
         }
-        else{
-          this.commentsNoRating.push(commentData[i]);
-        }
       }
-    });
+    })//end of sub callback
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   getUserComment() {
@@ -71,23 +75,29 @@ export class CommentsPage implements OnInit {
         // @ts-ignore
         this.userComment = docSnapshot.comment;
       }
-    });
+    });//end of subscribe callback
     }
   }
 
   postComment(comment) {
+    this.commentsWRating = [];
     const commentData: Comment = {
       comment: comment.value,
       userID: this.afAuth.auth.currentUser.uid
     };
-    this.firebase.getUserMovieRating(this.movie.id).subscribe(movieDoc => {
-      if (movieDoc) {
-        commentData.rating = movieDoc.rating;
-      }
-      this.commentsService.addMovie(this.movie, commentData, this.afAuth.auth.currentUser.uid);
-    });
+    this.firebase.getUserMovieRating(this.movie.id).pipe(
+        takeUntil(this.unsubscribe$),
+        tap(movieDoc => {
+          if (movieDoc) {
+            // @ts-ignore
+            commentData.rating = movieDoc.rating;
+          }
+          this.commentsService.addMovie(this.movie, commentData, this.afAuth.auth.currentUser.uid);
+        })//end of subscribe callback
+    ).subscribe();
   }
   deleteComment() {
+    this.commentsWRating = [];
     this.commentsService.deleteCommment(this.movie.id, this.afAuth.auth.currentUser.uid);
   }
 
