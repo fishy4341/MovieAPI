@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from "../../API/movie-api.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {LoadingController} from "@ionic/angular";
+import {MovieAPIService} from '../../API/movie-api.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LoadingController} from '@ionic/angular';
 
 @Component({
   selector: 'app-related',
@@ -25,7 +25,7 @@ export class RelatedPage implements OnInit {
     this.related$ = this.movieApi.getRelated(this.id);
   }
 
-  async goToMovie(movieId){
+  async goToMovie(movieId) {
     const loading = await this.loader.create({
     });
     loading.present().then(_ => {
