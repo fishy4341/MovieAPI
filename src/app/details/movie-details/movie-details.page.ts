@@ -10,7 +10,8 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {CommentsService} from 'src/app/login/comments.service';
 import {ActivatedRoute} from '@angular/router';
 import {Subject} from "rxjs";
-import {takeUntil} from "rxjs/operators";
+import {takeUntil, tap} from "rxjs/operators";
+import {subscribeToObservable} from "rxjs/internal-compatibility";
 
 @Component({
   selector: 'app-movie-details',
@@ -60,13 +61,14 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
         // this.movieComments = this.commentsService.getCommentsFor(this.id);
         this.firebase.getUserMovieRating(this.id).pipe(
             takeUntil(this.unsubscribe$),
-            (userMovieData => {
+            tap(userMovieData => {
                 if (userMovieData) {
                     this.showRating = true;
+                    //@ts-ignore
                     this.currentUserRating = userMovieData.rating;
                 }//end of if statement
             })//end of sub callback
-        )//end of pipe
+        ).subscribe()//end of pipe
     }//end of auth if statement
   } //end of ngOnInit
 

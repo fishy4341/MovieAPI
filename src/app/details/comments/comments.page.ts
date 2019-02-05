@@ -6,7 +6,7 @@ import {Comment} from '../../shared/comment';
 import {ActivatedRoute} from '@angular/router';
 import {FirebaseService} from '../../user-list/firebase.service';
 import {Subject} from "rxjs";
-import {takeUntil} from "rxjs/operators";
+import {takeUntil, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-comments',
@@ -32,7 +32,6 @@ export class CommentsPage implements OnInit, OnDestroy {
   private noRating: boolean = false;
   private yesRating: boolean = false;
   private commentsWRating = [];
-  private commentsNoRating = [];
   private unsubscribe$ = new Subject();
   rating;
 
@@ -60,9 +59,6 @@ export class CommentsPage implements OnInit, OnDestroy {
         if(commentData[i].rating){
           this.commentsWRating.push(commentData[i]);
         }
-        else{
-          this.commentsNoRating.push(commentData[i]);
-        }
       }
     })//end of sub callback
   }
@@ -84,21 +80,24 @@ export class CommentsPage implements OnInit, OnDestroy {
   }
 
   postComment(comment) {
+    this.commentsWRating = [];
     const commentData: Comment = {
       comment: comment.value,
       userID: this.afAuth.auth.currentUser.uid
     };
     this.firebase.getUserMovieRating(this.movie.id).pipe(
         takeUntil(this.unsubscribe$),
-        (movieDoc => {
+        tap(movieDoc => {
           if (movieDoc) {
+            // @ts-ignore
             commentData.rating = movieDoc.rating;
           }
           this.commentsService.addMovie(this.movie, commentData, this.afAuth.auth.currentUser.uid);
         })//end of subscribe callback
-    )
+    ).subscribe();
   }
   deleteComment() {
+    this.commentsWRating = [];
     this.commentsService.deleteCommment(this.movie.id, this.afAuth.auth.currentUser.uid);
   }
 
