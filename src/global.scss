@@ -17,3 +17,15 @@
 .list{
   background-color: #222428;
 }
+*::-webkit-scrollbar {
+  height: 3px;
+  width: 3px;
+}
+ 
+*::-webkit-scrollbar-track {
+  background: rgba(34, 36, 40, .2);
+}
+ 
+*::-webkit-scrollbar-thumb {
+  background: rgb(73, 73, 73); 
+}
