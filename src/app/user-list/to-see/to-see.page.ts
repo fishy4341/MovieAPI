@@ -6,6 +6,7 @@ import {IonItemSliding, LoadingController, ModalController, NavController} from 
 import {FirebaseService} from '../firebase.service';
 import {Router} from '@angular/router';
 import {RecommendComponent} from '../recommend/recommend.component';
+import {LoaderFixService} from "../../shared/loader-fix.service";
 
 @Component({
   selector: 'app-to-see',
@@ -23,7 +24,8 @@ export class ToSeePage implements OnInit, OnDestroy {
       private firebase: FirebaseService,
       private router: Router,
       private modalController: ModalController,
-      private loader: LoadingController
+      private loader: LoadingController,
+      private loadingService: LoaderFixService
   ) {
 
   }
@@ -41,6 +43,7 @@ export class ToSeePage implements OnInit, OnDestroy {
 
 
   async goToMovie(movieID: number) {
+    this.loadingService.isLoading();
     const loading = await this.loader.create({
     });
     loading.present().then(_ => {

@@ -12,6 +12,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Subject} from "rxjs";
 import {takeUntil, tap} from "rxjs/operators";
 import {subscribeToObservable} from "rxjs/internal-compatibility";
+import {LoaderFixService} from "../../shared/loader-fix.service";
 
 @Component({
   selector: 'app-movie-details',
@@ -29,7 +30,8 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
               private commentsService: CommentsService,
               private afAuth: AngularFireAuth,
               private route: ActivatedRoute,
-              private loader: LoadingController
+              private loader: LoadingController,
+              private loadingService: LoaderFixService
   ) { }
 
   authenticated;
@@ -49,12 +51,19 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
+        console.log('movie api sub called');
       this.movie = data;
       this.checkOverviewLength();
+      console.log(this.authenticated);
       if (this.authenticated) {
         this.checkWatched();
+        console.log(this.watched);
       } // end of if statement
-      this.loader.dismiss();
+      console.log(this.loadingService.getLoading());
+      if(this.loadingService.getLoading()){
+          this.loader.dismiss();
+          this.loadingService.stopLoading();
+      }
     });// end up sub callback
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
@@ -119,6 +128,7 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
   checkWatched() {
       if (this.afAuth.auth.currentUser !== null) {
           this.firebase.getHasSeenMovie(this.movie.id).subscribe(docSnapshot => {
+              console.log(docSnapshot.exists);
               if (docSnapshot.exists) {
                   this.watched = true;
               }

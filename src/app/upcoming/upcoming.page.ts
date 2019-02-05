@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../API/movie-api.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoadingController} from '@ionic/angular';
+import {LoaderFixService} from "../shared/loader-fix.service";
 
 @Component({
   selector: 'app-upcoming',
@@ -14,7 +15,8 @@ export class UpcomingPage implements OnInit {
       private movieApi: MovieAPIService,
       private router: Router,
       private route: ActivatedRoute,
-      private loader: LoadingController
+      private loader: LoadingController,
+      private loadingService: LoaderFixService
   ) { }
   page: number;
   movie$;
@@ -33,6 +35,7 @@ export class UpcomingPage implements OnInit {
     this.movie$ = this.movieApi.getUpcoming(this.page);
   }
   async goToMovie(movieId) {
+    this.loadingService.isLoading();
     const loading = await this.loader.create({
     });
     loading.present().then(_ => {
