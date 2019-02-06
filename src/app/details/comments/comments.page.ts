@@ -52,7 +52,6 @@ export class CommentsPage implements OnInit, OnDestroy {
     this.commentsService.getCommentsFor(this.id).subscribe(commentData => {
       if (this.afAuth.auth.currentUser) {
         this.userID = this.afAuth.auth.currentUser.uid;
-        console.log(commentData);
       }
       if(commentData.length !== 0){
         this.movieComments = commentData;
