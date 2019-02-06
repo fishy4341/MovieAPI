@@ -6,12 +6,17 @@
 
 <ion-content padding color="dark">
 
-  <div *ngIf="video$ | async as videos">
-    <ion-card *ngFor="let video of videos.results" color="tertiary">
+  <div *ngIf="(video$ | async)?.results.length; else notFound">
+    <ion-card *ngFor="let video of (video$ | async)?.results" color="tertiary">
       <ion-card-content>
         <iframe [src]="cleanUrl(video.key)" frameborder="0" allowfullscreen class="video"></iframe>
       </ion-card-content>
     </ion-card>
   </div>
+  <ng-template #notFound>
+    <div class="notFound">
+      <h1> We could not find any trailers for this movie. </h1>
+    </div>
+  </ng-template>
 
 </ion-content>
