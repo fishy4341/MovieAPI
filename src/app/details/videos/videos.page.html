@@ -6,6 +6,7 @@
 
 <ion-content padding color="dark">
 
+
   <div *ngIf="video">
     <ion-card *ngFor="let videoUrl of video" color="tertiary">
       <ion-card-content>
@@ -13,6 +14,11 @@
       </ion-card-content>
     </ion-card>
   </div>
+  <ng-template #notFound>
+    <div class="notFound">
+      <h1> We could not find any trailers for this movie. </h1>
+    </div>
+  </ng-template>
 
 
 </ion-content>

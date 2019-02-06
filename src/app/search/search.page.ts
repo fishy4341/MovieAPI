@@ -4,7 +4,7 @@ import {SelectedMovieService} from '../API/selected-movie.service';
 import {LoadingController, ModalController} from '@ionic/angular';
 import * as _ from 'lodash';
 import {ActivatedRoute, Router} from "@angular/router";
-import {LoaderModalComponent} from "../loader-modal/loader-modal.component";
+import {LoaderFixService} from "../shared/loader-fix.service";
 
 @Component({
   selector: 'app-search',
@@ -19,9 +19,8 @@ export class SearchPage implements OnInit {
     private router: Router,
     private loader: LoadingController,
     private route: ActivatedRoute,
-    private modalController: ModalController,
-    // private loading: LoadingModalComponent,
-    ) { }
+    private loadingService: LoaderFixService
+  ) { }
 
   topRatedList;
   search: string;
@@ -56,12 +55,7 @@ export class SearchPage implements OnInit {
   }
 
   async goToDetails(movieId) { // add async for loader
-    const modal = await this.modalController.create({
-      component: LoaderModalComponent,
-      animated: false,
-      showBackdrop: false,
-      cssClass:"my-modal"
-    });
+    this.loadingService.isLoading();
     const loading = await this.loader.create({
     });
     loading.present().then(_ => {
