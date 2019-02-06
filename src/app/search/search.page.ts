@@ -4,6 +4,7 @@ import {SelectedMovieService} from '../API/selected-movie.service';
 import {LoadingController} from '@ionic/angular';
 import * as _ from 'lodash';
 import {ActivatedRoute, Router} from "@angular/router";
+import {LoaderFixService} from "../shared/loader-fix.service";
 
 @Component({
   selector: 'app-search',
@@ -17,7 +18,9 @@ export class SearchPage implements OnInit {
     private selectedMovie: SelectedMovieService,
     private router: Router,
     private loader: LoadingController,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private loadingService: LoaderFixService
+  ) { }
 
   topRatedList;
   search: string;
@@ -49,6 +52,7 @@ export class SearchPage implements OnInit {
   }
 
   async goToDetails(movieId) { // add async for loader
+    this.loadingService.isLoading();
     const loading = await this.loader.create({
     });
     loading.present().then(_ => {

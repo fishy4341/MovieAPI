@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from "../../API/movie-api.service";
 import {LoadingController} from "@ionic/angular";
 import {Router} from "@angular/router";
+import {LoaderFixService} from "../../shared/loader-fix.service";
 
 @Component({
   selector: 'app-explore',
@@ -13,6 +14,7 @@ export class ExploreComponent implements OnInit {
   constructor(private movieApi: MovieAPIService,
               private loader: LoadingController,
               private router: Router,
+              private loadingService: LoaderFixService
               ) { }
 
   latest$;
@@ -31,11 +33,17 @@ export class ExploreComponent implements OnInit {
   }
 
   async goToMovie(movieId) { // add async for loader
-    const loading = await this.loader.create({
-    });
-    loading.present().then(_ => {
+    if(!this.loadingService.checkDestroy()){
+      this.loadingService.isLoading();
+      const loading = await this.loader.create({
+      });
+      loading.present().then(_ => {
+        this.router.navigate(['details', movieId]);
+      });
+    }
+    else{
       this.router.navigate(['details', movieId]);
-    });
+    }
   }
 
 }
