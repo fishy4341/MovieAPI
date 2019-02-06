@@ -23,11 +23,12 @@ export class CommentsPage implements OnInit, OnDestroy {
       private firebase: FirebaseService
   ) { }
 
-  movieComments;
+  movieComments = [];
   id;
   movie;
   authenticated;
   userComment;
+  comments: boolean;
   private userID: string = 'none';
   private noRating: boolean = false;
   private yesRating: boolean = false;
@@ -53,7 +54,9 @@ export class CommentsPage implements OnInit, OnDestroy {
       if(this.afAuth.auth.currentUser){
         this.userID = this.afAuth.auth.currentUser.uid;
       }
-      this.movieComments = commentData;
+
+
+
       for(let i: number = 0; i < commentData.length; i++){
         // @ts-ignore
         if(commentData[i].rating){

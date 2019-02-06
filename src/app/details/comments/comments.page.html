@@ -19,15 +19,17 @@
     <ion-label>Only show comments with rating</ion-label>
     <ion-toggle [(ngModel)]="rating"></ion-toggle>
   </ion-item>
-
+  <div *ngIf="!movieComments">
+    No Comments To show!
+  </div>
   <div>
-    <ion-list *ngIf="movieComments && !rating">
+    <ion-list *ngIf="!rating">
       <ion-item *ngFor="let comment of movieComments" color="dark">
         <ion-label *ngIf="comment.userID === userID" class="commentWithRating highlightedComment"><span class="highlightedComment" text-wrap>{{ comment.comment}}</span><span class="highlightedComment" *ngIf="comment.rating">Rating: {{comment.rating}}</span></ion-label>
         <ion-label *ngIf="comment.userID !== userID" class="commentWithRating"><span text-wrap>{{ comment.comment}}</span><span *ngIf="comment.rating">Rating: {{comment.rating}}</span></ion-label>
       </ion-item>
     </ion-list>
-    <ion-list *ngIf="movieComments && rating">
+    <ion-list *ngIf="rating">
       <ion-item *ngFor="let comment of commentsWRating" color="dark">
         <ion-label *ngIf="comment.userID === userID" class="commentWithRating highlightedComment"><span class="highlightedComment" text-wrap>{{ comment.comment}}</span><span class="highlightedComment" *ngIf="comment.rating">Rating: {{comment.rating}}</span></ion-label>
         <ion-label *ngIf="comment.userID !== userID" class="commentWithRating"><span text-wrap>{{ comment.comment}}</span><span *ngIf="comment.rating">Rating: {{comment.rating}}</span></ion-label>
