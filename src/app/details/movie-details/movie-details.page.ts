@@ -12,6 +12,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Subject} from "rxjs";
 import {takeUntil, tap} from "rxjs/operators";
 import {subscribeToObservable} from "rxjs/internal-compatibility";
+import {LoaderFixService} from "../../shared/loader-fix.service";
 
 @Component({
   selector: 'app-movie-details',
@@ -29,7 +30,8 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
               private commentsService: CommentsService,
               private afAuth: AngularFireAuth,
               private route: ActivatedRoute,
-              private loader: LoadingController
+              private loader: LoadingController,
+              private loadingService: LoaderFixService
   ) { }
 
   authenticated;
@@ -48,13 +50,17 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject();
 
   ngOnInit() {
+    this.loadingService.notDestroyed();
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
       this.checkOverviewLength();
       if (this.authenticated) {
         this.checkWatched();
       } // end of if statement
-      this.loader.dismiss();
+      if(this.loadingService.getLoading()){
+          this.loader.dismiss();
+          this.loadingService.stopLoading();
+      }
     });// end up sub callback
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
@@ -75,6 +81,7 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
       this.unsubscribe$.next();
       this.unsubscribe$.complete();
+      this.loadingService.didDestroy();
   }
 
     async presentModal() {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from "../../API/movie-api.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoadingController} from "@ionic/angular";
+import {LoaderFixService} from "../../shared/loader-fix.service";
 
 @Component({
   selector: 'app-related',
@@ -14,7 +15,8 @@ export class RelatedPage implements OnInit {
       private movieApi: MovieAPIService,
       private route: ActivatedRoute,
       private router: Router,
-      private loader: LoadingController
+      private loader: LoadingController,
+      private loadingService: LoaderFixService
   ) { }
 
   id;
@@ -26,11 +28,17 @@ export class RelatedPage implements OnInit {
   }
 
   async goToMovie(movieId){
-    const loading = await this.loader.create({
-    });
-    loading.present().then(_ => {
+    if(!this.loadingService.checkDestroy()){
+      this.loadingService.isLoading();
+      const loading = await this.loader.create({
+      });
+      loading.present().then(_ => {
+        this.router.navigate(['details', movieId]);
+      });
+    }
+    else{
       this.router.navigate(['details', movieId]);
-    });
+    }
   }
 
 }
