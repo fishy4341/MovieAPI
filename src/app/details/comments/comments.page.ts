@@ -24,7 +24,6 @@ export class CommentsPage implements OnInit, OnDestroy {
   ) { }
 
   movieComments;
-  id;
   movie;
   authenticated;
   userComment;
@@ -36,8 +35,10 @@ export class CommentsPage implements OnInit, OnDestroy {
   rating;
 
 
+  get id() {return Number(this.route.parent.snapshot.paramMap.get('id')); }
+
   ngOnInit() {
-    this.id = Number(this.route.parent.snapshot.paramMap.get('id'));
+
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.authenticated = true;
@@ -53,13 +54,12 @@ export class CommentsPage implements OnInit, OnDestroy {
       if (this.afAuth.auth.currentUser) {
         this.userID = this.afAuth.auth.currentUser.uid;
       }
-      if(commentData.length !== 0){
+      if (commentData.length !== 0) {
         this.movieComments = commentData;
+      } else {
+        this.movieComments = [{comment: 'Sorry, We Found No Comments For This Movie'}];
       }
-      else{
-        this.movieComments = [{comment:"Sorry, We Found No Comments For This Movie"}];
-      }
-      for(let i: number = 0; i < commentData.length; i++){
+      for (let i = 0; i < commentData.length; i++) {
         // @ts-ignore
         if (commentData[i].rating) {
           this.commentsWRating.push(commentData[i]);
