@@ -1,12 +1,12 @@
 <ion-header>
 
-  <ion-toolbar>
+  <ion-toolbar color="danger">
     <ion-title>Rate the movie</ion-title>
   </ion-toolbar>
 
 </ion-header>
 
-<ion-content>
+<ion-content color="dark">
   <div *ngIf="movie">
     <div class="info">
       <ion-img [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/w500/' + movie.poster_path  : 'assets/images/noImage.jpeg'" class="image"></ion-img>
