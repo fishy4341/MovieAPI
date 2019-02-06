@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from "../../API/movie-api.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {LoadingController} from "@ionic/angular";
-import {LoaderFixService} from "../../shared/loader-fix.service";
+import {MovieAPIService} from '../../API/movie-api.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LoadingController} from '@ionic/angular';
+import {LoaderFixService} from '../../shared/loader-fix.service';
 
 @Component({
   selector: 'app-related',
@@ -27,16 +27,15 @@ export class RelatedPage implements OnInit {
     this.related$ = this.movieApi.getRelated(this.id);
   }
 
-  async goToMovie(movieId){
-    if(!this.loadingService.checkDestroy()){
+  async goToMovie(movieId) {
+    if (!this.loadingService.checkDestroy()) {
       this.loadingService.isLoading();
       const loading = await this.loader.create({
       });
       loading.present().then(_ => {
         this.router.navigate(['details', movieId]);
       });
-    }
-    else{
+    } else {
       this.router.navigate(['details', movieId]);
     }
   }

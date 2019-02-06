@@ -5,10 +5,15 @@
 </ion-header>
 
 <ion-content color="dark">
-  <div class="card-container" *ngIf="related$ | async as related">
-    <div class="card" *ngFor="let relate of related.results" (click)="goToMovie(relate.id)">
+  <div class="card-container" *ngIf="(related$ | async)?.results.length; else notFound">
+    <div class="card" *ngFor="let relate of (related$ | async)?.results" (click)="goToMovie(relate.id)">
       <ion-img src='https://image.tmdb.org/t/p/w500/{{relate.poster_path}}' class="image"></ion-img>
       <p class="title">{{relate.title}}</p>
     </div>
   </div>
+  <ng-template #notFound>
+    <div  class="notFound">
+     <h1> We could not find any related movies. </h1>
+    </div>
+  </ng-template> 
 </ion-content>
