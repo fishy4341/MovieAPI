@@ -7,6 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 import {FirebaseService} from '../../user-list/firebase.service';
 import {Subject} from 'rxjs';
 import {takeUntil, tap} from 'rxjs/operators';
+import {Movie} from "../../shared/movie";
 
 @Component({
   selector: 'app-comments',
@@ -23,20 +24,20 @@ export class CommentsPage implements OnInit, OnDestroy {
       private firebase: FirebaseService
   ) { }
 
-  movieComments;
-  id;
-  movie;
-  authenticated;
-  userComment;
-  private userID = 'none';
-  private noRating = false;
-  private yesRating = false;
-  private commentsWRating = [];
-  private unsubscribe$ = new Subject();
-  rating;
+  private movieComments: any[];
+  private id: number;
+  private movie: any;
+  private authenticated: boolean;
+  private userComment: Comment;
+  private userID: string = 'none';
+  private noRating: boolean = false;
+  private yesRating: boolean = false;
+  private commentsWRating: any[] = [];
+  private unsubscribe$: Subject<any> = new Subject();
+  private rating: number;
 
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.id = Number(this.route.parent.snapshot.paramMap.get('id'));
     this.afAuth.authState.subscribe(user => {
       if (user) {
@@ -73,7 +74,7 @@ export class CommentsPage implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  getUserComment() {
+  getUserComment(): void {
     if (this.authenticated) {
     this.commentsService.getUserComment(this.id, this.afAuth.auth.currentUser.uid).subscribe(docSnapshot => {
       if (docSnapshot) {
@@ -84,7 +85,7 @@ export class CommentsPage implements OnInit, OnDestroy {
     }
   }
 
-  postComment(comment) {
+  postComment(comment): void {
     this.commentsWRating = [];
     const commentData: Comment = {
       comment: comment.value,
@@ -101,18 +102,9 @@ export class CommentsPage implements OnInit, OnDestroy {
         })// end of subscribe callback
     ).subscribe();
   }
-  deleteComment() {
+  deleteComment(): void {
     this.commentsWRating = [];
     this.commentsService.deleteCommment(this.movie.id, this.afAuth.auth.currentUser.uid);
-  }
-
-  checkYesRating() {
-    this.yesRating = !this.yesRating;
-    // console.log(this.commentsWRating);
-  }
-  checkNoRating() {
-    this.noRating = !this.noRating;
-    // console.log(this.commentsNoRating);
   }
 
 }

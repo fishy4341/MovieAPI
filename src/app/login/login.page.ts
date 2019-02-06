@@ -20,13 +20,13 @@ export class LoginPage implements OnInit {
     this.auth.isAuthenticated().subscribe(x => this.authenticated = x);
   }
 
-  ngOnInit() {
+  ngOnInit():void {
   }
 
-  signIn() {
+  signIn():void {
     this.authService.googleSignIn();
   }
-  signOut() {
+  signOut():void {
 
     this.authService.signOut();
     this.router.navigate(['/search']);

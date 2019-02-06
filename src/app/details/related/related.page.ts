@@ -3,6 +3,7 @@ import {MovieAPIService} from '../../API/movie-api.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoadingController} from '@ionic/angular';
 import {LoaderFixService} from '../../shared/loader-fix.service';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-related',
@@ -19,15 +20,15 @@ export class RelatedPage implements OnInit {
       private loadingService: LoaderFixService
   ) { }
 
-  id;
-  related$;
+  private id: number;
+  private related$: Observable<object>;
 
-  ngOnInit() {
-    this.id = this.route.parent.snapshot.paramMap.get('id');
+  ngOnInit():void {
+    this.id = Number(this.route.parent.snapshot.paramMap.get('id'));
     this.related$ = this.movieApi.getRelated(this.id);
   }
 
-  async goToMovie(movieId) {
+  async goToMovie(movieId): Promise<any> {
     if (!this.loadingService.checkDestroy()) {
       this.loadingService.isLoading();
       const loading = await this.loader.create({

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController, NavParams} from '@ionic/angular';
 import {FirebaseService} from "../../../user-list/firebase.service";
+import {Movie} from "../../../shared/movie";
 
 @Component({
   selector: 'rating',
@@ -10,8 +11,8 @@ import {FirebaseService} from "../../../user-list/firebase.service";
 export class RatingComponent implements OnInit {
 
   // @input() value;
-  movie;
-  rating;
+  private movie: any;
+  private rating: number;
   private start: number;
 
   constructor(
@@ -19,12 +20,12 @@ export class RatingComponent implements OnInit {
       public modalController: ModalController
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.movie = this.navParams.data.value;
     this.start = this.navParams.data.rating;
   }
 
-  dismiss() {
+  dismiss(): void {
     if (!this.rating) {
       this.rating = 0;
     }
@@ -36,7 +37,7 @@ export class RatingComponent implements OnInit {
       'genres': this.movie.genres
     });
   }
-  exit() {
+  exit(): void {
     this.modalController.dismiss();
   }
 

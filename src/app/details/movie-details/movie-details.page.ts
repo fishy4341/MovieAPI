@@ -13,6 +13,7 @@ import {Subject} from "rxjs";
 import {takeUntil, tap} from "rxjs/operators";
 import {subscribeToObservable} from "rxjs/internal-compatibility";
 import {LoaderFixService} from "../../shared/loader-fix.service";
+import {User} from "../../shared/user";
 
 @Component({
   selector: 'app-movie-details',
@@ -34,14 +35,13 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
               private loadingService: LoaderFixService
   ) { }
 
-  authenticated;
-  id = Number(this.route.parent.snapshot.paramMap.get('id'));
-  movie;
-  private url: string;
-  video: SafeResourceUrl;
-  watched: boolean;
-  watchList: boolean;
-  user;
+  private authenticated: boolean;
+  private id: number = Number(this.route.parent.snapshot.paramMap.get('id'));
+  private movie: any;
+  // private video: SafeResourceUrl;
+  private watched: boolean;
+  private watchList: boolean;
+  // private user: User;
   private currentUserRating: number;
   // private movieComments;
   private showRating = false;
@@ -64,7 +64,6 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
     });// end up sub callback
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
-        // this.movieComments = this.commentsService.getCommentsFor(this.id);
         this.firebase.getUserMovieRating(this.id).pipe(
             takeUntil(this.unsubscribe$),
             tap(userMovieData => {

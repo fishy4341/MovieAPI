@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Movie} from '../shared/movie';
 import {Comment} from '../shared/comment';
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -24,16 +25,10 @@ export class CommentsService {
           this.db.collection(`allComments/${dbMovieData.movieID}/comments`).doc(`${userID}`).set(comment);
       });
   }
-  updateMovie(movie: Movie) {
-      this.db.collection(`allComments`).doc(`${movie.movieID}`).update(movie);
-  }
-  getCommentsFor(movieID: number) {
+  getCommentsFor(movieID: number): Observable<object> {
       return this.db.collection(`allComments/${movieID}/comments`).valueChanges();
   }
-  getMovieData(movieID: number) {
-      return this.db.collection(`allComments`).doc(`${movieID}`).valueChanges();
-  }
-  getUserComment(movieID: number, userID: string) {
+  getUserComment(movieID: number, userID: string): Observable<object> {
       return this.db.collection(`allComments/${movieID}/comments`).doc(userID).valueChanges();
   }
   updateCommentRating(movieID: number, userID: string, rating: number): void {

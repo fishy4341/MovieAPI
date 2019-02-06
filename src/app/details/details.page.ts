@@ -14,7 +14,7 @@ export class DetailsPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit():void {
     this.router.navigate(['details', this.route.snapshot.paramMap.get('id'), 'movie-details']);
 
   }

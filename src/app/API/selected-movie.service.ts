@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class SelectedMovieService {
 
-  movieId: number;
+  public movieId: number;
 
   constructor() { }
 

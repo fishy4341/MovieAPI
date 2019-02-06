@@ -8,50 +8,46 @@ import { Observable } from 'rxjs';
 export class MovieAPIService {
 
   constructor(private http: HttpClient) { }
-
- // apiKey = 'bf58ce7909a019c277bfd3ae8194e2bf';
- // tslint:disable-next-line:max-line-length
- // readToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiZjU4Y2U3OTA5YTAxOWMyNzdiZmQzYWU4MTk0ZTJiZiIsInN1YiI6IjVjNDczYTQ2MGUwYTI2NDk1ZGNhMWI4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.J6i5lgiN-BAiYVPaREWXS1MMEpD7r4i0XMrjCKZ0rko';
-
-  searchMovies(searchTerms: string) {
+  
+  searchMovies(searchTerms: string): Observable<Object> {
     // tslint:disable-next-line:max-line-length
     return this.http.get(`https://api.themoviedb.org/3/search/movie?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&query=${searchTerms}&page=1&include_adult=false`);
   }
 
-  getTopRated(page) {
+  getTopRated(page): Observable<Object> {
     return this.http.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
   }
-  getLatest(page) {
+  getLatest(page): Observable<Object> {
     return this.http.get(`https://api.themoviedb.org/3/movie/latest?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
   }
-  getNowPlaying(page) {
+  getNowPlaying(page): Observable<Object> {
     return this.http.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
   }
-  getPopular(page) {
+  getPopular(page): Observable<Object> {
     return this.http.get(`https://api.themoviedb.org/3/movie/popular?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
   }
-  getUpcoming(page) {
+  getUpcoming(page): Observable<Object> {
     return this.http.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
   }
 
 
-  getMovieDetail(id: number) {
+  getMovieDetail(id: number): Observable<Object> {
     return this.http.get(`https://api.themoviedb.org/3/movie/${id}?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US`);
   }
 
-  getMovieVideo(id: number) {
+  getMovieVideo(id: number): Observable<Object> {
     return this.http.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US`);
   }
 
-  getgenreIds() {
+  getgenreIds(): Observable<Object> {
     return this.http.get('https://api.themoviedb.org/3/genre/movie/list?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US');
   }
 
-  getRelated(id: number) {
+  getRelated(id: number): Observable<Object> {
     return this.http.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US`);
   }
 
-  getRecommended(id: number) {
+  getRecommended(id: number): Observable<Object> {
     return this.http.get(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US`);
   }
 
