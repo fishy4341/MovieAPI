@@ -20,7 +20,7 @@
     <ion-toggle [(ngModel)]="rating"></ion-toggle>
   </ion-item>
 
-  <div class="scrollable">
+  <div>
     <ion-list *ngIf="movieComments && !rating">
       <ion-item *ngFor="let comment of movieComments" color="dark">
         <ion-label *ngIf="comment.userID === userID" class="commentWithRating highlightedComment"><span class="highlightedComment" text-wrap>{{ comment.comment}}</span><span class="highlightedComment" *ngIf="comment.rating">Rating: {{comment.rating}}</span></ion-label>
@@ -28,7 +28,7 @@
       </ion-item>
     </ion-list>
     <ion-list *ngIf="movieComments && rating">
-      <ion-item *ngFor="let comment of commentsWRating">
+      <ion-item *ngFor="let comment of commentsWRating" color="dark">
         <ion-label *ngIf="comment.userID === userID" class="commentWithRating highlightedComment"><span class="highlightedComment" text-wrap>{{ comment.comment}}</span><span class="highlightedComment" *ngIf="comment.rating">Rating: {{comment.rating}}</span></ion-label>
         <ion-label *ngIf="comment.userID !== userID" class="commentWithRating"><span text-wrap>{{ comment.comment}}</span><span *ngIf="comment.rating">Rating: {{comment.rating}}</span></ion-label>
       </ion-item>

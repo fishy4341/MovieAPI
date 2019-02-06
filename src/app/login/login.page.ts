@@ -25,9 +25,9 @@ export class LoginPage implements OnInit {
 
   signIn() {
     this.authService.googleSignIn();
-
   }
   signOut() {
+
     this.authService.signOut();
     this.router.navigate(['/search']);
   }

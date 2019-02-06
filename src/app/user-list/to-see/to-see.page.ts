@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../login/auth.service';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {SelectedMovieService} from '../../API/selected-movie.service';
@@ -12,7 +12,7 @@ import {RecommendComponent} from '../recommend/recommend.component';
   templateUrl: './to-see.page.html',
   styleUrls: ['./to-see.page.scss'],
 })
-export class ToSeePage implements OnInit {
+export class ToSeePage implements OnInit, OnDestroy {
   private genres = {};
   filterText = '';
   constructor(
@@ -29,9 +29,14 @@ export class ToSeePage implements OnInit {
   }
 
   movie$;
+  // private movies;
 
   ngOnInit() {
     this.movie$ = this.firebase.getToSee();
+  }
+
+  ngOnDestroy(): void {
+    // this.firebase.getToSee().unsubscribe();
   }
 
 

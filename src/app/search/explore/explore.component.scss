@@ -1,5 +1,6 @@
 .image {
   width: 100px;
+  height: 150px;
 }
 
 .title {
@@ -14,7 +15,7 @@
   //justify-content: center;
   align-items: baseline;
   overflow-x: scroll;
-  height: 210px;
+  max-height: 210px;
   overflow-y: hidden;
 }
 
@@ -25,6 +26,8 @@
   align-items: center;
   justify-content: center;
   width: 300px;
+  max-height: 210px;
+
 }
 
 .more {
