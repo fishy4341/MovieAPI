@@ -53,7 +53,12 @@ export class CommentsPage implements OnInit, OnDestroy {
       if(this.afAuth.auth.currentUser){
         this.userID = this.afAuth.auth.currentUser.uid;
       }
-      this.movieComments = commentData;
+      if(commentData.length !== 0){
+        this.movieComments = commentData;
+      }
+      else{
+        this.movieComments = [{comment:"Sorry, We Found No Comments For This Movie"}];
+      }
       for(let i: number = 0; i < commentData.length; i++){
         // @ts-ignore
         if(commentData[i].rating){
