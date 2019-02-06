@@ -6,12 +6,13 @@
 
 <ion-content padding color="dark">
 
-  <div *ngIf="video$ | async as videos">
-    <ion-card *ngFor="let video of videos.results" color="tertiary">
+  <div *ngIf="video">
+    <ion-card *ngFor="let videoUrl of video" color="tertiary">
       <ion-card-content>
-        <iframe [src]="cleanUrl(video.key)" frameborder="0" allowfullscreen class="video"></iframe>
+        <iframe [src]="videoUrl.safeURL" frameborder="0" allowfullscreen class="video"></iframe>
       </ion-card-content>
     </ion-card>
   </div>
+
 
 </ion-content>

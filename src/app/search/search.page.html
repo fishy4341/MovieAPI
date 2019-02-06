@@ -14,6 +14,7 @@
 <ion-content padding color="dark">
   <app-explore *ngIf="!nameItSomething.value"></app-explore>
   <div *ngIf="nameItSomething.value">
+    <ion-spinner color="light" *ngIf="searching"></ion-spinner>
     <ion-list  *ngFor="let movie of searchResults" >
 
 

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../API/movie-api.service';
 import {SelectedMovieService} from '../API/selected-movie.service';
-import {LoadingController} from '@ionic/angular';
+import {LoadingController, ModalController} from '@ionic/angular';
 import * as _ from 'lodash';
 import {ActivatedRoute, Router} from "@angular/router";
-import {LoadingModalComponent} from "../loading-modal/loading-modal.component";
+import {LoaderModalComponent} from "../loader-modal/loader-modal.component";
 
 @Component({
   selector: 'app-search',
@@ -19,6 +19,7 @@ export class SearchPage implements OnInit {
     private router: Router,
     private loader: LoadingController,
     private route: ActivatedRoute,
+    private modalController: ModalController,
     // private loading: LoadingModalComponent,
     ) { }
 
@@ -27,6 +28,7 @@ export class SearchPage implements OnInit {
   searchResults;
   genres = {};
   genreFilter;
+  searching = false;
 
   ngOnInit() {
     this.movieService.getTopRated(1).subscribe( list => {
@@ -42,9 +44,11 @@ export class SearchPage implements OnInit {
 
   Search(element) {
     if (element.value === '') {
-      this.searchResults = this.topRatedList;
+      this.searchResults = null;
     } else {
+      this.searching = true;
       this.movieService.searchMovies(element.value).subscribe(data => {
+        this.searching = false;
         this.searchResults = data['results'];
       });
     }
@@ -52,6 +56,19 @@ export class SearchPage implements OnInit {
   }
 
   async goToDetails(movieId) { // add async for loader
+    const modal = await this.modalController.create({
+      component: LoaderModalComponent,
+      animated: false,
+      showBackdrop: false,
+      cssClass:"my-modal"
+    });
+    const loading = await this.loader.create({
+    });
+    loading.present().then(_ => {
+      this.router.navigate(['details', movieId]);
+    });
+    // return await modal.present()
+
     // const loading = await this.loader.create({
     // });
     // loading.present().then(_ => {
