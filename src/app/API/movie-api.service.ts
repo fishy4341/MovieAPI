@@ -8,47 +8,49 @@ import { Observable } from 'rxjs';
 export class MovieAPIService {
 
   constructor(private http: HttpClient) { }
-  
-  searchMovies(searchTerms: string): Observable<Object> {
-    // tslint:disable-next-line:max-line-length
-    return this.http.get(`https://api.themoviedb.org/3/search/movie?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&query=${searchTerms}&page=1&include_adult=false`);
-  }
 
+  private apiKey: string = 'api_key=bf58ce7909a019c277bfd3ae8194e2bf';
+  private baseUrl: string = 'https://api.themoviedb.org/3/';
+
+  searchMovies(searchTerms: string) {
+    // tslint:disable-next-line:max-line-length
+    return this.http.get(`${this.baseUrl}search/movie?${this.apiKey}&language=en-US&query=${searchTerms}&page=1&include_adult=false`);
+  }
   getTopRated(page): Observable<Object> {
-    return this.http.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
+    return this.http.get(`${this.baseUrl}movie/top_rated?${this.apiKey}&language=en-US&page=${page}`);
   }
   getLatest(page): Observable<Object> {
-    return this.http.get(`https://api.themoviedb.org/3/movie/latest?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
+    return this.http.get(`${this.baseUrl}movie/latest?${this.apiKey}&language=en-US&page=${page}`);
   }
   getNowPlaying(page): Observable<Object> {
-    return this.http.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
+    return this.http.get(`${this.baseUrl}movie/now_playing?${this.apiKey}&language=en-US&page=${page}`);
   }
-  getPopular(page): Observable<Object> {
-    return this.http.get(`https://api.themoviedb.org/3/movie/popular?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
+  getPopular(page: Observable<Object>) {
+    return this.http.get(`${this.baseUrl}movie/popular?${this.apiKey}&language=en-US&page=${page}`);
   }
   getUpcoming(page): Observable<Object> {
-    return this.http.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US&page=${page}`);
+    return this.http.get(`${this.baseUrl}movie/upcoming?${this.apiKey}&language=en-US&page=${page}`);
   }
 
 
   getMovieDetail(id: number): Observable<Object> {
-    return this.http.get(`https://api.themoviedb.org/3/movie/${id}?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US`);
+    return this.http.get(`${this.baseUrl}movie/${id}?${this.apiKey}&language=en-US`);
   }
 
   getMovieVideo(id: number): Observable<Object> {
-    return this.http.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US`);
+    return this.http.get(`${this.baseUrl}movie/${id}/videos?${this.apiKey}&language=en-US`);
   }
 
   getgenreIds(): Observable<Object> {
-    return this.http.get('https://api.themoviedb.org/3/genre/movie/list?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US');
+    return this.http.get(`${this.baseUrl}genre/movie/list?${this.apiKey}&language=en-US`);
   }
 
   getRelated(id: number): Observable<Object> {
-    return this.http.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US`);
+    return this.http.get(`${this.baseUrl}movie/${id}/similar?${this.apiKey}&language=en-US`);
   }
 
   getRecommended(id: number): Observable<Object> {
-    return this.http.get(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=bf58ce7909a019c277bfd3ae8194e2bf&language=en-US`);
+    return this.http.get(`${this.baseUrl}movie/${id}/recommendations?${this.apiKey}&language=en-US`);
   }
 
 
