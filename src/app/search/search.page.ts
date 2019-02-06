@@ -5,6 +5,7 @@ import {LoadingController} from '@ionic/angular';
 import * as _ from 'lodash';
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoaderFixService} from "../shared/loader-fix.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-search',
@@ -22,13 +23,12 @@ export class SearchPage implements OnInit {
     private loadingService: LoaderFixService
   ) { }
 
-  topRatedList;
-  search: string;
-  searchResults;
-  genres = {};
-  genreFilter;
+  private topRatedList: Observable<Object>;
+  private search: string;
+  private searchResults: Observable<Object>;
+  private genres: any = {};
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.movieService.getTopRated(1).subscribe( list => {
       this.topRatedList = list['results'];
       if ( !this.searchResults ) {this.searchResults = this.topRatedList; }
@@ -40,7 +40,7 @@ export class SearchPage implements OnInit {
 
   }
 
-  Search(element) {
+  Search(element): void {
     if (element.value === '') {
       this.searchResults = this.topRatedList;
     } else {
@@ -51,7 +51,7 @@ export class SearchPage implements OnInit {
 
   }
 
-  async goToDetails(movieId) { // add async for loader
+  async goToDetails(movieId): Promise<any> { // add async for loader
     this.loadingService.isLoading();
     const loading = await this.loader.create({
     });
@@ -59,24 +59,5 @@ export class SearchPage implements OnInit {
       this.router.navigate(['details', movieId]);
     });
   }
-
-  // async presentLoadingCustom() {
-  //   let loading = this.loader.create({
-  //     spinner: null,
-  //     message: `
-  //     <div class="custom-spinner-container">
-  //       <div class="custom-spinner-box">
-  //          <img src="assets/imgs/loader.gif" />
-  //       </div>
-  //     </div>`,
-  //     duration: 5000
-  //   });
-  //
-  //   // loading.onDidDismiss(() => {
-  //   //   console.log('Dismissed loading');
-  //   // });
-  //
-  //   return await loading.present();
-  // }
 
 }

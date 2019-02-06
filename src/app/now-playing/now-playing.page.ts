@@ -3,6 +3,7 @@ import {MovieAPIService} from '../API/movie-api.service';
 import {Router} from '@angular/router';
 import {LoadingController} from '@ionic/angular';
 import {LoaderFixService} from "../shared/loader-fix.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-now-playing',
@@ -18,23 +19,23 @@ export class NowPlayingPage implements OnInit {
       private loadingService: LoaderFixService
   ) { }
 
-  page: number;
-  movie$;
-  ngOnInit() {
+  private page: number;
+  private movie$: Observable<Object>;
+  ngOnInit(): void {
     this.page = 1;
     this.movie$ = this.movieApi.getNowPlaying(this.page);
   }
 
-  next() {
+  next(): void {
     this.page = this.page + 1;
     this.movie$ = this.movieApi.getNowPlaying(this.page);
   }
 
-  back() {
+  back(): void {
     this.page = this.page - 1;
     this.movie$ = this.movieApi.getNowPlaying(this.page);
   }
-  async goToMovie(movieId) {
+  async goToMovie(movieId): Promise<any> {
     if(!this.loadingService.checkDestroy()){
       this.loadingService.isLoading();
       const loading = await this.loader.create({

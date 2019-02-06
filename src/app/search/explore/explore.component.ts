@@ -3,6 +3,7 @@ import {MovieAPIService} from "../../API/movie-api.service";
 import {LoadingController} from "@ionic/angular";
 import {Router} from "@angular/router";
 import {LoaderFixService} from "../../shared/loader-fix.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-explore',
@@ -17,13 +18,13 @@ export class ExploreComponent implements OnInit {
               private loadingService: LoaderFixService
               ) { }
 
-  latest$;
-  nowPlaying$;
-  popular$;
-  topRated$;
-  upcoming$;
+  private latest$: Observable<Object>;
+  private nowPlaying$: Observable<Object>;
+  private popular$: Observable<Object>;
+  private topRated$: Observable<Object>;
+  private upcoming$: Observable<Object>;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.latest$ = this.movieApi.getLatest(1);
     this.nowPlaying$ = this.movieApi.getNowPlaying(1);
     this.popular$ = this.movieApi.getPopular(1);
@@ -32,7 +33,7 @@ export class ExploreComponent implements OnInit {
 
   }
 
-  async goToMovie(movieId) { // add async for loader
+  async goToMovie(movieId): Promise<any> { // add async for loader
     if(!this.loadingService.checkDestroy()){
       this.loadingService.isLoading();
       const loading = await this.loader.create({

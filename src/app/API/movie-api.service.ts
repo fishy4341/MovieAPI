@@ -16,19 +16,19 @@ export class MovieAPIService {
     // tslint:disable-next-line:max-line-length
     return this.http.get(`${this.baseUrl}search/movie?${this.apiKey}&language=en-US&query=${searchTerms}&page=1&include_adult=false`);
   }
-  getTopRated(page): Observable<Object> {
+  getTopRated(page: number): Observable<Object> {
     return this.http.get(`${this.baseUrl}movie/top_rated?${this.apiKey}&language=en-US&page=${page}`);
   }
-  getLatest(page): Observable<Object> {
+  getLatest(page: number): Observable<Object> {
     return this.http.get(`${this.baseUrl}movie/latest?${this.apiKey}&language=en-US&page=${page}`);
   }
-  getNowPlaying(page): Observable<Object> {
+  getNowPlaying(page: number): Observable<Object> {
     return this.http.get(`${this.baseUrl}movie/now_playing?${this.apiKey}&language=en-US&page=${page}`);
   }
-  getPopular(page: Observable<Object>) {
+  getPopular(page: number): Observable<Object> {
     return this.http.get(`${this.baseUrl}movie/popular?${this.apiKey}&language=en-US&page=${page}`);
   }
-  getUpcoming(page): Observable<Object> {
+  getUpcoming(page: number): Observable<Object> {
     return this.http.get(`${this.baseUrl}movie/upcoming?${this.apiKey}&language=en-US&page=${page}`);
   }
 
