@@ -50,6 +50,7 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject();
 
   ngOnInit() {
+    this.loadingService.notDestroyed();
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
         console.log('movie api sub called');
       this.movie = data;
@@ -65,6 +66,7 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
           this.loadingService.stopLoading();
       }
     });// end up sub callback
+    console.log('ng On init called after getMovieDetails');
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
         // this.movieComments = this.commentsService.getCommentsFor(this.id);
@@ -79,11 +81,13 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
             })//end of sub callback
         ).subscribe()//end of pipe
     }//end of auth if statement
+    console.log('ng On init called after AFAuth');
   } //end of ngOnInit
 
   ngOnDestroy(): void {
       this.unsubscribe$.next();
       this.unsubscribe$.complete();
+      this.loadingService.didDestroy();
   }
 
     async presentModal() {

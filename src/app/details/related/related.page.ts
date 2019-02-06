@@ -28,12 +28,17 @@ export class RelatedPage implements OnInit {
   }
 
   async goToMovie(movieId){
-    this.loadingService.isLoading();
-    const loading = await this.loader.create({
-    });
-    loading.present().then(_ => {
+    if(!this.loadingService.checkDestroy()){
+      this.loadingService.isLoading();
+      const loading = await this.loader.create({
+      });
+      loading.present().then(_ => {
+        this.router.navigate(['details', movieId]);
+      });
+    }
+    else{
       this.router.navigate(['details', movieId]);
-    });
+    }
   }
 
 }

@@ -34,13 +34,18 @@ export class RecommendComponent implements OnInit {
     this.modalController.dismiss();
   }
   async goToMovie(movieId) {
-    this.loadingService.isLoading();
-    const loading = await this.loader.create({
-    });
-    loading.present().then(_ => {
+    if(!this.loadingService.checkDestroy()){
+      this.loadingService.isLoading();
+      const loading = await this.loader.create({
+      });
+      loading.present().then(_ => {
+        this.router.navigate(['details', movieId]);
+        this.modalController.dismiss();
+      });
+    }
+    else{
       this.router.navigate(['details', movieId]);
-      this.modalController.dismiss();
-    });
+    }
   }
 
 }

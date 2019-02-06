@@ -33,12 +33,17 @@ export class ExploreComponent implements OnInit {
   }
 
   async goToMovie(movieId) { // add async for loader
-    this.loadingService.isLoading();
-    const loading = await this.loader.create({
-    });
-    loading.present().then(_ => {
+    if(!this.loadingService.checkDestroy()){
+      this.loadingService.isLoading();
+      const loading = await this.loader.create({
+      });
+      loading.present().then(_ => {
+        this.router.navigate(['details', movieId]);
+      });
+    }
+    else{
       this.router.navigate(['details', movieId]);
-    });
+    }
   }
 
 }

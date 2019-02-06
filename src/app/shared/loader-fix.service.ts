@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class LoaderFixService {
 
   private loading: boolean = false;
+  private noLoad: boolean = false;
 
   constructor() { }
 
@@ -17,6 +18,17 @@ export class LoaderFixService {
   }
   getLoading(): boolean{
     return this.loading;
+  }
+
+
+  checkDestroy(): boolean{
+    return this.noLoad;
+  }
+  didDestroy(): void{
+    this.noLoad = false;
+  }
+  notDestroyed(): void{
+    this.noLoad = true;
   }
 
 }
