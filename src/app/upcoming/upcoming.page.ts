@@ -5,9 +5,9 @@ import { LoadingController } from '@ionic/angular';
 import { LoaderFixService } from '../shared/loader-fix.service';
 
 @Component({
-  selector: 'app-upcoming',
-  templateUrl: './upcoming.page.html',
-  styleUrls: ['./upcoming.page.scss'],
+    selector: 'app-upcoming',
+    templateUrl: './upcoming.page.html',
+    styleUrls: ['./upcoming.page.scss'],
 })
 export class UpcomingPage implements OnInit {
 
@@ -47,6 +47,6 @@ export class UpcomingPage implements OnInit {
     } else {
       this.router.navigate(['details', movieId]);
     }
-  }
 
+  }
 }

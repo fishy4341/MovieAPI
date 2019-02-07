@@ -20,7 +20,13 @@ export class VideosPage implements OnInit {
 
   ngOnInit() {
     this.movie$ = this.movieApi.getMovieDetail(this.id);
-    this.video$ = this.movieApi.getMovieVideo(this.id);
+    this.movieApi.getMovieVideo(this.id).subscribe(data => {
+      // @ts-ignore
+      this.video = data.results;
+      for (let i = 0; i < this.video$.length; i++) {
+        this.video$[i].safeURL = this.cleanUrl(this.video$[i].key);
+      }
+    });
   }
 
   cleanUrl(url) {

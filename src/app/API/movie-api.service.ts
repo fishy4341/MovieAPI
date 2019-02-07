@@ -33,7 +33,7 @@ export class MovieAPIService {
     return this.http.get(`${this.baseUrl}movie/upcoming?${this.apiKey}&language=en-US&page=${page}`);
   }
   getMovieDetail(id: number) {
-    return this.http.get(`${this.baseUrl}movie/${id}?${this.apiKey}&language=en-US`);
+    return this.http.get(`${this.baseUrl}movie/${id}?${this.apiKey}&language=en-US&append_to_response=videos`);
   }
   getMovieVideo(id: number) {
     return this.http.get(`${this.baseUrl}movie/${id}/videos?${this.apiKey}&language=en-US`);
