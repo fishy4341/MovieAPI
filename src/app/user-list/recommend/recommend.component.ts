@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {LoadingController, ModalController, NavParams} from '@ionic/angular';
-import {MovieAPIService} from '../../API/movie-api.service';
-import {Router} from '@angular/router';
-import {LoaderFixService} from "../../shared/loader-fix.service";
+import { LoadingController, ModalController, NavParams } from '@ionic/angular';
+import { MovieAPIService } from '../../API/movie-api.service';
+import { Router } from '@angular/router';
+import { LoaderFixService } from '../../shared/loader-fix.service';
 
 @Component({
   selector: 'app-recommend',
@@ -12,12 +12,12 @@ import {LoaderFixService} from "../../shared/loader-fix.service";
 export class RecommendComponent implements OnInit {
 
   constructor(
-      private navParams: NavParams,
-      private modalController: ModalController,
-      private movieAPI: MovieAPIService,
-      private router: Router,
-      private loader: LoadingController,
-      private loadingService: LoaderFixService
+    private navParams: NavParams,
+    private modalController: ModalController,
+    private movieAPI: MovieAPIService,
+    private router: Router,
+    private loader: LoadingController,
+    private loadingService: LoaderFixService
   ) { }
 
   id: number;
@@ -34,7 +34,7 @@ export class RecommendComponent implements OnInit {
     this.modalController.dismiss();
   }
   async goToMovie(movieId) {
-    if(!this.loadingService.checkDestroy()){
+    if (!this.loadingService.checkDestroy()) {
       this.loadingService.isLoading();
       const loading = await this.loader.create({
       });
@@ -42,8 +42,7 @@ export class RecommendComponent implements OnInit {
         this.router.navigate(['details', movieId]);
         this.modalController.dismiss();
       });
-    }
-    else{
+    } else {
       this.router.navigate(['details', movieId]);
     }
   }

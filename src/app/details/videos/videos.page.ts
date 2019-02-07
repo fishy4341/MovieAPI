@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from '../../API/movie-api.service';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {SelectedMovieService} from '../../API/selected-movie.service';
-import {ActivatedRoute} from "@angular/router";
+import { MovieAPIService } from '../../API/movie-api.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SelectedMovieService } from '../../API/selected-movie.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-videos',
@@ -12,7 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 export class VideosPage implements OnInit {
 
   constructor(private movieApi: MovieAPIService, public sanitizer: DomSanitizer,
-              private route: ActivatedRoute) { }
+    private route: ActivatedRoute) { }
 
   id = Number(this.route.parent.snapshot.paramMap.get('id'));
   movie$;

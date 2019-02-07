@@ -10,24 +10,24 @@ export class LoaderFixService {
 
   constructor() { }
 
-  isLoading(): void{
+  isLoading(): void {
     this.loading = true;
   }
-  stopLoading(): void{
+  stopLoading(): void {
     this.loading = false;
   }
-  getLoading(): boolean{
+  getLoading(): boolean {
     return this.loading;
   }
 
 
-  checkDestroy(): boolean{
+  checkDestroy(): boolean {
     return this.noLoad;
   }
-  didDestroy(): void{
+  didDestroy(): void {
     this.noLoad = false;
   }
-  notDestroyed(): void{
+  notDestroyed(): void {
     this.noLoad = true;
   }
 

@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CommentsService} from '../../login/comments.service';
-import {MovieAPIService} from '../../API/movie-api.service';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {Comment} from '../../shared/comment';
-import {ActivatedRoute} from '@angular/router';
-import {FirebaseService} from '../../user-list/firebase.service';
-import {Subject} from 'rxjs';
-import {takeUntil, tap} from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommentsService } from '../../login/comments.service';
+import { MovieAPIService } from '../../API/movie-api.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Comment } from '../../shared/comment';
+import { ActivatedRoute } from '@angular/router';
+import { FirebaseService } from '../../user-list/firebase.service';
+import { Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-comments',
@@ -16,15 +16,14 @@ import {takeUntil, tap} from 'rxjs/operators';
 export class CommentsPage implements OnInit, OnDestroy {
 
   constructor(
-      private commentsService: CommentsService,
-      private movieApi: MovieAPIService,
-      private afAuth: AngularFireAuth,
-      private route: ActivatedRoute,
-      private firebase: FirebaseService
+    private commentsService: CommentsService,
+    private movieApi: MovieAPIService,
+    private afAuth: AngularFireAuth,
+    private route: ActivatedRoute,
+    private firebase: FirebaseService
   ) { }
 
   movieComments;
-  id;
   movie;
   authenticated;
   userComment;
@@ -36,8 +35,10 @@ export class CommentsPage implements OnInit, OnDestroy {
   rating;
 
 
+  get id() { return Number(this.route.parent.snapshot.paramMap.get('id')); }
+
   ngOnInit() {
-    this.id = Number(this.route.parent.snapshot.paramMap.get('id'));
+
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.authenticated = true;
@@ -76,12 +77,12 @@ export class CommentsPage implements OnInit, OnDestroy {
 
   getUserComment() {
     if (this.authenticated) {
-    this.commentsService.getUserComment(this.id, this.afAuth.auth.currentUser.uid).subscribe(docSnapshot => {
-      if (docSnapshot) {
-        // @ts-ignore
-        this.userComment = docSnapshot.comment;
-      }
-    }); // end of subscribe callback
+      this.commentsService.getUserComment(this.id, this.afAuth.auth.currentUser.uid).subscribe(docSnapshot => {
+        if (docSnapshot) {
+          // @ts-ignore
+          this.userComment = docSnapshot.comment;
+        }
+      }); // end of subscribe callback
     }
   }
 
@@ -92,14 +93,14 @@ export class CommentsPage implements OnInit, OnDestroy {
       userID: this.afAuth.auth.currentUser.uid
     };
     this.firebase.getUserMovieRating(this.movie.id).pipe(
-        takeUntil(this.unsubscribe$),
-        tap(movieDoc => {
-          if (movieDoc) {
-            // @ts-ignore
-            commentData.rating = movieDoc.rating;
-          }
-          this.commentsService.addMovie(this.movie, commentData, this.afAuth.auth.currentUser.uid);
-        })// end of subscribe callback
+      takeUntil(this.unsubscribe$),
+      tap(movieDoc => {
+        if (movieDoc) {
+          // @ts-ignore
+          commentData.rating = movieDoc.rating;
+        }
+        this.commentsService.addMovie(this.movie, commentData, this.afAuth.auth.currentUser.uid);
+      })// end of subscribe callback
     ).subscribe();
   }
   deleteComment() {

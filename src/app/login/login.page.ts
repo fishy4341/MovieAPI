@@ -13,9 +13,9 @@ export class LoginPage implements OnInit {
   public authenticated;
 
   constructor(
-      private authService: AuthService,
-      private router: Router,
-      private auth: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private auth: AuthService
   ) {
     this.auth.isAuthenticated().subscribe(x => this.authenticated = x);
   }

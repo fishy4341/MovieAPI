@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalController, NavParams} from '@ionic/angular';
-import {FirebaseService} from "../../../user-list/firebase.service";
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'rating',
@@ -9,19 +8,17 @@ import {FirebaseService} from "../../../user-list/firebase.service";
 })
 export class RatingComponent implements OnInit {
 
-  // @input() value;
-  movie;
   rating;
-  private start: number;
 
   constructor(
-      public navParams: NavParams,
-      public modalController: ModalController
+    public navParams: NavParams,
+    public modalController: ModalController
   ) { }
 
+  get movie() { return this.navParams.data.value; }
+  get start() { return this.navParams.data.rating; }
+
   ngOnInit() {
-    this.movie = this.navParams.data.value;
-    this.start = this.navParams.data.rating;
   }
 
   dismiss() {

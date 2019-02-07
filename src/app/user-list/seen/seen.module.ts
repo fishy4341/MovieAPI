@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
 import { IonicModule } from '@ionic/angular';
-
 import { SeenPage } from './seen.page';
 import { FilterModule } from '../filter/filter.module';
 
@@ -27,4 +25,4 @@ const routes: Routes = [
   declarations: [SeenPage]
 })
 
-export class SeenPageModule {}
+export class SeenPageModule { }

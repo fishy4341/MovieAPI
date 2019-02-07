@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
 import { IonicModule } from '@ionic/angular';
-
 import { DetailsPage } from './details.page';
 
 const routes: Routes = [
@@ -47,12 +45,7 @@ const routes: Routes = [
             loadChildren: './related/related.module#RelatedPageModule'
           }
         ]
-      },
-      // {
-      //   path: '',
-      //   redirectTo: '/details/movie-details',
-      //   pathMatch: 'full'
-      // }
+      }
     ]
   }
 ];
@@ -66,4 +59,4 @@ const routes: Routes = [
   ],
   declarations: [DetailsPage]
 })
-export class DetailsPageModule {}
+export class DetailsPageModule { }

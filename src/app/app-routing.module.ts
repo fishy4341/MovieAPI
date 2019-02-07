@@ -9,13 +9,16 @@ const routes: Routes = [
     redirectTo: 'search',
     pathMatch: 'full'
   },
-  { path: 'login',
+  {
+    path: 'login',
     loadChildren: './login/login.module#LoginPageModule'
   },
-  { path: 'search',
+  {
+    path: 'search',
     loadChildren: './search/search.module#SearchPageModule'
   },
-  { path: 'details/:id',
+  {
+    path: 'details/:id',
     loadChildren: './details/details.module#DetailsPageModule',
     resolve: {
       movie: DetailResolverService
@@ -26,18 +29,23 @@ const routes: Routes = [
     //   { path: 'comments', loadChildren: './details/comments/comments.module#CommentsPageModule' },
     // ]
   },
-  { path: 'user-list',
+  {
+    path: 'user-list',
     loadChildren: './user-list/user-list.module#UserListPageModule',
     canActivate: [AuthGuardGuard]
   },
-  { path: 'seen',
+  {
+    path: 'seen',
     loadChildren: './user-list/seen/seen.module#SeenPageModule',
     canActivate: [AuthGuardGuard]
   },
-  { path: 'to-see',
+  {
+    path: 'to-see',
     loadChildren: './user-list/to-see/to-see.module#ToSeePageModule',
-    canActivate: [AuthGuardGuard] },
-  { path: 'test',
+    canActivate: [AuthGuardGuard]
+  },
+  {
+    path: 'test',
     loadChildren: './test/test.module#TestPageModule'
   },
   { path: 'related', loadChildren: './details/related/related.module#RelatedPageModule' },
@@ -45,7 +53,8 @@ const routes: Routes = [
   { path: 'popular', loadChildren: './popular/popular.module#PopularPageModule' },
   { path: 'top-rated', loadChildren: './top-rated/top-rated.module#TopRatedPageModule' },
   { path: 'upcoming', loadChildren: './upcoming/upcoming.module#UpcomingPageModule' },
-  { path: '**',
+  {
+    path: '**',
     loadChildren: './not-found/not-found.module#NotFoundPageModule'
   },
 
@@ -60,4 +69,4 @@ const routes: Routes = [
   })],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
