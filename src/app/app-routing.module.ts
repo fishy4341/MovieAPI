@@ -35,10 +35,6 @@ const routes: Routes = [
     loadChildren: './user-list/to-see/to-see.module#ToSeePageModule',
     canActivate: [AuthGuardGuard]
   },
-  {
-    path: 'test',
-    loadChildren: './test/test.module#TestPageModule'
-  },
   { path: 'related', loadChildren: './details/related/related.module#RelatedPageModule' },
   { path: 'now-playing', loadChildren: './now-playing/now-playing.module#NowPlayingPageModule' },
   { path: 'popular', loadChildren: './popular/popular.module#PopularPageModule' },
