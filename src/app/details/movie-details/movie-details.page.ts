@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MovieAPIService } from '../../API/movie-api.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { RatingComponent } from './rating/rating.component';
 import { AuthService } from '../../login/auth.service';
@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { LoaderFixService } from '../../shared/loader-fix.service';
+import { Comment } from '../../shared/comment';
 
 @Component({
     selector: 'app-movie-details',
@@ -34,48 +35,44 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
         private loadingService: LoaderFixService
     ) { }
 
-    authenticated;
-    id = Number(this.route.parent.snapshot.paramMap.get('id'));
-    movie;
-    private url: string;
-    video: SafeResourceUrl;
-    watched: boolean;
-    watchList: boolean;
-    user;
-    private currentUserRating: number;
-    private showRating = false;
-    private displayOverview;
-    private isTooLong = false;
-    private unsubscribe$ = new Subject();
+  private authenticated: boolean;
+  private id: number = Number(this.route.parent.snapshot.paramMap.get('id'));
+  private movie: any;
+  private watched: boolean;
+  private watchList: boolean;
+  private currentUserRating: number;
+  private showRating = false;
+  private displayOverview;
+  private isTooLong = false;
+  private unsubscribe$ = new Subject();
 
-    ngOnInit() {
-        this.loadingService.notDestroyed();
-        this.movieApi.getMovieDetail(this.id).subscribe(data => {
-            this.movie = data;
-            this.checkOverviewLength();
-            if (this.authenticated) {
-                this.checkWatched();
-            } // end of if statement
-            if (this.loadingService.getLoading()) {
-                this.loader.dismiss();
-                this.loadingService.stopLoading();
-            }
-        }); // end up sub callback
-        if (this.afAuth.auth.currentUser !== null) {
-            this.authenticated = !!this.afAuth.auth.currentUser.uid;
-            // this.movieComments = this.commentsService.getCommentsFor(this.id);
-            this.firebase.getUserMovieRating(this.id).pipe(
-                takeUntil(this.unsubscribe$),
-                tap(userMovieData => {
-                    if (userMovieData) {
-                        this.showRating = true;
-                        // @ts-ignore
-                        this.currentUserRating = userMovieData.rating;
-                    } // end of if statement
-                }) // end of sub callback
-            ).subscribe(); // end of pipe
-        } // end of auth if statement
-    } // end of ngOnInit
+  ngOnInit() {
+    this.loadingService.notDestroyed();
+    this.movieApi.getMovieDetail(this.id).subscribe(data => {
+      this.movie = data;
+      this.checkOverviewLength();
+      if (this.authenticated) {
+        this.checkWatched();
+      } // end of if statement
+      if (this.loadingService.getLoading()) {
+          this.loader.dismiss();
+          this.loadingService.stopLoading();
+      }
+    }); // end up sub callback
+    if (this.afAuth.auth.currentUser !== null) {
+        this.authenticated = !!this.afAuth.auth.currentUser.uid;
+        this.firebase.getUserMovieRating(this.id).pipe(
+            takeUntil(this.unsubscribe$),
+            tap((userMovieData: Movie) => {
+                if (userMovieData) {
+                    this.showRating = true;
+                    // @ts-ignore
+                    this.currentUserRating = userMovieData.rating;
+                } // end of if statement
+            }) // end of sub callback
+        ).subscribe(); // end of pipe
+    } // end of auth if statement
+  } // end of ngOnInit
 
     ngOnDestroy(): void {
         this.unsubscribe$.next();
@@ -84,32 +81,32 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
     }
 
     async presentModal() {
-        const modal = await this.modalController.create({
-            component: RatingComponent,
-            componentProps: { value: this.movie, rating: this.currentUserRating }
-        });
-        await modal.present();
-        const { data } = await modal.onDidDismiss();
-        if (data) {
-            const movieData: Movie = {
-                title: data.title,
-                movieID: data.movieId,
-                rating: data.rating,
-                pic: data.pic,
-                genres: data.genres,
-            };
-            if (this.watchList) {
-                this.firebase.removeToSee(movieData.movieID);
-            }
-            this.firebase.pushHasSeen(movieData);
-            this.checkWatched();
-            this.commentsService.getUserComment(this.movie.id, this.afAuth.auth.currentUser.uid).subscribe(commentData => {
-                if (commentData) {
-                    this.commentsService.updateCommentRating(this.movie.id, this.afAuth.auth.currentUser.uid, movieData.rating);
-                }// end of if(commentData) statement
-            }); // end of sub callback
-        }// end of if(data) statement
-    }// end of presentModal()
+    const modal = await this.modalController.create({
+      component: RatingComponent,
+      componentProps: { value: this.movie, rating: this.currentUserRating}
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      const movieData: Movie = {
+        title: data.title,
+        movieID: data.movieId,
+        rating: data.rating,
+        pic: data.pic,
+        genres: data.genres,
+      };
+      if (this.watchList) {
+          this.firebase.removeToSee(movieData.movieID);
+      }
+      this.firebase.pushHasSeen(movieData);
+      this.checkWatched();
+      this.commentsService.getUserComment(this.movie.id, this.afAuth.auth.currentUser.uid).subscribe((value: Comment) => {
+          if (value) {
+              this.commentsService.updateCommentRating(this.movie.id, this.afAuth.auth.currentUser.uid, movieData.rating);
+          }// end of if(commentData) statement
+      }); // end of sub callback
+    }// end of if(data) statement
+  }// end of presentModal()
 
     addToSee() {
         const movieData: Movie = {
@@ -122,20 +119,28 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
         this.checkWatched();
     }
 
-    checkWatched() {
-        if (this.afAuth.auth.currentUser !== null) {
-            this.firebase.getHasSeenMovie(this.movie.id).subscribe(docSnapshot => {
-                if (docSnapshot.exists) {
-                    this.watched = true;
-                }
-            });
-            this.firebase.getToSeeMovie(this.movie.id).subscribe(docSnapshot => {
-                if (docSnapshot.exists) {
-                    this.watchList = true;
-                }
-            });
-        }
-    }
+  checkWatched() {
+      if (this.afAuth.auth.currentUser !== null) {
+          this.firebase.getHasSeenMovie(this.movie.id)
+              .pipe(
+                  takeUntil(this.unsubscribe$),
+                  tap((movieData: Movie) => {
+                      if (movieData) {
+                          this.watched = true;
+                      }
+                  })
+              ).subscribe();
+          this.firebase.getToSeeMovie(this.movie.id)
+              .pipe(
+                  takeUntil(this.unsubscribe$),
+                  tap((movieData: Movie) => {
+                      if (movieData) {
+                          this.watchList = true;
+                      }
+                  })
+              ).subscribe();
+      }
+  }
 
     checkOverviewLength(): void {
         if (this.movie) {

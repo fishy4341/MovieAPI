@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MovieAPIService } from '../API/movie-api.service';
-import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
-import { LoaderFixService } from '../shared/loader-fix.service';
+import {MovieAPIService} from '../API/movie-api.service';
+import {Router} from '@angular/router';
+import {LoadingController} from '@ionic/angular';
+import {LoaderFixService} from "../shared/loader-fix.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-popular',
@@ -18,24 +19,24 @@ export class PopularPage implements OnInit {
     private loadingService: LoaderFixService
   ) { }
 
-  page: number;
-  movie$;
-  ngOnInit() {
+  private page: number;
+  private movie$: Observable<object>;
+  ngOnInit(): void {
     this.page = 1;
     this.movie$ = this.movieApi.getPopular(this.page);
   }
 
-  next() {
+  next(): void {
     this.page = this.page + 1;
     this.movie$ = this.movieApi.getPopular(this.page);
   }
 
-  back() {
+  back(): void {
     this.page = this.page - 1;
     this.movie$ = this.movieApi.getPopular(this.page);
   }
-  async goToMovie(movieId) {
-    if (!this.loadingService.checkDestroy()) {
+  async goToMovie(movieId): Promise<any> {
+    if(!this.loadingService.checkDestroy()){
       this.loadingService.isLoading();
       const loading = await this.loader.create({
       });

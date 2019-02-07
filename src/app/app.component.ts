@@ -39,7 +39,7 @@ export class AppComponent {
     this.auth.isAuthenticated().subscribe(x => this.authenticated = x);
   }
 
-  initializeApp() {
+  initializeApp():void {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();

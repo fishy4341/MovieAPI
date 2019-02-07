@@ -15,7 +15,7 @@ export class UserListPage implements OnInit {
     private afAuth: AngularFireAuth
   ) {  }
 
-  ngOnInit() {
+  ngOnInit():void {
   }
 
   checkNameLength(): string {

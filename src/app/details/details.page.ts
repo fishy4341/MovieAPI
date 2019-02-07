@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-details',
@@ -10,7 +10,7 @@ export class DetailsPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.router.navigate(['details', this.route.snapshot.paramMap.get('id'), 'movie-details']);
 
   }

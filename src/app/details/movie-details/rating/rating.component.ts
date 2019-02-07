@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import {ModalController, NavParams} from '@ionic/angular';
 
 @Component({
   selector: 'rating',
@@ -8,20 +8,21 @@ import { ModalController, NavParams } from '@ionic/angular';
 })
 export class RatingComponent implements OnInit {
 
-  rating;
+  private movie: any;
+  private rating: number;
+  private start: number;
 
   constructor(
     public navParams: NavParams,
     public modalController: ModalController
   ) { }
 
-  get movie() { return this.navParams.data.value; }
-  get start() { return this.navParams.data.rating; }
-
-  ngOnInit() {
+  ngOnInit(): void {
+    this.movie = this.navParams.data.value;
+    this.start = this.navParams.data.rating;
   }
 
-  dismiss() {
+  dismiss(): void {
     if (!this.rating) {
       this.rating = 0;
     }
@@ -33,7 +34,7 @@ export class RatingComponent implements OnInit {
       'genres': this.movie.genres
     });
   }
-  exit() {
+  exit(): void {
     this.modalController.dismiss();
   }
 
