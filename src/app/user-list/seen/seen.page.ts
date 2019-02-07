@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../../login/auth.service';
-import { SelectedMovieService } from '../../API/selected-movie.service';
-import { IonItemSliding, LoadingController, ModalController, NavController } from '@ionic/angular';
-import { MovieAPIService } from '../../API/movie-api.service';
-import { FirebaseService } from '../firebase.service';
-import { Router } from '@angular/router';
-import { RecommendComponent } from '../recommend/recommend.component';
-import { LoaderFixService } from '../../shared/loader-fix.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AuthService} from '../../login/auth.service';
+import {IonItemSliding, LoadingController, ModalController, NavController} from '@ionic/angular';
+import {MovieAPIService} from '../../API/movie-api.service';
+import {FirebaseService} from '../firebase.service';
+import {Router} from '@angular/router';
+import {RecommendComponent} from '../recommend/recommend.component';
+import {LoaderFixService} from "../../shared/loader-fix.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-seen',
@@ -14,35 +14,32 @@ import { LoaderFixService } from '../../shared/loader-fix.service';
   styleUrls: ['./seen.page.scss'],
 })
 export class SeenPage implements OnInit, OnDestroy {
-  private genres = {};
-  filterText = '';
+  private genres: object = {};
+  private filterText: string = '';
   constructor(
-    private auth: AuthService,
-    private selectedMovie: SelectedMovieService,
-    private navController: NavController,
-    private movieService: MovieAPIService,
-    private firebase: FirebaseService,
-    private router: Router,
-    private modalController: ModalController,
-    private loader: LoadingController,
-    private loadingService: LoaderFixService
+      private auth: AuthService,
+      private navController: NavController,
+      private movieService: MovieAPIService,
+      private firebase: FirebaseService,
+      private router: Router,
+      private modalController: ModalController,
+      private loader: LoadingController,
+      private loadingService: LoaderFixService
   ) {
 
 
   }
 
-  movies$;
-  // private movies;
-  ngOnInit() {
+  private movies$: Observable<object>;
+  ngOnInit():void {
     this.movies$ = this.firebase.getHasSeen();
   }
 
   ngOnDestroy(): void {
-    // this.firebase.getHasSeen().unsubscribe();
   }
 
 
-  async goToMovie(movieID: number) {
+  async goToMovie(movieID: number):Promise<any> {
     this.loadingService.isLoading();
     const loading = await this.loader.create({
     });
@@ -50,14 +47,14 @@ export class SeenPage implements OnInit, OnDestroy {
       this.router.navigate(['details', movieID]);
     });
   }
-  removeItem(slidingItem: IonItemSliding, movieId) {
+  removeItem(slidingItem: IonItemSliding, movieId):void {
     slidingItem.closeOpened();
     this.firebase.removeHasSeen(movieId).then(_ => {
       slidingItem.closeOpened();
     });
   }
 
-  async recommend(slidingItem: IonItemSliding, movieID: number, title: string) {
+  async recommend(slidingItem: IonItemSliding, movieID: number, title: string):Promise<any> {
     const modal = await this.modalController.create({
       component: RecommendComponent,
       componentProps: { movieId: movieID, title: title }

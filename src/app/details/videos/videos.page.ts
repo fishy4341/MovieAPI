@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MovieAPIService } from '../../API/movie-api.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { SelectedMovieService } from '../../API/selected-movie.service';
-import { ActivatedRoute } from '@angular/router';
+import {MovieAPIService} from '../../API/movie-api.service';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-videos',
@@ -14,23 +14,23 @@ export class VideosPage implements OnInit {
   constructor(private movieApi: MovieAPIService, public sanitizer: DomSanitizer,
     private route: ActivatedRoute) { }
 
-  id = Number(this.route.parent.snapshot.paramMap.get('id'));
-  movie$;
+  private id: number = Number(this.route.parent.snapshot.paramMap.get('id'));
+  private movie$: Observable<Object>;
+  private video$: Observable<Object>;
   private url: string;
-  video;
 
-  ngOnInit() {
+  ngOnInit():void {
     this.movie$ = this.movieApi.getMovieDetail(this.id);
     this.movieApi.getMovieVideo(this.id).subscribe(data => {
+      this.video$ = data.results;
       // @ts-ignore
-      this.video = data.results;
-      for(let i=0; i < this.video.length; i++){
-        this.video[i].safeURL = this.cleanUrl(this.video[i].key);
+      for(let i=0; i < this.video$.length; i++){
+        this.video$[i].safeURL = this.cleanUrl(this.video$[i].key);
       }
     });
   }
 
-  cleanUrl(url) {
+  cleanUrl(url:string):SafeResourceUrl {
     const newUrl = `https://www.youtube.com/embed/${url}?showinfo=0&rel=0`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(newUrl);
   }

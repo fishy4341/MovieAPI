@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, ModalController, NavParams } from '@ionic/angular';
-import { MovieAPIService } from '../../API/movie-api.service';
-import { Router } from '@angular/router';
-import { LoaderFixService } from '../../shared/loader-fix.service';
+import {LoadingController, ModalController, NavParams} from '@ionic/angular';
+import {MovieAPIService} from '../../API/movie-api.service';
+import {Router} from '@angular/router';
+import {LoaderFixService} from "../../shared/loader-fix.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-recommend',
@@ -20,21 +21,21 @@ export class RecommendComponent implements OnInit {
     private loadingService: LoaderFixService
   ) { }
 
-  id: number;
-  title: string;
-  recommendations$;
+  private id: number;
+  private title: string;
+  private recommendations$: Observable<object>;
 
-  ngOnInit() {
+  ngOnInit():void {
     this.id = this.navParams.data.movieId;
     this.title = this.navParams.data.title;
     this.recommendations$ = this.movieAPI.getRecommended(this.id);
   }
 
-  close() {
+  close():void {
     this.modalController.dismiss();
   }
-  async goToMovie(movieId) {
-    if (!this.loadingService.checkDestroy()) {
+  async goToMovie(movieId):Promise<any> {
+    if(!this.loadingService.checkDestroy()){
       this.loadingService.isLoading();
       const loading = await this.loader.create({
       });
