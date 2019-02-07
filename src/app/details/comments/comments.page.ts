@@ -27,7 +27,7 @@ export class CommentsPage implements OnInit, OnDestroy {
   ) { }
 
   private movieComments: any;
-  private id: number;
+  // private id: number;
   private movie: any;
   private authenticated: boolean;
   private userComment: Comment;
@@ -36,9 +36,9 @@ export class CommentsPage implements OnInit, OnDestroy {
   private unsubscribe$: Subject<any> = new Subject();
   private rating: number;
 
+  get id() { return Number(this.route.parent.snapshot.paramMap.get('id')); }
 
   ngOnInit(): void {
-    this.id = Number(this.route.parent.snapshot.paramMap.get('id'));
     this.afAuth.authState.subscribe((user: User) => {
       if (user) {
         this.authenticated = true;

@@ -3,7 +3,7 @@ import {MovieAPIService} from '../../API/movie-api.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoadingController} from '@ionic/angular';
 import {LoaderFixService} from '../../shared/loader-fix.service';
-import {Observable} from "rxjs";
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-related',
@@ -23,7 +23,7 @@ export class RelatedPage implements OnInit {
   private id: number;
   private related$: Observable<object>;
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.id = Number(this.route.parent.snapshot.paramMap.get('id'));
     this.related$ = this.movieApi.getRelated(this.id);
   }
