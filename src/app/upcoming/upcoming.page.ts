@@ -18,8 +18,10 @@ export class UpcomingPage implements OnInit {
     private loader: LoadingController,
     private loadingService: LoaderFixService
   ) { }
+
   page: number;
   movie$;
+
   ngOnInit() {
     this.page = 1;
     this.movie$ = this.movieApi.getUpcoming(this.page);

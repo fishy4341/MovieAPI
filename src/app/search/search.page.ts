@@ -60,23 +60,4 @@ export class SearchPage implements OnInit {
     });
   }
 
-  // async presentLoadingCustom() {
-  //   let loading = this.loader.create({
-  //     spinner: null,
-  //     message: `
-  //     <div class="custom-spinner-container">
-  //       <div class="custom-spinner-box">
-  //          <img src="assets/imgs/loader.gif" />
-  //       </div>
-  //     </div>`,
-  //     duration: 5000
-  //   });
-  //
-  //   // loading.onDidDismiss(() => {
-  //   //   console.log('Dismissed loading');
-  //   // });
-  //
-  //   return await loading.present();
-  // }
-
 }

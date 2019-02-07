@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { SelectedMovieService } from './selected-movie.service';
 
 describe('SelectedMovieService', () => {

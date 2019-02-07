@@ -65,7 +65,7 @@ export class CommentsPage implements OnInit, OnDestroy {
           this.commentsWRating.push(commentData[i]);
         }
       }
-    }); // end of sub callback
+    });
   }
 
   ngOnDestroy(): void {
@@ -80,7 +80,7 @@ export class CommentsPage implements OnInit, OnDestroy {
           // @ts-ignore
           this.userComment = docSnapshot.comment;
         }
-      }); // end of subscribe callback
+      });
     }
   }
 
@@ -98,7 +98,7 @@ export class CommentsPage implements OnInit, OnDestroy {
           commentData.rating = movieDoc.rating;
         }
         this.commentsService.addMovie(this.movie, commentData, this.afAuth.auth.currentUser.uid);
-      })// end of subscribe callback
+      })
     ).subscribe();
   }
   deleteComment() {
@@ -108,11 +108,9 @@ export class CommentsPage implements OnInit, OnDestroy {
 
   checkYesRating() {
     this.yesRating = !this.yesRating;
-    // console.log(this.commentsWRating);
   }
   checkNoRating() {
     this.noRating = !this.noRating;
-    // console.log(this.commentsNoRating);
   }
 
 }

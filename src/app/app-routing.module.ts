@@ -19,11 +19,6 @@ const routes: Routes = [
   {
     path: 'details/:id',
     loadChildren: './details/details.module#DetailsPageModule',
-    // children : [
-    //   { path: 'movie-details', loadChildren: './details/movie-details/movie-details.module#MovieDetailsPageModule' },
-    //   { path: 'videos', loadChildren: './details/videos/videos.module#VideosPageModule' },
-    //   { path: 'comments', loadChildren: './details/comments/comments.module#CommentsPageModule' },
-    // ]
   },
   {
     path: 'user-list',

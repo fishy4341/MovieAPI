@@ -1,8 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../../login/auth.service';
-import { MovieAPIService } from '../../API/movie-api.service';
-import { SelectedMovieService } from '../../API/selected-movie.service';
-import { IonItemSliding, LoadingController, ModalController, NavController } from '@ionic/angular';
+import { IonItemSliding, LoadingController, ModalController } from '@ionic/angular';
 import { FirebaseService } from '../firebase.service';
 import { Router } from '@angular/router';
 import { RecommendComponent } from '../recommend/recommend.component';
@@ -14,13 +11,8 @@ import { LoaderFixService } from '../../shared/loader-fix.service';
   styleUrls: ['./to-see.page.scss'],
 })
 export class ToSeePage implements OnInit, OnDestroy {
-  private genres = {};
   filterText = '';
   constructor(
-    private auth: AuthService,
-    private movieService: MovieAPIService,
-    private selectedMovie: SelectedMovieService,
-    private navController: NavController,
     private firebase: FirebaseService,
     private router: Router,
     private modalController: ModalController,
@@ -31,14 +23,12 @@ export class ToSeePage implements OnInit, OnDestroy {
   }
 
   movie$;
-  // private movies;
 
   ngOnInit() {
     this.movie$ = this.firebase.getToSee();
   }
 
   ngOnDestroy(): void {
-    // this.firebase.getToSee().unsubscribe();
   }
 
 

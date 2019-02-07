@@ -6,7 +6,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { CommentsService } from '../login/comments.service';
-import { Comment } from '../shared/comment';
 
 @Component({
   selector: 'app-test',
@@ -27,10 +26,7 @@ export class TestPage implements OnInit {
     pic: 'https://image.tmdb.org/t/p/w500//6vkhRvsRvWpmaRVyCXaxTkIEb7j.jpg'
   };
 
-  // private testComment: Comment = {
-  //   comment: 'Testing 123, Favorite Movie, Beep the Bleep'
-  // };
-  private commentsForTest;
+
 
   movies$: Observable<Movie>;
 
@@ -38,15 +34,11 @@ export class TestPage implements OnInit {
     private authServ: AuthService,
     private db: AngularFirestore,
     private afAuth: AngularFireAuth,
-    private commentService: CommentsService) { }
+    private commentService: CommentsService
+  ) { }
 
   ngOnInit() {
-    this.commentsForTest = this.commentService.getCommentsFor(this.testMovie.movieID);
   }
-
-  // methOne() {
-  //   this.commentService.addMovie(this.testMovie, this.testComment, 'LJuxxceTALf4WNGZFP9WjPbZfF42');
-  // }
 
   getHasSeen() {
     return this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/hasSeen`).valueChanges();

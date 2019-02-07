@@ -5,7 +5,6 @@ import { map, takeUntil } from 'rxjs/operators';
 import { User } from '../shared/user';
 import { FirebaseService } from '../user-list/firebase.service';
 import { Subject } from 'rxjs';
-import { subscribeToObservable } from 'rxjs/internal-compatibility';
 
 @Injectable({
     providedIn: 'root'

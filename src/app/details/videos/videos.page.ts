@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieAPIService } from '../../API/movie-api.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { SelectedMovieService } from '../../API/selected-movie.service';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -15,8 +14,8 @@ export class VideosPage implements OnInit {
     private route: ActivatedRoute) { }
 
   id = Number(this.route.parent.snapshot.paramMap.get('id'));
-  movie$;
   private url: string;
+  movie$;
   video$;
 
   ngOnInit() {
