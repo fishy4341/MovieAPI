@@ -7,23 +7,25 @@
     <ion-title>Movie List</ion-title>
   </ion-toolbar>
   <ion-toolbar color="dark">
-    <ion-searchbar placeholder="Search Movies" [(ngModel)]="search" (ionInput)="Search(nameItSomething)" #nameItSomething></ion-searchbar>
+    <ion-searchbar placeholder="Search Movies" [(ngModel)]="search" (ionInput)="Search(nameItSomething)"
+      #nameItSomething></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding color="dark">
   <app-explore *ngIf="!nameItSomething.value"></app-explore>
   <div *ngIf="nameItSomething.value">
-    <ion-list  *ngFor="let movie of searchResults" >
+    <ion-list *ngFor="let movie of searchResults">
 
 
       <ion-item class="hover" [routerDirection]="'forward'" (click)="goToDetails(movie.id)" color="dark">
         <ion-thumbnail slot="start">
-          <img [src]="movie.backdrop_path ? 'https://image.tmdb.org/t/p/w500/' + movie.backdrop_path  : 'assets/images/noImage.jpeg'" alt="">
+          <img [src]="movie.backdrop_path ? 'https://image.tmdb.org/t/p/w500/' + movie.backdrop_path  : 'assets/images/noImage.jpeg'"
+            alt="">
         </ion-thumbnail>
         <div>
           <ion-label text-wrap class="title">{{ movie.title }}</ion-label>
-          <ion-label color="tertiary" class="row" >
+          <ion-label color="tertiary" class="row">
             <p *ngFor="let genre of movie?.genre_ids">{{ genres[genre]?.name }}</p>
           </ion-label>
         </div>

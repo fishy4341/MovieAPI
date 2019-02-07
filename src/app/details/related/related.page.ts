@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from '../../API/movie-api.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {LoadingController} from '@ionic/angular';
-import {LoaderFixService} from '../../shared/loader-fix.service';
+import { MovieAPIService } from '../../API/movie-api.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
+import { LoaderFixService } from '../../shared/loader-fix.service';
 
 @Component({
   selector: 'app-related',
@@ -12,11 +12,11 @@ import {LoaderFixService} from '../../shared/loader-fix.service';
 export class RelatedPage implements OnInit {
 
   constructor(
-      private movieApi: MovieAPIService,
-      private route: ActivatedRoute,
-      private router: Router,
-      private loader: LoadingController,
-      private loadingService: LoaderFixService
+    private movieApi: MovieAPIService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private loader: LoadingController,
+    private loadingService: LoaderFixService
   ) { }
 
   id;

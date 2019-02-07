@@ -9,10 +9,10 @@ export class MovieAPIService {
 
   constructor(private http: HttpClient) { }
 
- apiKey = 'api_key=bf58ce7909a019c277bfd3ae8194e2bf';
+  apiKey = 'api_key=bf58ce7909a019c277bfd3ae8194e2bf';
   baseUrl = 'https://api.themoviedb.org/3/';
- // tslint:disable-next-line:max-line-length
- // readToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiZjU4Y2U3OTA5YTAxOWMyNzdiZmQzYWU4MTk0ZTJiZiIsInN1YiI6IjVjNDczYTQ2MGUwYTI2NDk1ZGNhMWI4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.J6i5lgiN-BAiYVPaREWXS1MMEpD7r4i0XMrjCKZ0rko';
+  // tslint:disable-next-line:max-line-length
+  // readToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiZjU4Y2U3OTA5YTAxOWMyNzdiZmQzYWU4MTk0ZTJiZiIsInN1YiI6IjVjNDczYTQ2MGUwYTI2NDk1ZGNhMWI4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.J6i5lgiN-BAiYVPaREWXS1MMEpD7r4i0XMrjCKZ0rko';
 
   searchMovies(searchTerms: string): Observable<any> {
     return this.http.get(`${this.baseUrl}search/movie?${this.apiKey}&language=en-US&query=${searchTerms}&page=1&include_adult=false`);

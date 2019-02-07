@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from '../API/movie-api.service';
-import {SelectedMovieService} from '../API/selected-movie.service';
-import {LoadingController} from '@ionic/angular';
+import { MovieAPIService } from '../API/movie-api.service';
+import { SelectedMovieService } from '../API/selected-movie.service';
+import { LoadingController } from '@ionic/angular';
 import * as _ from 'lodash';
-import {ActivatedRoute, Router} from "@angular/router";
-import {LoaderFixService} from "../shared/loader-fix.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoaderFixService } from '../shared/loader-fix.service';
 
 @Component({
   selector: 'app-search',
@@ -29,13 +29,13 @@ export class SearchPage implements OnInit {
   genreFilter;
 
   ngOnInit() {
-    this.movieService.getTopRated(1).subscribe( list => {
+    this.movieService.getTopRated(1).subscribe(list => {
       this.topRatedList = list['results'];
-      if ( !this.searchResults ) {this.searchResults = this.topRatedList; }
+      if (!this.searchResults) { this.searchResults = this.topRatedList; }
     });
-    this.movieService.getgenreIds().subscribe( list => {
+    this.movieService.getgenreIds().subscribe(list => {
       const gen = list['genres'];
-      this.genres = _.mapKeys(gen, 'id' );
+      this.genres = _.mapKeys(gen, 'id');
     });
 
   }
@@ -55,7 +55,7 @@ export class SearchPage implements OnInit {
     this.loadingService.isLoading();
     const loading = await this.loader.create({
     });
-    loading.present().then(_ => {
+    loading.present().then( _ => {
       this.router.navigate(['details', movieId]);
     });
   }
