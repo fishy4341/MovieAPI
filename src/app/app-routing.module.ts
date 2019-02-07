@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardGuard } from './auth-guard.guard';
+import {DetailResolverService} from "./details/detail-resolver.service";
 
 const routes: Routes = [
   {
@@ -16,6 +17,9 @@ const routes: Routes = [
   },
   { path: 'details/:id',
     loadChildren: './details/details.module#DetailsPageModule',
+    resolve: {
+      movie: DetailResolverService
+    }
     // children : [
     //   { path: 'movie-details', loadChildren: './details/movie-details/movie-details.module#MovieDetailsPageModule' },
     //   { path: 'videos', loadChildren: './details/videos/videos.module#VideosPageModule' },

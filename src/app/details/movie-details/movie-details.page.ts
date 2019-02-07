@@ -51,17 +51,17 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadingService.notDestroyed();
-    this.movieApi.getMovieDetail(this.id).subscribe(data => {
-      this.movie = data;
-      this.checkOverviewLength();
-      if (this.authenticated) {
-        this.checkWatched();
-      } // end of if statement
-      if(this.loadingService.getLoading()){
-          this.loader.dismiss();
-          this.loadingService.stopLoading();
-      }
-    });// end up sub callback
+    this.route.data.subscribe((data: {movie: any}) => {
+        this.movie = data.movie;
+        this.checkOverviewLength();
+        if (this.authenticated) {
+            this.checkWatched();
+        } // end of if statement
+        if(this.loadingService.getLoading()){
+            this.loader.dismiss();
+            this.loadingService.stopLoading();
+        }
+    });
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
         // this.movieComments = this.commentsService.getCommentsFor(this.id);

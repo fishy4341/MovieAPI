@@ -37,7 +37,7 @@ export class MovieAPIService {
 
 
   getMovieDetail(id: number) {
-    return this.http.get(`${this.baseUrl}movie/${id}?${this.apiKey}&language=en-US`);
+    return this.http.get(`${this.baseUrl}movie/${id}?${this.apiKey}&language=en-US&append_to_response=videos`);
   }
 
   getMovieVideo(id: number) {

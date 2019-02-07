@@ -23,7 +23,7 @@ export class CommentsPage implements OnInit, OnDestroy {
       private firebase: FirebaseService
   ) { }
 
-  movieComments = [];
+  movieComments;
   id;
   movie;
   authenticated;
@@ -46,26 +46,27 @@ export class CommentsPage implements OnInit, OnDestroy {
       }
     this.getUserComment();
     } );
+    this.movieComments = this.commentsService.getCommentsFor(this.id);
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
     });
-    this.commentsService.getCommentsFor(this.id).subscribe(commentData => {
-      if (this.afAuth.auth.currentUser) {
-        this.userID = this.afAuth.auth.currentUser.uid;
-      }
-      if(commentData.length !== 0){
-        this.movieComments = commentData;
-      }
-      else{
-        this.movieComments = [{comment:"Sorry, We Found No Comments For This Movie"}];
-      }
-      for(let i: number = 0; i < commentData.length; i++){
-        // @ts-ignore
-        if (commentData[i].rating) {
-          this.commentsWRating.push(commentData[i]);
-        }
-      }
-    }); // end of sub callback
+    // this.commentsService.getCommentsFor(this.id).subscribe(commentData => {
+    //   if (this.afAuth.auth.currentUser) {
+    //     this.userID = this.afAuth.auth.currentUser.uid;
+    //   }
+    //   if(commentData.length !== 0){
+    //     this.movieComments = commentData;
+    //   }
+    //   else{
+    //     this.movieComments = [{comment:"Sorry, We Found No Comments For This Movie"}];
+    //   }
+    //   for(let i: number = 0; i < commentData.length; i++){
+    //     // @ts-ignore
+    //     if (commentData[i].rating) {
+    //       this.commentsWRating.push(commentData[i]);
+    //     }
+    //   }
+    // }); // end of sub callback
   }
 
   ngOnDestroy(): void {
