@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieAPIService} from "../../API/movie-api.service";
-import {LoadingController} from "@ionic/angular";
-import {Router} from "@angular/router";
-import {LoaderFixService} from "../../shared/loader-fix.service";
+import { MovieAPIService } from '../../API/movie-api.service';
+import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { LoaderFixService } from '../../shared/loader-fix.service';
 
 @Component({
   selector: 'app-explore',
@@ -12,10 +12,10 @@ import {LoaderFixService} from "../../shared/loader-fix.service";
 export class ExploreComponent implements OnInit {
 
   constructor(private movieApi: MovieAPIService,
-              private loader: LoadingController,
-              private router: Router,
-              private loadingService: LoaderFixService
-              ) { }
+    private loader: LoadingController,
+    private router: Router,
+    private loadingService: LoaderFixService
+  ) { }
 
   latest$;
   nowPlaying$;
@@ -33,15 +33,14 @@ export class ExploreComponent implements OnInit {
   }
 
   async goToMovie(movieId) { // add async for loader
-    if(!this.loadingService.checkDestroy()){
+    if (!this.loadingService.checkDestroy()) {
       this.loadingService.isLoading();
       const loading = await this.loader.create({
       });
       loading.present().then(_ => {
         this.router.navigate(['details', movieId]);
       });
-    }
-    else{
+    } else {
       this.router.navigate(['details', movieId]);
     }
   }

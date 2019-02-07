@@ -9,10 +9,10 @@ import {FirebaseService} from '../../user-list/firebase.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {CommentsService} from 'src/app/login/comments.service';
 import {ActivatedRoute} from '@angular/router';
-import {Subject} from "rxjs";
-import {takeUntil, tap} from "rxjs/operators";
-import {subscribeToObservable} from "rxjs/internal-compatibility";
-import {LoaderFixService} from "../../shared/loader-fix.service";
+import {Subject} from 'rxjs';
+import {takeUntil, tap} from 'rxjs/operators';
+import {subscribeToObservable} from 'rxjs/internal-compatibility';
+import {LoaderFixService} from '../../shared/loader-fix.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -57,11 +57,11 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
       if (this.authenticated) {
         this.checkWatched();
       } // end of if statement
-      if(this.loadingService.getLoading()){
+      if (this.loadingService.getLoading()) {
           this.loader.dismiss();
           this.loadingService.stopLoading();
       }
-    });// end up sub callback
+    }); // end up sub callback
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
         // this.movieComments = this.commentsService.getCommentsFor(this.id);
@@ -70,13 +70,13 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
             tap(userMovieData => {
                 if (userMovieData) {
                     this.showRating = true;
-                    //@ts-ignore
+                    // @ts-ignore
                     this.currentUserRating = userMovieData.rating;
-                }//end of if statement
-            })//end of sub callback
-        ).subscribe()//end of pipe
-    }//end of auth if statement
-  } //end of ngOnInit
+                } // end of if statement
+            }) // end of sub callback
+        ).subscribe(); // end of pipe
+    } // end of auth if statement
+  } // end of ngOnInit
 
   ngOnDestroy(): void {
       this.unsubscribe$.next();
@@ -107,10 +107,10 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
       this.commentsService.getUserComment(this.movie.id, this.afAuth.auth.currentUser.uid).subscribe(commentData => {
           if (commentData) {
               this.commentsService.updateCommentRating(this.movie.id, this.afAuth.auth.currentUser.uid, movieData.rating);
-          }//end of if(commentData) statement
-      });//end of sub callback
-    }//end of if(data) statement
-  }//end of presentModal()
+          }// end of if(commentData) statement
+      }); // end of sub callback
+    }// end of if(data) statement
+  }// end of presentModal()
 
   addToSee() {
     const movieData: Movie = {

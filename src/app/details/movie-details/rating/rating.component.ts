@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalController, NavParams} from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'rating',
@@ -11,12 +11,12 @@ export class RatingComponent implements OnInit {
   rating;
 
   constructor(
-      public navParams: NavParams,
-      public modalController: ModalController
+    public navParams: NavParams,
+    public modalController: ModalController
   ) { }
 
-  get movie() {return this.navParams.data.value; }
-  get start() {return this.navParams.data.rating; }
+  get movie() { return this.navParams.data.value; }
+  get start() { return this.navParams.data.rating; }
 
   ngOnInit() {
   }
