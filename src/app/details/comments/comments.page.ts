@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CommentsService} from '../../login/comments.service';
-import {MovieAPIService} from '../../API/movie-api.service';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {Comment} from '../../shared/comment';
-import {ActivatedRoute} from '@angular/router';
-import {FirebaseService} from '../../user-list/firebase.service';
-import {Observable, Subject} from 'rxjs';
-import {takeUntil, tap} from 'rxjs/operators';
-import {IonInput} from "@ionic/angular";
-import {Movie} from "../../shared/movie";
-import {User} from "firebase";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommentsService } from '../../login/comments.service';
+import { MovieAPIService } from '../../API/movie-api.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Comment } from '../../shared/comment';
+import { ActivatedRoute } from '@angular/router';
+import { FirebaseService } from '../../user-list/firebase.service';
+import { Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
+import { IonInput } from '@ionic/angular';
+import { Movie } from '../../shared/movie';
+import { User } from 'firebase';
 
 @Component({
   selector: 'app-comments',
@@ -31,7 +31,7 @@ export class CommentsPage implements OnInit, OnDestroy {
   private movie: any;
   private authenticated: boolean;
   private userComment: Comment;
-  private userID: string = 'none';
+  private userID = 'none';
   private commentsWRating: Comment[] = [];
   private unsubscribe$: Subject<any> = new Subject();
   private rating: number;
@@ -39,26 +39,26 @@ export class CommentsPage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.id = Number(this.route.parent.snapshot.paramMap.get('id'));
-    this.afAuth.authState.subscribe((user:User) => {
+    this.afAuth.authState.subscribe((user: User) => {
       if (user) {
         this.authenticated = true;
       } else {
         this.authenticated = false;
       }
-    this.getUserComment();
-    } );
+      this.getUserComment();
+    });
     this.movieComments = this.commentsService.getCommentsFor(this.id);
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
     });
-    this.commentsService.getCommentsFor(this.id).subscribe((commentData:Comment[]) => {
+    this.commentsService.getCommentsFor(this.id).subscribe((commentData: Comment[]) => {
       if (this.afAuth.auth.currentUser) {
         this.userID = this.afAuth.auth.currentUser.uid;
       }
-      if(commentData.length === 0){
-        this.movieComments = [{comment:"Sorry, We Found No Comments For This Movie",userID:"EmptyUserID"}];
+      if (commentData.length === 0) {
+        this.movieComments = [{ comment: 'Sorry, We Found No Comments For This Movie', userID: 'EmptyUserID' }];
       }
-      for(let i: number = 0; i < commentData.length; i++){
+      for (let i = 0; i < commentData.length; i++) {
         // @ts-ignore
         if (commentData[i].rating) {
           this.commentsWRating.push(commentData[i]);
@@ -74,29 +74,29 @@ export class CommentsPage implements OnInit, OnDestroy {
 
   getUserComment(): void {
     if (this.authenticated) {
-    this.commentsService.getUserComment(this.id, this.afAuth.auth.currentUser.uid).subscribe((docSnapshot:Comment) => {
-      if (docSnapshot) {
-        // @ts-ignore
-        this.userComment = docSnapshot.comment;
-      }
-    }); // end of subscribe callback
+      this.commentsService.getUserComment(this.id, this.afAuth.auth.currentUser.uid).subscribe((docSnapshot: Comment) => {
+        if (docSnapshot) {
+          // @ts-ignore
+          this.userComment = docSnapshot.comment;
+        }
+      }); // end of subscribe callback
     }
   }
 
-  postComment(comment:IonInput): void {
+  postComment(comment: IonInput): void {
     this.commentsWRating = [];
     const commentData: Comment = {
       comment: comment.value,
       userID: this.afAuth.auth.currentUser.uid
     };
     this.firebase.getUserMovieRating(this.movie.id).pipe(
-        takeUntil(this.unsubscribe$),
-        tap((movieDoc:Movie) => {
-          if (movieDoc) {
-            commentData.rating = movieDoc.rating;
-          }
-          this.commentsService.addMovie(this.movie, commentData, this.afAuth.auth.currentUser.uid);
-        })// end of subscribe callback
+      takeUntil(this.unsubscribe$),
+      tap((movieDoc: Movie) => {
+        if (movieDoc) {
+          commentData.rating = movieDoc.rating;
+        }
+        this.commentsService.addMovie(this.movie, commentData, this.afAuth.auth.currentUser.uid);
+      })// end of subscribe callback
     ).subscribe();
   }
   deleteComment(): void {

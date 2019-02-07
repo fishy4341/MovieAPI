@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AuthGuardGuard } from './auth-guard.guard';
 import { AuthService } from './login/auth.service';
 
 @Component({
@@ -13,11 +12,6 @@ export class AppComponent {
   public authenticated;
 
   public appPages = [
-    // {
-    //   title: 'Home',
-    //   url: '/home',
-    //   icon: 'home'
-    // },
     {
       title: 'Search',
       url: '/search',
@@ -43,7 +37,6 @@ export class AppComponent {
   ) {
     this.initializeApp();
     this.auth.isAuthenticated().subscribe(x => this.authenticated = x);
-    // console.log(this.authenticated);
   }
 
   initializeApp():void {

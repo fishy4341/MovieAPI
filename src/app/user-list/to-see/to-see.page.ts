@@ -5,8 +5,8 @@ import {IonItemSliding, LoadingController, ModalController, NavController} from 
 import {FirebaseService} from '../firebase.service';
 import {Router} from '@angular/router';
 import {RecommendComponent} from '../recommend/recommend.component';
-import {LoaderFixService} from "../../shared/loader-fix.service";
-import {Observable} from "rxjs";
+import {LoaderFixService} from '../../shared/loader-fix.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-to-see',
@@ -15,7 +15,7 @@ import {Observable} from "rxjs";
 })
 export class ToSeePage implements OnInit, OnDestroy {
   private genres: object = {};
-  private filterText: string = '';
+  private filterText = '';
   constructor(
       private auth: AuthService,
       private movieService: MovieAPIService,
@@ -47,14 +47,14 @@ export class ToSeePage implements OnInit, OnDestroy {
       this.router.navigate(['details', movieID]);
     });
   }
-  removeItem(slidingItem: IonItemSliding, movieId):void {
+  removeItem(slidingItem: IonItemSliding, movieId): void {
     slidingItem.closeOpened();
     this.firebase.removeToSee(movieId).then(_ => {
       slidingItem.closeOpened();
     });
   }
 
-  async recommend(slidingItem: IonItemSliding, movieID: number, title: string):Promise<any> {
+  async recommend(slidingItem: IonItemSliding, movieID: number, title: string): Promise<any> {
     const modal = await this.modalController.create({
       component: RecommendComponent,
       componentProps: { movieId: movieID, title: title }

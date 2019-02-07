@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class LoaderFixService {
 
-  private loading: boolean = false;
-  private noLoad: boolean = false;
+  private loading = false;
+  private noLoad = false;
 
   constructor() { }
 

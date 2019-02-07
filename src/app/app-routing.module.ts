@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardGuard } from './auth-guard.guard';
-import {DetailResolverService} from "./details/detail-resolver.service";
+import { DetailResolverService } from './details/detail-resolver.service';
 
 const routes: Routes = [
   {
@@ -23,11 +23,6 @@ const routes: Routes = [
     resolve: {
       movie: DetailResolverService
     }
-    // children : [
-    //   { path: 'movie-details', loadChildren: './details/movie-details/movie-details.module#MovieDetailsPageModule' },
-    //   { path: 'videos', loadChildren: './details/videos/videos.module#VideosPageModule' },
-    //   { path: 'comments', loadChildren: './details/comments/comments.module#CommentsPageModule' },
-    // ]
   },
   {
     path: 'user-list',
@@ -45,21 +40,29 @@ const routes: Routes = [
     canActivate: [AuthGuardGuard]
   },
   {
-    path: 'test',
-    loadChildren: './test/test.module#TestPageModule'
+    path: 'related',
+    loadChildren: './details/related/related.module#RelatedPageModule'
   },
-  { path: 'related', loadChildren: './details/related/related.module#RelatedPageModule' },
-  { path: 'now-playing', loadChildren: './now-playing/now-playing.module#NowPlayingPageModule' },
-  { path: 'popular', loadChildren: './popular/popular.module#PopularPageModule' },
-  { path: 'top-rated', loadChildren: './top-rated/top-rated.module#TopRatedPageModule' },
-  { path: 'upcoming', loadChildren: './upcoming/upcoming.module#UpcomingPageModule' },
+  {
+    path: 'now-playing',
+    loadChildren: './now-playing/now-playing.module#NowPlayingPageModule'
+  },
+  {
+    path: 'popular',
+    loadChildren: './popular/popular.module#PopularPageModule'
+  },
+  {
+    path: 'top-rated',
+    loadChildren: './top-rated/top-rated.module#TopRatedPageModule'
+  },
+  {
+    path: 'upcoming',
+    loadChildren: './upcoming/upcoming.module#UpcomingPageModule'
+  },
   {
     path: '**',
     loadChildren: './not-found/not-found.module#NotFoundPageModule'
   },
-
-
-
 
 ];
 

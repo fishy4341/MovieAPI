@@ -4,7 +4,7 @@ import { auth } from 'firebase/app';
 import {map, takeUntil, tap} from 'rxjs/operators';
 import {User} from '../shared/user';
 import {FirebaseService} from '../user-list/firebase.service';
-import {Observable, Subject} from "rxjs";
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -32,7 +32,7 @@ export class AuthService {
               this.userData.name = authUserData.user.displayName;
               this.firebase.getUserData().pipe(
                   takeUntil(this.unsubscribe$),
-                  tap((userData: User) =>{
+                  tap((userData: User) => {
                       if (!userData) {
                           this.firebase.addUser({
                               name: this.userData.name,
@@ -40,9 +40,9 @@ export class AuthService {
                           });
                       }
                   }) // already here end up sub callback
-              ).subscribe(); //already here end of pipe
-          }); //already here end of .then
-  } //already here end of google sign in
+              ).subscribe(); // already here end of pipe
+          }); // already here end of .then
+  } // already here end of google sign in
 
   signOut() {
     this.unsubscribe$.next();
@@ -50,7 +50,7 @@ export class AuthService {
     this.afAuth.auth.signOut();
   }
 
-  isAuthenticated():Observable<boolean> {
+  isAuthenticated(): Observable<boolean> {
     return this.afAuth.authState.pipe(
       map(user => user && user.uid ? true : false));
   }

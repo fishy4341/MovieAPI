@@ -5,7 +5,6 @@
 </ion-header>
 
 <ion-content *ngIf="movie" color="dark">
-  <!--<iframe [src]="video" frameborder="0" allowfullscreen class="video"></iframe>-->
   <div class="flex-div">
     <ion-img *ngIf="movie.backdrop_path" src="https://image.tmdb.org/t/p/original/{{movie.backdrop_path}}" onerror="this.src='assets/images/noImage.jpeg'"
       class="image"></ion-img>

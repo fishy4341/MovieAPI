@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-videos',
@@ -19,18 +19,18 @@ export class VideosPage implements OnInit {
   private video$: Observable<Object>;
   private url: string;
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.movie$ = this.movieApi.getMovieDetail(this.id);
     this.movieApi.getMovieVideo(this.id).subscribe(data => {
       this.video$ = data.results;
       // @ts-ignore
-      for(let i=0; i < this.video$.length; i++){
+      for (let i = 0; i < this.video$.length; i++) {
         this.video$[i].safeURL = this.cleanUrl(this.video$[i].key);
       }
     });
   }
 
-  cleanUrl(url:string):SafeResourceUrl {
+  cleanUrl(url: string): SafeResourceUrl {
     const newUrl = `https://www.youtube.com/embed/${url}?showinfo=0&rel=0`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(newUrl);
   }
