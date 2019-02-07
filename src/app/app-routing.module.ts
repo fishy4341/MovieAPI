@@ -39,11 +39,26 @@ const routes: Routes = [
     loadChildren: './user-list/to-see/to-see.module#ToSeePageModule',
     canActivate: [AuthGuardGuard]
   },
-  { path: 'related', loadChildren: './details/related/related.module#RelatedPageModule' },
-  { path: 'now-playing', loadChildren: './now-playing/now-playing.module#NowPlayingPageModule' },
-  { path: 'popular', loadChildren: './popular/popular.module#PopularPageModule' },
-  { path: 'top-rated', loadChildren: './top-rated/top-rated.module#TopRatedPageModule' },
-  { path: 'upcoming', loadChildren: './upcoming/upcoming.module#UpcomingPageModule' },
+  {
+    path: 'related',
+    loadChildren: './details/related/related.module#RelatedPageModule'
+  },
+  {
+    path: 'now-playing',
+    loadChildren: './now-playing/now-playing.module#NowPlayingPageModule'
+  },
+  {
+    path: 'popular',
+    loadChildren: './popular/popular.module#PopularPageModule'
+  },
+  {
+    path: 'top-rated',
+    loadChildren: './top-rated/top-rated.module#TopRatedPageModule'
+  },
+  {
+    path: 'upcoming',
+    loadChildren: './upcoming/upcoming.module#UpcomingPageModule'
+  },
   {
     path: '**',
     loadChildren: './not-found/not-found.module#NotFoundPageModule'
