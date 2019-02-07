@@ -14,17 +14,17 @@ export class VideosPage implements OnInit {
     private route: ActivatedRoute) { }
 
   id = Number(this.route.parent.snapshot.paramMap.get('id'));
-  private url: string;
   movie$;
-  video$;
+  private url: string;
+  video;
 
   ngOnInit() {
     this.movie$ = this.movieApi.getMovieDetail(this.id);
     this.movieApi.getMovieVideo(this.id).subscribe(data => {
       // @ts-ignore
       this.video = data.results;
-      for (let i = 0; i < this.video$.length; i++) {
-        this.video$[i].safeURL = this.cleanUrl(this.video$[i].key);
+      for (let i = 0; i < this.video.length; i++) {
+        this.video[i].safeURL = this.cleanUrl(this.video[i].key);
       }
     });
   }
