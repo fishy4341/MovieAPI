@@ -20,9 +20,9 @@
     <ion-toggle [(ngModel)]="rating"></ion-toggle>
   </ion-item>
 
-  <div class="scrollable">
-    <ion-list *ngIf="movieComments && !rating">
-      <ion-item *ngFor="let comment of movieComments" color="dark">
+  <div class="scrollable" *ngIf="movieComments | async as comments">
+    <ion-list *ngIf="comments && !rating">
+      <ion-item *ngFor="let comment of comments" color="dark">
         <ion-label *ngIf="comment.userID === userID" class="commentWithRating highlightedComment"><span class="highlightedComment"
             text-wrap>{{ comment.comment}}</span><span class="highlightedComment" *ngIf="comment.rating">Rating:
             {{comment.rating}}</span></ion-label>
@@ -31,14 +31,16 @@
       </ion-item>
     </ion-list>
 
-    <ion-list *ngIf="movieComments && rating">
-      <ion-item *ngFor="let comment of commentsWRating" color="dark">
-        <ion-label *ngIf="comment.userID === userID" class="commentWithRating highlightedComment"><span class="highlightedComment"
-            text-wrap>{{ comment.comment}}</span><span class="highlightedComment" *ngIf="comment.rating">Rating:
-            {{comment.rating}}</span></ion-label>
-        <ion-label *ngIf="comment.userID !== userID" class="commentWithRating"><span text-wrap>{{ comment.comment}}</span><span
-            *ngIf="comment.rating">Rating: {{comment.rating}}</span></ion-label>
-      </ion-item>
+    <ion-list *ngIf="comments && rating">
+      <div *ngFor="let comment of comments">
+        <ion-item *ngIf="comment.rating" color="dark">
+            <ion-label *ngIf="comment.userID === userID" class="commentWithRating highlightedComment"><span class="highlightedComment"
+                text-wrap>{{ comment.comment}}</span><span class="highlightedComment" *ngIf="comment.rating">Rating:
+                {{comment.rating}}</span></ion-label>
+            <ion-label *ngIf="comment.userID !== userID" class="commentWithRating"><span text-wrap>{{ comment.comment}}</span><span
+                *ngIf="comment.rating">Rating: {{comment.rating}}</span></ion-label>
+          </ion-item>
+      </div>
     </ion-list>
 
   </div>

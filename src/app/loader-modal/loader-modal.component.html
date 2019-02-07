@@ -1,0 +1,40 @@
+<canvas class="canvas" id="canvas" height="1000" width="500">
+</canvas>
+
+<script>
+  var IMAGE_URL = 'https://thepurcompany.com/assets/images/popcorn/popcorn_single2.png';
+  var DURATION = 10 * 1000, FRAMES = 30, KERNELS = 10;
+
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+
+  var frame = 0,
+          start = new Date().getTime(),
+          image = new Image;
+  image.src = IMAGE_URL;
+  image.onload = function() {
+
+    function pop() {
+      ctx.drawImage(image,
+              Math.floor(Math.random() * canvas.width),
+              Math.floor(Math.random() * canvas.height),
+              50, 50);
+    }
+
+    // A little overcomplicated. You could probably do this in a single loop.
+    // (It's late and I'm tired, though. Sorry.)
+    function animate() {
+      var i, delay,
+              count = Math.floor(Math.sin(frame / (FRAMES / Math.PI)) * KERNELS);
+      for (i = 0; i < count; i++) {
+        delay = (DURATION / FRAMES) / count * i;
+        setTimeout(pop, delay);
+      }
+      if (++frame < FRAMES) {
+        setTimeout(animate, DURATION / FRAMES);
+      }
+    }
+    animate();
+
+  };
+</script>

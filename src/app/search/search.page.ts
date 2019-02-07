@@ -27,6 +27,7 @@ export class SearchPage implements OnInit {
   searchResults;
   genres = {};
   genreFilter;
+  searching = false;
 
   ngOnInit() {
     this.movieService.getTopRated(1).subscribe(list => {
@@ -42,9 +43,11 @@ export class SearchPage implements OnInit {
 
   Search(element) {
     if (element.value === '') {
-      this.searchResults = this.topRatedList;
+      this.searchResults = null;
     } else {
+      this.searching = true;
       this.movieService.searchMovies(element.value).subscribe(data => {
+        this.searching = false;
         this.searchResults = data['results'];
       });
     }
@@ -58,6 +61,14 @@ export class SearchPage implements OnInit {
     loading.present().then( _ => {
       this.router.navigate(['details', movieId]);
     });
+    // return await modal.present()
+
+    // const loading = await this.loader.create({
+    // });
+    // loading.present().then(_ => {
+    //   this.router.navigate(['details', movieId]);
+    // });
+    // this.LoadingModalComponent.show();
   }
 
   // async presentLoadingCustom() {
