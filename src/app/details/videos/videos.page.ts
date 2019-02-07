@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {SelectedMovieService} from '../../API/selected-movie.service';
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
 
@@ -24,7 +23,7 @@ export class VideosPage implements OnInit {
     this.video$ = this.movieApi.getMovieVideo(this.id);
   }
 
-  cleanUrl(url):SafeResourceUrl {
+  cleanUrl(url:string):SafeResourceUrl {
     const newUrl = `https://www.youtube.com/embed/${url}?showinfo=0&rel=0`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(newUrl);
   }

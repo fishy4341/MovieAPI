@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase/app';
-import {map, takeUntil} from 'rxjs/operators';
+import {map, takeUntil, tap} from 'rxjs/operators';
 import {User} from '../shared/user';
 import {FirebaseService} from '../user-list/firebase.service';
-import {Subject} from "rxjs";
-import {subscribeToObservable} from "rxjs/internal-compatibility";
+import {Observable, OperatorFunction, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  auth;
   private unsubscribe$ = new Subject();
   private userData: User = {
     name: '',
@@ -34,7 +32,7 @@ export class AuthService {
               this.userData.name = authUserData.user.displayName;
               this.firebase.getUserData().pipe(
                   takeUntil(this.unsubscribe$),
-                  (userData =>{
+                  tap((userData: User) =>{
                       if (!userData) {
                           this.firebase.addUser({
                               name: this.userData.name,
@@ -42,7 +40,7 @@ export class AuthService {
                           });
                       }
                   }) // already here end up sub callback
-              ) //already here end of pipe
+              ).subscribe(); //already here end of pipe
           }); //already here end of .then
   } //already here end of google sign in
 
@@ -52,7 +50,7 @@ export class AuthService {
     this.afAuth.auth.signOut();
   }
 
-  isAuthenticated() {
+  isAuthenticated():Observable<boolean> {
     return this.afAuth.authState.pipe(
       map(user => user && user.uid ? true : false));
   }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../API/movie-api.service';
-import {SelectedMovieService} from '../API/selected-movie.service';
-import {LoadingController} from '@ionic/angular';
+import {IonInput, LoadingController} from '@ionic/angular';
 import * as _ from 'lodash';
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoaderFixService} from "../shared/loader-fix.service";
@@ -16,7 +15,6 @@ export class SearchPage implements OnInit {
 
   constructor(
     private movieService: MovieAPIService,
-    private selectedMovie: SelectedMovieService,
     private router: Router,
     private loader: LoadingController,
     private route: ActivatedRoute,
@@ -40,7 +38,7 @@ export class SearchPage implements OnInit {
 
   }
 
-  Search(element): void {
+  Search(element:IonInput): void {
     if (element.value === '') {
       this.searchResults = this.topRatedList;
     } else {

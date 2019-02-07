@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController, NavParams} from '@ionic/angular';
-import {FirebaseService} from "../../../user-list/firebase.service";
-import {Movie} from "../../../shared/movie";
 
 @Component({
   selector: 'rating',

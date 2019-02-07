@@ -18,7 +18,7 @@ export class UserListPage implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit():void {
   }
 
   checkNameLength(): string {

@@ -7,7 +7,9 @@ import {ActivatedRoute} from '@angular/router';
 import {FirebaseService} from '../../user-list/firebase.service';
 import {Subject} from 'rxjs';
 import {takeUntil, tap} from 'rxjs/operators';
+import {IonInput} from "@ionic/angular";
 import {Movie} from "../../shared/movie";
+import {User} from "firebase";
 
 @Component({
   selector: 'app-comments',
@@ -24,22 +26,20 @@ export class CommentsPage implements OnInit, OnDestroy {
       private firebase: FirebaseService
   ) { }
 
-  private movieComments: any[];
+  private movieComments: Comment[];
   private id: number;
   private movie: any;
   private authenticated: boolean;
   private userComment: Comment;
   private userID: string = 'none';
-  private noRating: boolean = false;
-  private yesRating: boolean = false;
-  private commentsWRating: any[] = [];
+  private commentsWRating: Comment[] = [];
   private unsubscribe$: Subject<any> = new Subject();
   private rating: number;
 
 
   ngOnInit(): void {
     this.id = Number(this.route.parent.snapshot.paramMap.get('id'));
-    this.afAuth.authState.subscribe(user => {
+    this.afAuth.authState.subscribe((user:User) => {
       if (user) {
         this.authenticated = true;
       } else {
@@ -50,7 +50,7 @@ export class CommentsPage implements OnInit, OnDestroy {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
     });
-    this.commentsService.getCommentsFor(this.id).subscribe(commentData => {
+    this.commentsService.getCommentsFor(this.id).subscribe((commentData:Comment[]) => {
       if (this.afAuth.auth.currentUser) {
         this.userID = this.afAuth.auth.currentUser.uid;
       }
@@ -58,7 +58,7 @@ export class CommentsPage implements OnInit, OnDestroy {
         this.movieComments = commentData;
       }
       else{
-        this.movieComments = [{comment:"Sorry, We Found No Comments For This Movie"}];
+        this.movieComments = [{comment:"Sorry, We Found No Comments For This Movie",userID:"EmptyUserID"}];
       }
       for(let i: number = 0; i < commentData.length; i++){
         // @ts-ignore
@@ -76,7 +76,7 @@ export class CommentsPage implements OnInit, OnDestroy {
 
   getUserComment(): void {
     if (this.authenticated) {
-    this.commentsService.getUserComment(this.id, this.afAuth.auth.currentUser.uid).subscribe(docSnapshot => {
+    this.commentsService.getUserComment(this.id, this.afAuth.auth.currentUser.uid).subscribe((docSnapshot:Comment) => {
       if (docSnapshot) {
         // @ts-ignore
         this.userComment = docSnapshot.comment;
@@ -85,7 +85,7 @@ export class CommentsPage implements OnInit, OnDestroy {
     }
   }
 
-  postComment(comment): void {
+  postComment(comment:IonInput): void {
     this.commentsWRating = [];
     const commentData: Comment = {
       comment: comment.value,
@@ -93,7 +93,7 @@ export class CommentsPage implements OnInit, OnDestroy {
     };
     this.firebase.getUserMovieRating(this.movie.id).pipe(
         takeUntil(this.unsubscribe$),
-        tap(movieDoc => {
+        tap((movieDoc:Movie) => {
           if (movieDoc) {
             // @ts-ignore
             commentData.rating = movieDoc.rating;

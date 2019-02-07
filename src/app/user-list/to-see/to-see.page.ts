@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../login/auth.service';
 import {MovieAPIService} from '../../API/movie-api.service';
-import {SelectedMovieService} from '../../API/selected-movie.service';
 import {IonItemSliding, LoadingController, ModalController, NavController} from '@ionic/angular';
 import {FirebaseService} from '../firebase.service';
 import {Router} from '@angular/router';
 import {RecommendComponent} from '../recommend/recommend.component';
 import {LoaderFixService} from "../../shared/loader-fix.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-to-see',
@@ -14,12 +14,11 @@ import {LoaderFixService} from "../../shared/loader-fix.service";
   styleUrls: ['./to-see.page.scss'],
 })
 export class ToSeePage implements OnInit, OnDestroy {
-  private genres = {};
-  filterText = '';
+  private genres: object = {};
+  private filterText: string = '';
   constructor(
       private auth: AuthService,
       private movieService: MovieAPIService,
-      private selectedMovie: SelectedMovieService,
       private navController: NavController,
       private firebase: FirebaseService,
       private router: Router,
@@ -30,19 +29,17 @@ export class ToSeePage implements OnInit, OnDestroy {
 
   }
 
-  movie$;
-  // private movies;
+  private movie$: Observable<object>;
 
   ngOnInit() {
     this.movie$ = this.firebase.getToSee();
   }
 
   ngOnDestroy(): void {
-    // this.firebase.getToSee().unsubscribe();
   }
 
 
-  async goToMovie(movieID: number) {
+  async goToMovie(movieID: number): Promise<any> {
     this.loadingService.isLoading();
     const loading = await this.loader.create({
     });
@@ -50,14 +47,14 @@ export class ToSeePage implements OnInit, OnDestroy {
       this.router.navigate(['details', movieID]);
     });
   }
-  removeItem(slidingItem: IonItemSliding, movieId) {
+  removeItem(slidingItem: IonItemSliding, movieId):void {
     slidingItem.closeOpened();
     this.firebase.removeToSee(movieId).then(_ => {
       slidingItem.closeOpened();
     });
   }
 
-  async recommend(slidingItem: IonItemSliding, movieID: number, title: string) {
+  async recommend(slidingItem: IonItemSliding, movieID: number, title: string):Promise<any> {
     const modal = await this.modalController.create({
       component: RecommendComponent,
       componentProps: {movieId: movieID, title: title}

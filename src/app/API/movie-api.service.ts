@@ -12,7 +12,7 @@ export class MovieAPIService {
   private apiKey: string = 'api_key=bf58ce7909a019c277bfd3ae8194e2bf';
   private baseUrl: string = 'https://api.themoviedb.org/3/';
 
-  searchMovies(searchTerms: string) {
+  searchMovies(searchTerms: string): Observable<object> {
     // tslint:disable-next-line:max-line-length
     return this.http.get(`${this.baseUrl}search/movie?${this.apiKey}&language=en-US&query=${searchTerms}&page=1&include_adult=false`);
   }

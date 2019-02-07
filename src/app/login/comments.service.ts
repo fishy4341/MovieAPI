@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {Movie} from '../shared/movie';
 import {Comment} from '../shared/comment';
 import {Observable} from "rxjs";
 
@@ -25,11 +24,11 @@ export class CommentsService {
           this.db.collection(`allComments/${dbMovieData.movieID}/comments`).doc(`${userID}`).set(comment);
       });
   }
-  getCommentsFor(movieID: number): Observable<object> {
-      return this.db.collection(`allComments/${movieID}/comments`).valueChanges();
+  getCommentsFor(movieID: number): Observable<Comment[]> {
+      return this.db.collection<Comment>(`allComments/${movieID}/comments`).valueChanges();
   }
-  getUserComment(movieID: number, userID: string): Observable<object> {
-      return this.db.collection(`allComments/${movieID}/comments`).doc(userID).valueChanges();
+  getUserComment(movieID: number, userID: string): Observable<Comment> {
+      return this.db.collection<Comment>(`allComments/${movieID}/comments`).doc<Comment>(userID).valueChanges();
   }
   updateCommentRating(movieID: number, userID: string, rating: number): void {
     this.db.collection(`allComments/${movieID}/comments`).doc(userID).update({'rating': rating});

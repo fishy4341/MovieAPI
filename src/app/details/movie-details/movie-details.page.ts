@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MovieAPIService} from '../../API/movie-api.service';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
 import {LoadingController, ModalController} from '@ionic/angular';
 import {RatingComponent} from './rating/rating.component';
 import {AuthService} from '../../login/auth.service';
@@ -11,9 +11,8 @@ import {CommentsService} from 'src/app/login/comments.service';
 import {ActivatedRoute} from '@angular/router';
 import {Subject} from "rxjs";
 import {takeUntil, tap} from "rxjs/operators";
-import {subscribeToObservable} from "rxjs/internal-compatibility";
 import {LoaderFixService} from "../../shared/loader-fix.service";
-import {User} from "../../shared/user";
+import {Comment} from "../../shared/comment";
 
 @Component({
   selector: 'app-movie-details',
@@ -38,12 +37,9 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
   private authenticated: boolean;
   private id: number = Number(this.route.parent.snapshot.paramMap.get('id'));
   private movie: any;
-  // private video: SafeResourceUrl;
   private watched: boolean;
   private watchList: boolean;
-  // private user: User;
   private currentUserRating: number;
-  // private movieComments;
   private showRating = false;
   private displayOverview;
   private isTooLong = false;
@@ -66,7 +62,7 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
         this.firebase.getUserMovieRating(this.id).pipe(
             takeUntil(this.unsubscribe$),
-            tap(userMovieData => {
+            tap((userMovieData:Movie) => {
                 if (userMovieData) {
                     this.showRating = true;
                     //@ts-ignore
@@ -103,8 +99,8 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
       }
       this.firebase.pushHasSeen(movieData);
       this.checkWatched();
-      this.commentsService.getUserComment(this.movie.id, this.afAuth.auth.currentUser.uid).subscribe(commentData => {
-          if (commentData) {
+      this.commentsService.getUserComment(this.movie.id, this.afAuth.auth.currentUser.uid).subscribe((value:Comment) => {
+          if (value) {
               this.commentsService.updateCommentRating(this.movie.id, this.afAuth.auth.currentUser.uid, movieData.rating);
           }//end of if(commentData) statement
       });//end of sub callback
@@ -124,16 +120,24 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
 
   checkWatched() {
       if (this.afAuth.auth.currentUser !== null) {
-          this.firebase.getHasSeenMovie(this.movie.id).subscribe(docSnapshot => {
-              if (docSnapshot.exists) {
-                  this.watched = true;
-              }
-          });
-          this.firebase.getToSeeMovie(this.movie.id).subscribe(docSnapshot => {
-              if (docSnapshot.exists) {
-                  this.watchList = true;
-              }
-          });
+          this.firebase.getHasSeenMovie(this.movie.id)
+              .pipe(
+                  takeUntil(this.unsubscribe$),
+                  tap((movieData: Movie) => {
+                      if (movieData) {
+                          this.watched = true;
+                      }
+                  })
+              ).subscribe();
+          this.firebase.getToSeeMovie(this.movie.id)
+              .pipe(
+                  takeUntil(this.unsubscribe$),
+                  tap((movieData: Movie)=> {
+                      if (movieData) {
+                          this.watchList = true;
+                      }
+                  })
+              ).subscribe();
       }
   }
 

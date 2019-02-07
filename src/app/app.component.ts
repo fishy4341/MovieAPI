@@ -47,7 +47,7 @@ export class AppComponent {
     // console.log(this.authenticated);
   }
 
-  initializeApp() {
+  initializeApp():void {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
