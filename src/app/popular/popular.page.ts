@@ -13,10 +13,10 @@ import {Observable} from "rxjs";
 export class PopularPage implements OnInit {
 
   constructor(
-      private movieApi: MovieAPIService,
-      private router: Router,
-      private loader: LoadingController,
-      private loadingService: LoaderFixService
+    private movieApi: MovieAPIService,
+    private router: Router,
+    private loader: LoadingController,
+    private loadingService: LoaderFixService
   ) { }
 
   private page: number;
@@ -43,8 +43,7 @@ export class PopularPage implements OnInit {
       loading.present().then(_ => {
         this.router.navigate(['details', movieId]);
       });
-    }
-    else{
+    } else {
       this.router.navigate(['details', movieId]);
     }
   }

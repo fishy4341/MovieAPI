@@ -6,18 +6,18 @@ import {LoaderFixService} from "../shared/loader-fix.service";
 import {Observable} from "rxjs";
 
 @Component({
-  selector: 'app-upcoming',
-  templateUrl: './upcoming.page.html',
-  styleUrls: ['./upcoming.page.scss'],
+    selector: 'app-upcoming',
+    templateUrl: './upcoming.page.html',
+    styleUrls: ['./upcoming.page.scss'],
 })
 export class UpcomingPage implements OnInit {
 
   constructor(
-      private movieApi: MovieAPIService,
-      private router: Router,
-      private route: ActivatedRoute,
-      private loader: LoadingController,
-      private loadingService: LoaderFixService
+    private movieApi: MovieAPIService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private loader: LoadingController,
+    private loadingService: LoaderFixService
   ) { }
   private page: number;
   private movie$: Observable<object>;
@@ -43,10 +43,9 @@ export class UpcomingPage implements OnInit {
       loading.present().then(_ => {
         this.router.navigate(['details', movieId]);
       });
-    }
-    else{
+    } else {
       this.router.navigate(['details', movieId]);
     }
-  }
 
+  }
 }

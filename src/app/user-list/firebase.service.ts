@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore, DocumentSnapshot, DocumentSnapshotExists} from '@angular/fire/firestore';
+import {AngularFirestore} from '@angular/fire/firestore';
 import {User} from '../shared/user';
 import {Movie} from '../shared/movie';
 import {AngularFireAuth} from '@angular/fire/auth';
@@ -11,8 +11,8 @@ import {Observable} from "rxjs";
 export class FirebaseService {
 
   constructor(
-      private db: AngularFirestore,
-      private afAuth: AngularFireAuth
+    private db: AngularFirestore,
+    private afAuth: AngularFireAuth
   ) { }
 
 

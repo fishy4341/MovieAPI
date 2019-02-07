@@ -13,11 +13,11 @@ import {Observable} from "rxjs";
 export class RelatedPage implements OnInit {
 
   constructor(
-      private movieApi: MovieAPIService,
-      private route: ActivatedRoute,
-      private router: Router,
-      private loader: LoadingController,
-      private loadingService: LoaderFixService
+    private movieApi: MovieAPIService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private loader: LoadingController,
+    private loadingService: LoaderFixService
   ) { }
 
   private id: number;

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -8,7 +7,7 @@ import { AuthService } from './login/auth.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html'
+  templateUrl: 'app.component.html',
 })
 export class AppComponent {
   public authenticated;
@@ -43,7 +42,7 @@ export class AppComponent {
     private auth: AuthService
   ) {
     this.initializeApp();
-    this.auth.isAuthenticated().subscribe( x => this.authenticated = x);
+    this.auth.isAuthenticated().subscribe(x => this.authenticated = x);
     // console.log(this.authenticated);
   }
 

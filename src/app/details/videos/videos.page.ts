@@ -12,15 +12,22 @@ import {Observable} from "rxjs";
 export class VideosPage implements OnInit {
 
   constructor(private movieApi: MovieAPIService, public sanitizer: DomSanitizer,
-              private route: ActivatedRoute) { }
+    private route: ActivatedRoute) { }
 
   private id: number = Number(this.route.parent.snapshot.paramMap.get('id'));
   private movie$: Observable<Object>;
   private video$: Observable<Object>;
+  private url: string;
 
   ngOnInit():void {
     this.movie$ = this.movieApi.getMovieDetail(this.id);
-    this.video$ = this.movieApi.getMovieVideo(this.id);
+    this.movieApi.getMovieVideo(this.id).subscribe(data => {
+      this.video$ = data.results;
+      // @ts-ignore
+      for(let i=0; i < this.video$.length; i++){
+        this.video$[i].safeURL = this.cleanUrl(this.video$[i].key);
+      }
+    });
   }
 
   cleanUrl(url:string):SafeResourceUrl {

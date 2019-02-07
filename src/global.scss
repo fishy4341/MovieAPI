@@ -17,6 +17,12 @@
 .list{
   background-color: #222428;
 }
+
+.my-modal {
+          .modal-wrapper {
+            background-color: transparent !important;
+          }
+        }
 *::-webkit-scrollbar {
   height: 3px;
   width: 3px;
@@ -27,5 +33,5 @@
 }
  
 *::-webkit-scrollbar-thumb {
-  background: rgb(73, 73, 73); 
+  background: rgb(73, 73, 73);
 }

@@ -4,13 +4,13 @@ import {Comment} from '../shared/comment';
 import {Observable} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class CommentsService {
 
-  constructor(
-      private db: AngularFirestore
-  ) { }
+    constructor(
+        private db: AngularFirestore
+    ) { }
 
 
   addMovie(movie, comment: Comment, userID: string): void {

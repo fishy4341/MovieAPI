@@ -16,8 +16,8 @@
     </div>
   </div>
   <div class="button-div">
-    <ion-icon color="tertiary" name="rewind" (click)="back()" *ngIf="page > 1"></ion-icon>
+    <ion-icon color="tertiary" name="rewind" (click)="back()" *ngIf="page > 1" class="buttons"></ion-icon>
     <div class="pages">{{page}}</div>
-    <ion-icon color="tertiary" name="fastforward" (click)="next()" *ngIf="page < 99"></ion-icon>
+    <ion-icon color="tertiary" name="fastforward" (click)="next()" *ngIf="page < 99" class="buttons"></ion-icon>
   </div>
 </ion-content>

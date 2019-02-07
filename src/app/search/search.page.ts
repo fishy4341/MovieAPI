@@ -25,24 +25,27 @@ export class SearchPage implements OnInit {
   private search: string;
   private searchResults: Observable<Object>;
   private genres: any = {};
+  private searching: boolean;
 
   ngOnInit(): void {
     this.movieService.getTopRated(1).subscribe( list => {
       this.topRatedList = list['results'];
-      if ( !this.searchResults ) {this.searchResults = this.topRatedList; }
+      if (!this.searchResults) { this.searchResults = this.topRatedList; }
     });
-    this.movieService.getgenreIds().subscribe( list => {
+    this.movieService.getgenreIds().subscribe(list => {
       const gen = list['genres'];
-      this.genres = _.mapKeys(gen, 'id' );
+      this.genres = _.mapKeys(gen, 'id');
     });
 
   }
 
   Search(element:IonInput): void {
     if (element.value === '') {
-      this.searchResults = this.topRatedList;
+      this.searchResults = null;
     } else {
+      this.searching = true;
       this.movieService.searchMovies(element.value).subscribe(data => {
+        this.searching = false;
         this.searchResults = data['results'];
       });
     }
@@ -53,7 +56,7 @@ export class SearchPage implements OnInit {
     this.loadingService.isLoading();
     const loading = await this.loader.create({
     });
-    loading.present().then(_ => {
+    loading.present().then( _ => {
       this.router.navigate(['details', movieId]);
     });
   }

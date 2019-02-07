@@ -36,7 +36,6 @@ export class SeenPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.firebase.getHasSeen().unsubscribe();
   }
 
 
@@ -58,7 +57,7 @@ export class SeenPage implements OnInit, OnDestroy {
   async recommend(slidingItem: IonItemSliding, movieID: number, title: string):Promise<any> {
     const modal = await this.modalController.create({
       component: RecommendComponent,
-      componentProps: {movieId: movieID, title: title}
+      componentProps: { movieId: movieID, title: title }
     });
     slidingItem.close();
     await modal.present();

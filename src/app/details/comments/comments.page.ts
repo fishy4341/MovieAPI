@@ -5,7 +5,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {Comment} from '../../shared/comment';
 import {ActivatedRoute} from '@angular/router';
 import {FirebaseService} from '../../user-list/firebase.service';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {takeUntil, tap} from 'rxjs/operators';
 import {IonInput} from "@ionic/angular";
 import {Movie} from "../../shared/movie";
@@ -19,14 +19,14 @@ import {User} from "firebase";
 export class CommentsPage implements OnInit, OnDestroy {
 
   constructor(
-      private commentsService: CommentsService,
-      private movieApi: MovieAPIService,
-      private afAuth: AngularFireAuth,
-      private route: ActivatedRoute,
-      private firebase: FirebaseService
+    private commentsService: CommentsService,
+    private movieApi: MovieAPIService,
+    private afAuth: AngularFireAuth,
+    private route: ActivatedRoute,
+    private firebase: FirebaseService
   ) { }
 
-  private movieComments: Comment[];
+  private movieComments: any;
   private id: number;
   private movie: any;
   private authenticated: boolean;
@@ -47,6 +47,7 @@ export class CommentsPage implements OnInit, OnDestroy {
       }
     this.getUserComment();
     } );
+    this.movieComments = this.commentsService.getCommentsFor(this.id);
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
     });
@@ -54,10 +55,7 @@ export class CommentsPage implements OnInit, OnDestroy {
       if (this.afAuth.auth.currentUser) {
         this.userID = this.afAuth.auth.currentUser.uid;
       }
-      if(commentData.length !== 0){
-        this.movieComments = commentData;
-      }
-      else{
+      if(commentData.length === 0){
         this.movieComments = [{comment:"Sorry, We Found No Comments For This Movie",userID:"EmptyUserID"}];
       }
       for(let i: number = 0; i < commentData.length; i++){
@@ -95,7 +93,6 @@ export class CommentsPage implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$),
         tap((movieDoc:Movie) => {
           if (movieDoc) {
-            // @ts-ignore
             commentData.rating = movieDoc.rating;
           }
           this.commentsService.addMovie(this.movie, commentData, this.afAuth.auth.currentUser.uid);

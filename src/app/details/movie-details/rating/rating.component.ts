@@ -8,14 +8,13 @@ import {ModalController, NavParams} from '@ionic/angular';
 })
 export class RatingComponent implements OnInit {
 
-  // @input() value;
   private movie: any;
   private rating: number;
   private start: number;
 
   constructor(
-      public navParams: NavParams,
-      public modalController: ModalController
+    public navParams: NavParams,
+    public modalController: ModalController
   ) { }
 
   ngOnInit(): void {

@@ -13,10 +13,10 @@ import {Observable} from "rxjs";
 export class ExploreComponent implements OnInit {
 
   constructor(private movieApi: MovieAPIService,
-              private loader: LoadingController,
-              private router: Router,
-              private loadingService: LoaderFixService
-              ) { }
+    private loader: LoadingController,
+    private router: Router,
+    private loadingService: LoaderFixService
+  ) { }
 
   private latest$: Observable<Object>;
   private nowPlaying$: Observable<Object>;
@@ -41,8 +41,7 @@ export class ExploreComponent implements OnInit {
       loading.present().then(_ => {
         this.router.navigate(['details', movieId]);
       });
-    }
-    else{
+    } else {
       this.router.navigate(['details', movieId]);
     }
   }

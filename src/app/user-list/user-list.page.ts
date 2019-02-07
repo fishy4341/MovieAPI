@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../login/auth.service';
-import {AngularFireAuth} from '@angular/fire/auth';
+import { AuthService } from '../login/auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-user-list',
@@ -13,8 +13,8 @@ export class UserListPage implements OnInit {
   private displayUserName: string = this.checkNameLength();
 
   constructor(
-      private auth: AuthService,
-      private afAuth: AngularFireAuth
+    private auth: AuthService,
+    private afAuth: AngularFireAuth
   ) {
   }
 

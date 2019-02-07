@@ -13,12 +13,12 @@ import {Observable} from "rxjs";
 export class RecommendComponent implements OnInit {
 
   constructor(
-      private navParams: NavParams,
-      private modalController: ModalController,
-      private movieAPI: MovieAPIService,
-      private router: Router,
-      private loader: LoadingController,
-      private loadingService: LoaderFixService
+    private navParams: NavParams,
+    private modalController: ModalController,
+    private movieAPI: MovieAPIService,
+    private router: Router,
+    private loader: LoadingController,
+    private loadingService: LoaderFixService
   ) { }
 
   private id: number;
@@ -43,8 +43,7 @@ export class RecommendComponent implements OnInit {
         this.router.navigate(['details', movieId]);
         this.modalController.dismiss();
       });
-    }
-    else{
+    } else {
       this.router.navigate(['details', movieId]);
     }
   }

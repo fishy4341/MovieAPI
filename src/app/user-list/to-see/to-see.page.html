@@ -15,21 +15,26 @@
   <ion-list *ngIf="movie$ | async as movies ">
     <ion-item-sliding *ngFor="let movie of movies | filter : filterText" #slidingItem>
       <ion-item-options side="start" color="danger">
-        <button color="danger" (click)="recommend(slidingItem, movie.movieID, movie.title)"><ion-icon slot="start" [name]="'megaphone'"></ion-icon> Get Recommendations</button>
+        <button color="danger" (click)="recommend(slidingItem, movie.movieID, movie.title)">
+          <ion-icon slot="start" [name]="'megaphone'"></ion-icon> Get Recommendations
+        </button>
       </ion-item-options>
       <ion-item class="hover" (click)="goToMovie(movie.movieID)" color="dark">
         <ion-thumbnail slot="start">
-          <img [src]="movie.pic ? 'https://image.tmdb.org/t/p/original/' + movie.pic  : 'assets/images/noImage.jpeg'" alt="">
+          <img [src]="movie.pic ? 'https://image.tmdb.org/t/p/original/' + movie.pic  : 'assets/images/noImage.jpeg'"
+            alt="">
         </ion-thumbnail>
         <div>
           <ion-label text-wrap class="title">{{ movie.title }}</ion-label>
-          <ion-label color="tertiary" class="row" >
+          <ion-label color="tertiary" class="row">
             <p *ngFor="let genre of movie.genres">{{ genre.name }}</p>
           </ion-label>
         </div>
       </ion-item>
       <ion-item-options>
-        <button color="danger" (click)="removeItem(slidingItem, movie.movieID)"><ion-icon slot="start" [name]="'trash'"></ion-icon> Remove from List</button>
+        <button color="danger" (click)="removeItem(slidingItem, movie.movieID)">
+          <ion-icon slot="start" [name]="'trash'"></ion-icon> Remove from List
+        </button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>

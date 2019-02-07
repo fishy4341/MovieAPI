@@ -4,10 +4,10 @@ import { auth } from 'firebase/app';
 import {map, takeUntil, tap} from 'rxjs/operators';
 import {User} from '../shared/user';
 import {FirebaseService} from '../user-list/firebase.service';
-import {Observable, OperatorFunction, Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
 
