@@ -106,6 +106,7 @@ export class CommentsPage implements OnInit, OnDestroy {
   deleteComment() {
     this.commentsWRating = [];
     this.commentsService.deleteCommment(this.movie.id, this.afAuth.auth.currentUser.uid);
+    this.userComment = '';
   }
 
   checkYesRating() {

@@ -64,17 +64,17 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
     }); // end up sub callback
     if (this.afAuth.auth.currentUser !== null) {
         this.authenticated = !!this.afAuth.auth.currentUser.uid;
-        // this.movieComments = this.commentsService.getCommentsFor(this.id);
-        this.firebase.getUserMovieRating(this.id).pipe(
-            takeUntil(this.unsubscribe$),
-            tap(userMovieData => {
-                if (userMovieData) {
-                    this.showRating = true;
-                    // @ts-ignore
-                    this.currentUserRating = userMovieData.rating;
-                } // end of if statement
-            }) // end of sub callback
-        ).subscribe(); // end of pipe
+        this.currentUserRating = this.firebase.getUserMovieRating(this.id);
+        // this.firebase.getUserMovieRating(this.id).pipe(
+        //     takeUntil(this.unsubscribe$),
+        //     tap(userMovieData => {
+        //         if (userMovieData) {
+        //             this.showRating = true;
+        //             // @ts-ignore
+        //             this.currentUserRating = userMovieData.rating;
+        //         } // end of if statement
+        //     }) // end of sub callback
+        // ).subscribe(); // end of pipe
     } // end of auth if statement
   } // end of ngOnInit
 

@@ -22,8 +22,8 @@
     <div class="info">
       <div>
         <p><span>Runtime: {{movie.runtime}} min.</span></p>
-        <p color="secondary" class="userRating" (click)="presentModal()" *ngIf="showRating">Your Rating:
-          {{currentUserRating}}</p>
+        <p color="secondary" class="userRating" (click)="presentModal()" *ngIf="currentUserRating | async as userRating">Your Rating:
+          {{userRating.rating}}</p>
       </div>
       <div>
         <div [ngClass]="{'over50': movie.vote_average * 10 > 50}" class="progress-circle  p{{movie.vote_average * 10}}">
