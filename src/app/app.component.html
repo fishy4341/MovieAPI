@@ -8,15 +8,6 @@
       </ion-header>
       <ion-content color="dark">
         <ion-list color="dark">
-          <!-- <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'forward'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle> -->
-
           <ion-menu-toggle auto-hide='false' color="dark">
             <ion-item [routerDirection]="'root'" [routerLink]="['/search']" color="dark">
               <ion-icon slot="start" [name]="'search'" color="light"></ion-icon>
@@ -60,12 +51,6 @@
                 {{ authenticated ? 'Logout' : 'Login' }}
               </ion-label>
             </ion-item>
-            <!--<ion-item [routerDirection]="'forward'" [routerLink]="['/test']">-->
-            <!--<ion-icon slot="start" [name]="'swap'"></ion-icon>-->
-            <!--<ion-label>-->
-            <!--test-->
-            <!--</ion-label>-->
-            <!--</ion-item>-->
           </ion-menu-toggle>
         </ion-list>
       </ion-content>

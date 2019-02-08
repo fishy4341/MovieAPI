@@ -19,21 +19,20 @@ export class VideosPage implements OnInit {
 
   private id: number = Number(this.route.parent.snapshot.paramMap.get('id'));
   private movie$: Observable<APIMovie>;
-  private video$: APIVideo[];
+  private video: APIVideo[];
   private url: string;
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.movie$ = this.movieApi.getMovieDetail(this.id);
     this.movieApi.getMovieVideo(this.id).subscribe((data:APIVideoSearch) => {
-      this.video$ = data.results;
-      // @ts-ignore
-      for(let i=0; i < this.video$.length; i++){
-        this.video$[i].safeURL = this.cleanUrl(this.video$[i].key);
+      this.video = data.results;
+      for (let i = 0; i < this.video.length; i++) {
+        this.video[i].safeURL = this.cleanUrl(this.video[i].key);
       }
     });
   }
 
-  cleanUrl(url:string):SafeResourceUrl {
+  cleanUrl(url: string): SafeResourceUrl {
     const newUrl = `https://www.youtube.com/embed/${url}?showinfo=0&rel=0`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(newUrl);
   }

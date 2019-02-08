@@ -24,7 +24,7 @@ export class RelatedPage implements OnInit {
   private id: number;
   private related$: Observable<APISearchResult>;
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.id = Number(this.route.parent.snapshot.paramMap.get('id'));
     this.related$ = this.movieApi.getRelated(this.id);
   }

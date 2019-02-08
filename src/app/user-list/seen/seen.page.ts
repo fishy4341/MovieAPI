@@ -5,8 +5,8 @@ import {MovieAPIService} from '../../API/movie-api.service';
 import {FirebaseService} from '../firebase.service';
 import {Router} from '@angular/router';
 import {RecommendComponent} from '../recommend/recommend.component';
-import {LoaderFixService} from "../../shared/loader-fix.service";
-import {Observable} from "rxjs";
+import {LoaderFixService} from '../../shared/loader-fix.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-seen',
@@ -15,7 +15,7 @@ import {Observable} from "rxjs";
 })
 export class SeenPage implements OnInit, OnDestroy {
   private genres: object = {};
-  private filterText: string = '';
+  private filterText = '';
   constructor(
       private auth: AuthService,
       private navController: NavController,
@@ -31,7 +31,7 @@ export class SeenPage implements OnInit, OnDestroy {
   }
 
   private movies$: Observable<object>;
-  ngOnInit():void {
+  ngOnInit(): void {
     this.movies$ = this.firebase.getHasSeen();
   }
 
@@ -39,7 +39,7 @@ export class SeenPage implements OnInit, OnDestroy {
   }
 
 
-  async goToMovie(movieID: number):Promise<any> {
+  async goToMovie(movieID: number): Promise<any> {
     this.loadingService.isLoading();
     const loading = await this.loader.create({
     });
@@ -47,14 +47,14 @@ export class SeenPage implements OnInit, OnDestroy {
       this.router.navigate(['details', movieID]);
     });
   }
-  removeItem(slidingItem: IonItemSliding, movieId):void {
+  removeItem(slidingItem: IonItemSliding, movieId): void {
     slidingItem.closeOpened();
     this.firebase.removeHasSeen(movieId).then(_ => {
       slidingItem.closeOpened();
     });
   }
 
-  async recommend(slidingItem: IonItemSliding, movieID: number, title: string):Promise<any> {
+  async recommend(slidingItem: IonItemSliding, movieID: number, title: string): Promise<any> {
     const modal = await this.modalController.create({
       component: RecommendComponent,
       componentProps: { movieId: movieID, title: title }

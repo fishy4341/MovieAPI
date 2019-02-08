@@ -6,7 +6,7 @@ export interface APIVideo {
     iso_3166_1: string;
     key: string;
     name: string;
-    safeURL: SafeResourceUrl;
+    safeURL?: SafeResourceUrl;
     site: string;
     size: number;
     type: string;

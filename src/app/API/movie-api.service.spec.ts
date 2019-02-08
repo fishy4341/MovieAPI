@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { MovieAPIService } from './movie-api.service';
 
 describe('MovieAPIService', () => {
