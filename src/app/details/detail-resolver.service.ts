@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MovieAPIService} from "../API/movie-api.service";
 import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from "@angular/router";
-import {Movie} from "../shared/movie";
 import {EMPTY, Observable, of} from "rxjs";
 import {catchError, mergeMap, take} from "rxjs/operators";
 
@@ -31,12 +30,5 @@ export class DetailResolverService {
                 }
             })
         )
-        // if (movie) {
-        //   return of(movie);
-        // }
-        // else {
-        //   this.router.navigate(['/search']);
-        //   return EMPTY;
-        // }
     }
 }

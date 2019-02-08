@@ -10,15 +10,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class UserListPage implements OnInit {
 
   private userName: string = this.afAuth.auth.currentUser.displayName;
-  private displayUserName: string = this.checkNameLength();
 
   constructor(
-    private auth: AuthService,
     private afAuth: AngularFireAuth
-  ) {
-  }
+  ) {  }
 
-  ngOnInit() {
+  ngOnInit():void {
   }
 
   checkNameLength(): string {

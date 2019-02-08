@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MovieAPIService } from '../API/movie-api.service';
-import { SelectedMovieService } from '../API/selected-movie.service';
-import { LoadingController } from '@ionic/angular';
+import {MovieAPIService} from '../API/movie-api.service';
+import {IonInput, LoadingController} from '@ionic/angular';
 import * as _ from 'lodash';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LoaderFixService } from '../shared/loader-fix.service';
+import {ActivatedRoute, Router} from "@angular/router";
+import {LoaderFixService} from "../shared/loader-fix.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-search',
@@ -15,22 +15,20 @@ export class SearchPage implements OnInit {
 
   constructor(
     private movieService: MovieAPIService,
-    private selectedMovie: SelectedMovieService,
     private router: Router,
     private loader: LoadingController,
     private route: ActivatedRoute,
     private loadingService: LoaderFixService
   ) { }
 
-  topRatedList;
-  search: string;
-  searchResults;
-  genres = {};
-  genreFilter;
-  searching = false;
+  private topRatedList: Observable<Object>;
+  private search: string;
+  private searchResults: Observable<Object>;
+  private genres: any = {};
+  private searching: boolean;
 
-  ngOnInit() {
-    this.movieService.getTopRated(1).subscribe(list => {
+  ngOnInit(): void {
+    this.movieService.getTopRated(1).subscribe( list => {
       this.topRatedList = list['results'];
       if (!this.searchResults) { this.searchResults = this.topRatedList; }
     });
@@ -41,7 +39,7 @@ export class SearchPage implements OnInit {
 
   }
 
-  Search(element) {
+  Search(element:IonInput): void {
     if (element.value === '') {
       this.searchResults = null;
     } else {
@@ -54,40 +52,13 @@ export class SearchPage implements OnInit {
 
   }
 
-  async goToDetails(movieId) { // add async for loader
+  async goToDetails(movieId): Promise<any> { // add async for loader
     this.loadingService.isLoading();
     const loading = await this.loader.create({
     });
     loading.present().then( _ => {
       this.router.navigate(['details', movieId]);
     });
-    // return await modal.present()
-
-    // const loading = await this.loader.create({
-    // });
-    // loading.present().then(_ => {
-    //   this.router.navigate(['details', movieId]);
-    // });
-    // this.LoadingModalComponent.show();
   }
-
-  // async presentLoadingCustom() {
-  //   let loading = this.loader.create({
-  //     spinner: null,
-  //     message: `
-  //     <div class="custom-spinner-container">
-  //       <div class="custom-spinner-box">
-  //          <img src="assets/imgs/loader.gif" />
-  //       </div>
-  //     </div>`,
-  //     duration: 5000
-  //   });
-  //
-  //   // loading.onDidDismiss(() => {
-  //   //   console.log('Dismissed loading');
-  //   // });
-  //
-  //   return await loading.present();
-  // }
 
 }
