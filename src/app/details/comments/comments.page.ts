@@ -46,6 +46,9 @@ export class CommentsPage implements OnInit, OnDestroy {
       } else {
         this.authenticated = false;
       }
+      if (this.afAuth.auth.currentUser) {
+        this.userID = this.afAuth.auth.currentUser.uid;
+      }
       this.getUserComment();
     });
     this.movieComments = this.commentsService.getCommentsFor(this.id);
