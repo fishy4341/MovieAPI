@@ -4,6 +4,7 @@ import {MovieAPIService} from '../../API/movie-api.service';
 import {Router} from '@angular/router';
 import {LoaderFixService} from "../../shared/loader-fix.service";
 import {Observable} from "rxjs";
+import {APISearchResult} from "../../shared/apisearch-result";
 
 @Component({
   selector: 'app-recommend',
@@ -23,7 +24,7 @@ export class RecommendComponent implements OnInit {
 
   private id: number;
   private title: string;
-  private recommendations$: Observable<object>;
+  private recommendations$: Observable<APISearchResult>;
 
   ngOnInit():void {
     this.id = this.navParams.data.movieId;
