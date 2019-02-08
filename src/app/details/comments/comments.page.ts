@@ -27,7 +27,6 @@ export class CommentsPage implements OnInit, OnDestroy {
   ) { }
 
   private movieComments: any;
-  // private id: number;
   private movie: any;
   private authenticated: boolean;
   private userComment: string;
