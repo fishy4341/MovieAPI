@@ -1,4 +1,4 @@
-import {APIMovie} from "../../shared/apimovie";
+import {APIMovie} from '../../shared/apimovie';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MovieAPIService } from '../../API/movie-api.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -49,7 +49,7 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadingService.notDestroyed();
-    this.movieApi.getMovieDetail(this.id).subscribe((data:APIMovie) => {
+    this.movieApi.getMovieDetail(this.id).subscribe((data: APIMovie) => {
       this.movie = data;
       this.checkOverviewLength();
       if (this.authenticated) {
