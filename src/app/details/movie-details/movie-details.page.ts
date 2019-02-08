@@ -1,3 +1,4 @@
+import {APIMovie} from "../../shared/apimovie";
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MovieAPIService } from '../../API/movie-api.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -37,7 +38,7 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
 
   private authenticated: boolean;
   private id: number = Number(this.route.parent.snapshot.paramMap.get('id'));
-  private movie: any;
+  private movie: APIMovie;
   private watched: boolean;
   private watchList: boolean;
   private currentUserRating;
@@ -48,7 +49,7 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadingService.notDestroyed();
-    this.movieApi.getMovieDetail(this.id).subscribe(data => {
+    this.movieApi.getMovieDetail(this.id).subscribe((data:APIMovie) => {
       this.movie = data;
       this.checkOverviewLength();
       if (this.authenticated) {

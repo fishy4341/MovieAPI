@@ -5,6 +5,9 @@ import * as _ from 'lodash';
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoaderFixService} from "../shared/loader-fix.service";
 import {Observable} from "rxjs";
+import {APISearchResult} from "../shared/apisearch-result";
+import {APIMovie} from "../shared/apimovie";
+import {APIGenre} from "../shared/apigenre";
 
 @Component({
   selector: 'app-search',
@@ -21,18 +24,18 @@ export class SearchPage implements OnInit {
     private loadingService: LoaderFixService
   ) { }
 
-  private topRatedList: Observable<Object>;
+  private topRatedList: APIMovie[];
   private search: string;
-  private searchResults: Observable<Object>;
-  private genres: any = {};
+  private searchResults: APIMovie[];
+  private genres: APIGenre[] = [];
   private searching: boolean;
 
   ngOnInit(): void {
-    this.movieService.getTopRated(1).subscribe( list => {
+    this.movieService.getTopRated(1).subscribe( (list:APISearchResult) => {
       this.topRatedList = list['results'];
       if (!this.searchResults) { this.searchResults = this.topRatedList; }
     });
-    this.movieService.getgenreIds().subscribe(list => {
+    this.movieService.getgenreIds().subscribe((list:APIGenre[]) => {
       const gen = list['genres'];
       this.genres = _.mapKeys(gen, 'id');
     });
@@ -44,7 +47,7 @@ export class SearchPage implements OnInit {
       this.searchResults = null;
     } else {
       this.searching = true;
-      this.movieService.searchMovies(element.value).subscribe(data => {
+      this.movieService.searchMovies(element.value).subscribe((data:APISearchResult) => {
         this.searching = false;
         this.searchResults = data['results'];
       });
