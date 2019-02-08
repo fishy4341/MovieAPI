@@ -30,7 +30,7 @@ export class CommentsPage implements OnInit, OnDestroy {
   // private id: number;
   private movie: any;
   private authenticated: boolean;
-  private userComment: Comment;
+  private userComment: string;
   private userID = 'none';
   private commentsWRating: Comment[] = [];
   private unsubscribe$: Subject<any> = new Subject();
@@ -51,20 +51,20 @@ export class CommentsPage implements OnInit, OnDestroy {
     this.movieApi.getMovieDetail(this.id).subscribe(data => {
       this.movie = data;
     });
-    this.commentsService.getCommentsFor(this.id).subscribe((commentData: Comment[]) => {
-      if (this.afAuth.auth.currentUser) {
-        this.userID = this.afAuth.auth.currentUser.uid;
-      }
-      if (commentData.length === 0) {
-        this.movieComments = [{ comment: 'Sorry, We Found No Comments For This Movie', userID: 'EmptyUserID' }];
-      }
-      for (let i = 0; i < commentData.length; i++) {
-        // @ts-ignore
-        if (commentData[i].rating) {
-          this.commentsWRating.push(commentData[i]);
-        }
-      }
-    }); // end of sub callback
+    // this.commentsService.getCommentsFor(this.id).subscribe((commentData: Comment[]) => {
+    //   if (this.afAuth.auth.currentUser) {
+    //     this.userID = this.afAuth.auth.currentUser.uid;
+    //   }
+    //   if (commentData.length === 0) {
+    //     this.movieComments = [{ comment: 'Sorry, We Found No Comments For This Movie', userID: 'EmptyUserID' }];
+    //   }
+    //   for (let i = 0; i < commentData.length; i++) {
+    //     // @ts-ignore
+    //     if (commentData[i].rating) {
+    //       this.commentsWRating.push(commentData[i]);
+    //     }
+    //   }
+    // }); // end of sub callback
   }
 
   ngOnDestroy(): void {
@@ -102,6 +102,7 @@ export class CommentsPage implements OnInit, OnDestroy {
   deleteComment(): void {
     this.commentsWRating = [];
     this.commentsService.deleteCommment(this.movie.id, this.afAuth.auth.currentUser.uid);
+    this.userComment = '';
   }
 
 }

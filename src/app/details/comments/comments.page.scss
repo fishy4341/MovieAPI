@@ -40,3 +40,7 @@
 .noRating{
   @extend .yesRating;
 }
+
+.rating {
+  align-self: center
+}
