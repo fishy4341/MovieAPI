@@ -7,7 +7,7 @@
 <ion-content padding color="dark">
 
 
-  <div *ngIf="video">
+  <div *ngIf="video?.length > 0; else notFound">
     <ion-card *ngFor="let videoUrl of video" color="tertiary">
       <ion-card-content>
         <iframe [src]="videoUrl.safeURL" frameborder="0" allowfullscreen class="video"></iframe>

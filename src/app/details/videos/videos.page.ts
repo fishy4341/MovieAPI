@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {MovieAPIService} from '../../API/movie-api.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
-import {APIMovie} from "../../shared/apimovie";
-import {APIVideoSearch} from "../../shared/apivideo-search";
-import {APIVideo} from "../../shared/apivideo";
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {APIMovie} from '../../shared/apimovie';
+import {APIVideoSearch} from '../../shared/apivideo-search';
+import {APIVideo} from '../../shared/apivideo';
 
 @Component({
   selector: 'app-videos',
@@ -24,7 +24,7 @@ export class VideosPage implements OnInit {
 
   ngOnInit(): void {
     this.movie$ = this.movieApi.getMovieDetail(this.id);
-    this.movieApi.getMovieVideo(this.id).subscribe((data:APIVideoSearch) => {
+    this.movieApi.getMovieVideo(this.id).subscribe((data: APIVideoSearch) => {
       this.video = data.results;
       for (let i = 0; i < this.video.length; i++) {
         this.video[i].safeURL = this.cleanUrl(this.video[i].key);

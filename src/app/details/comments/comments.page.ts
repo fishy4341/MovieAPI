@@ -1,4 +1,4 @@
-import {APIMovie} from "../../shared/apimovie";
+import {APIMovie} from '../../shared/apimovie';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommentsService } from '../../login/comments.service';
 import { MovieAPIService } from '../../API/movie-api.service';
@@ -49,7 +49,7 @@ export class CommentsPage implements OnInit, OnDestroy {
       this.getUserComment();
     });
     this.movieComments = this.commentsService.getCommentsFor(this.id);
-    this.movieApi.getMovieDetail(this.id).subscribe((data:APIMovie) => {
+    this.movieApi.getMovieDetail(this.id).subscribe((data: APIMovie) => {
       this.movie = data;
     });
     // this.commentsService.getCommentsFor(this.id).subscribe((commentData: Comment[]) => {
