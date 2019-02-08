@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {LoadingController} from '@ionic/angular';
 import {LoaderFixService} from '../../shared/loader-fix.service';
 import {Observable} from "rxjs";
+import {APISearchResult} from "../../shared/apisearch-result";
 
 @Component({
   selector: 'app-related',
@@ -21,7 +22,7 @@ export class RelatedPage implements OnInit {
   ) { }
 
   private id: number;
-  private related$: Observable<object>;
+  private related$: Observable<APISearchResult>;
 
   ngOnInit():void {
     this.id = Number(this.route.parent.snapshot.paramMap.get('id'));

@@ -3,6 +3,9 @@ import {MovieAPIService} from '../../API/movie-api.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
+import {APIMovie} from "../../shared/apimovie";
+import {APIVideoSearch} from "../../shared/apivideo-search";
+import {APIVideo} from "../../shared/apivideo";
 
 @Component({
   selector: 'app-videos',
@@ -15,13 +18,13 @@ export class VideosPage implements OnInit {
     private route: ActivatedRoute) { }
 
   private id: number = Number(this.route.parent.snapshot.paramMap.get('id'));
-  private movie$: Observable<Object>;
-  private video$: Observable<Object>;
+  private movie$: Observable<APIMovie>;
+  private video$: APIVideo[];
   private url: string;
 
   ngOnInit():void {
     this.movie$ = this.movieApi.getMovieDetail(this.id);
-    this.movieApi.getMovieVideo(this.id).subscribe(data => {
+    this.movieApi.getMovieVideo(this.id).subscribe((data:APIVideoSearch) => {
       this.video$ = data.results;
       // @ts-ignore
       for(let i=0; i < this.video$.length; i++){

@@ -13,6 +13,7 @@ import {Subject} from "rxjs";
 import {takeUntil, tap} from "rxjs/operators";
 import {LoaderFixService} from "../../shared/loader-fix.service";
 import {Comment} from "../../shared/comment";
+import {APIMovie} from "../../shared/apimovie";
 
 @Component({
   selector: 'app-movie-details',
@@ -36,7 +37,7 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
 
   private authenticated: boolean;
   private id: number = Number(this.route.parent.snapshot.paramMap.get('id'));
-  private movie: any;
+  private movie: APIMovie;
   private watched: boolean;
   private watchList: boolean;
   private currentUserRating: number;
@@ -47,7 +48,7 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadingService.notDestroyed();
-    this.movieApi.getMovieDetail(this.id).subscribe(data => {
+    this.movieApi.getMovieDetail(this.id).subscribe((data:APIMovie) => {
       this.movie = data;
       this.checkOverviewLength();
       if (this.authenticated) {

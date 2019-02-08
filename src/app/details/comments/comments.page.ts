@@ -10,6 +10,7 @@ import {takeUntil, tap} from 'rxjs/operators';
 import {IonInput} from "@ionic/angular";
 import {Movie} from "../../shared/movie";
 import {User} from "firebase";
+import {APIMovie} from "../../shared/apimovie";
 
 @Component({
   selector: 'app-comments',
@@ -28,7 +29,7 @@ export class CommentsPage implements OnInit, OnDestroy {
 
   private movieComments: any;
   private id: number;
-  private movie: any;
+  private movie: APIMovie;
   private authenticated: boolean;
   private userComment: Comment;
   private userID: string = 'none';
@@ -48,7 +49,7 @@ export class CommentsPage implements OnInit, OnDestroy {
     this.getUserComment();
     } );
     this.movieComments = this.commentsService.getCommentsFor(this.id);
-    this.movieApi.getMovieDetail(this.id).subscribe(data => {
+    this.movieApi.getMovieDetail(this.id).subscribe((data:APIMovie) => {
       this.movie = data;
     });
     this.commentsService.getCommentsFor(this.id).subscribe((commentData:Comment[]) => {
