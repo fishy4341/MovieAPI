@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import {User} from "firebase";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -9,25 +11,25 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  public authenticated: boolean;
+  private authenticated: boolean;
+  private userObs: Observable<User>;
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
   ) {
     this.auth.isAuthenticated().subscribe((x:boolean) => this.authenticated = x);
   }
 
   ngOnInit():void {
+    this.userObs = this.auth.userNameObs();
   }
 
   signIn():void {
-    this.authService.googleSignIn();
+    this.auth.googleSignIn();
   }
   signOut():void {
-
-    this.authService.signOut();
+    this.auth.signOut();
     this.router.navigate(['/search']);
   }
 }

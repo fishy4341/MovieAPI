@@ -10,6 +10,10 @@
 
 <ion-content padding color="dark">
   <ion-card>
+    <div *ngIf="userObs | async as userInfo">
+      <ion-card-title color="light">Logged in as: </ion-card-title>
+      <ion-card-title color="light">{{ userInfo.displayName }}</ion-card-title>
+    </div>
     <ion-card-content>
       <ion-button expand='block' *ngIf="!authenticated" (click)="signIn()">Sign In Using Google</ion-button>
       <ion-button expand='block' *ngIf="authenticated" (click)="signOut()">Sign Out</ion-button>
