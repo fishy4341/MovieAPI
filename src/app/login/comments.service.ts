@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Comment} from '../shared/comment';
 import {Observable} from "rxjs";
+import {APIMovie} from "../shared/apimovie";
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,7 @@ export class CommentsService {
     ) { }
 
 
-  addMovie(movie, comment: Comment, userID: string): void {
+  addMovie(movie: APIMovie, comment: Comment, userID: string): void {
       const dbMovieData = {
           title: movie.title,
           genres: movie.genres,
