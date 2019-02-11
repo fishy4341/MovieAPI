@@ -9,12 +9,11 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  public authenticated: boolean;
+  private authenticated: boolean;
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
   ) {
     this.auth.isAuthenticated().subscribe((x:boolean) => this.authenticated = x);
   }
@@ -23,11 +22,10 @@ export class LoginPage implements OnInit {
   }
 
   signIn():void {
-    this.authService.googleSignIn();
+    this.auth.googleSignIn();
   }
   signOut():void {
-
-    this.authService.signOut();
+    this.auth.signOut();
     this.router.navigate(['/search']);
   }
 }
