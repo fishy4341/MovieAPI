@@ -25,6 +25,9 @@
     </ion-list>
 
     <ion-list *ngIf="comments && rating">
+      <ion-item *ngIf="comments.length == 0" color="dark">
+        <ion-label>There are no comments for this movie.</ion-label>
+      </ion-item>
       <div *ngFor="let comment of comments">
         <ion-item *ngIf="comment.rating" color="dark">
             <ion-label *ngIf="comment.userID === userID" class="commentWithRating highlightedComment"><span class="highlightedComment"

@@ -46,11 +46,18 @@ export class MovieDetailsPage implements OnInit, OnDestroy {
   private displayOverview;
   private isTooLong = false;
   private unsubscribe$ = new Subject();
+  releaseDate: Date;
+  today: Date;
 
   ngOnInit() {
     this.loadingService.notDestroyed();
     this.movieApi.getMovieDetail(this.id).subscribe((data: APIMovie) => {
       this.movie = data;
+      this.releaseDate = new Date(this.movie.release_date);
+      this.today = new Date();
+      // if(this.releaseDate > new Date()) {
+      //     console.log('in the future')
+      // }
       this.checkOverviewLength();
       if (this.authenticated) {
         this.checkWatched();
