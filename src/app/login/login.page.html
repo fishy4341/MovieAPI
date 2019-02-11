@@ -10,7 +10,7 @@
 
 <ion-content padding color="dark">
   <ion-card>
-    <div *ngIf="userObs | async as userInfo">
+    <div *ngIf="auth.userNameObs() | async as userInfo">
       <ion-card-title color="light">Logged in as: </ion-card-title>
       <ion-card-title color="light">{{ userInfo.displayName }}</ion-card-title>
     </div>

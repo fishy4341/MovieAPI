@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
-import {User} from "firebase";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +10,6 @@ import {Observable} from "rxjs";
 export class LoginPage implements OnInit {
 
   private authenticated: boolean;
-  private userObs: Observable<User>;
 
   constructor(
     private auth: AuthService,
@@ -22,7 +19,6 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit():void {
-    this.userObs = this.auth.userNameObs();
   }
 
   signIn():void {

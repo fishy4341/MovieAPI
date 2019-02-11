@@ -27,6 +27,7 @@ export class AuthService {
 
 
   googleSignIn() {
+      this.unsubscribe$ = new Subject();
       this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
           .then((authUserData: UserCredential) => {
               this.userData.id = authUserData.user.uid;
@@ -53,7 +54,7 @@ export class AuthService {
 
   isAuthenticated(): Observable<boolean> {
     return this.afAuth.authState.pipe(
-      map(user => user && user.uid ? true : false));
+      map((user: User) => user && user.uid ? true : false));
   }
   userNameObs(): Observable<User>{
       return this.afAuth.authState;
